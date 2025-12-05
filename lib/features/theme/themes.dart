@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../core/colors.dart';
+import '../../core/ui/colors.dart';
 
 enum AppThemeMode {
   retailBank,

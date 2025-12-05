@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../../core/ui/colors.dart';
-import '../../themes.dart';
+import '../ui/colors.dart';
+import 'themes.dart';
 
 class ThemeState {
   final AppThemeMode themeMode;
@@ -19,6 +19,7 @@ class ThemeState {
   bool get isRetailBank => themeMode == AppThemeMode.retailBank;
   bool get isNeobank => themeMode == AppThemeMode.neobank;
   
+  // Get theme-specific colors
   Color get positiveColor {
     return themeMode == AppThemeMode.retailBank 
         ? AppColors.retailPositive 
