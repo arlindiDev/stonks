@@ -1,69 +1,18 @@
 import 'package:flutter/material.dart';
-import 'mock_data.dart';
+import '../mock_data.dart';
 
-class PortfolioScreen extends StatelessWidget {
-  const PortfolioScreen({super.key});
+class PortfolioItemCard extends StatelessWidget {
+  final PortfolioItem item;
+
+  const PortfolioItemCard({
+    super.key,
+    required this.item,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final portfolioData = getMockPortfolioData();
-
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Portfolio'),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-      ),
-      body: ListView.builder(
-        itemCount: portfolioData.length,
-        itemBuilder: (context, index) {
-          final item = portfolioData[index];
-          
-          if (item is PortfolioTotal) {
-            return _buildTotalCard(item);
-          } else if (item is PortfolioItem) {
-            return _buildStockCard(item);
-          }
-          
-          return const SizedBox.shrink();
-        },
-      ),
-    );
-  }
-
-  Widget _buildTotalCard(PortfolioTotal total) {
-    return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-      color: Colors.blue.shade50,
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'Total Value',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              '\$${total.totalValue.toStringAsFixed(2)}',
-              style: const TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.bold,
-                color: Colors.blue,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildStockCard(PortfolioItem item) {
     final isPositive = item.unrealizedPL >= 0;
-    
+
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       child: Padding(
