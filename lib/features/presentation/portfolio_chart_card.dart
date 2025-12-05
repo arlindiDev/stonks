@@ -96,7 +96,7 @@ class _PortfolioChartCardState extends State<PortfolioChartCard> {
             // Period tabs
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: ['1D', '1W', '1M', '6M', 'YTD', '1Y', '5Y', 'ALL'].map((period) {
+              children: widget.chart.periods.keys.map((period) {
                 final isSelected = period == selectedPeriod;
                 return Expanded(
                   child: GestureDetector(
