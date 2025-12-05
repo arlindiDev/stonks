@@ -1,4 +1,14 @@
-class PortfolioItem {
+class PortfolioUIItem { }
+
+class PortfolioTotal extends PortfolioUIItem {
+  final double totalValue;
+
+  PortfolioTotal({
+    required this.totalValue,
+  });
+}
+
+class PortfolioItem extends PortfolioUIItem {
   final String ticker;
   final double position;
   final double avgPrice;
@@ -20,8 +30,11 @@ class PortfolioItem {
   });
 }
 
-List<PortfolioItem> getMockPortfolioData() {
+List<PortfolioUIItem> getMockPortfolioData() {
   return [
+    PortfolioTotal(
+      totalValue: 127439.25,
+    ),
     PortfolioItem(
       ticker: 'AAPL',
       position: 50,
