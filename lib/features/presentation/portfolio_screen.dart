@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../mock_data.dart';
+import 'portfolio_chart_card.dart';
 import 'portfolio_total_card.dart';
 import 'portfolio_item_card.dart';
 
@@ -20,7 +21,9 @@ class PortfolioScreen extends StatelessWidget {
         itemBuilder: (context, index) {
           final item = portfolioData[index];
           
-          if (item is PortfolioTotal) {
+          if (item is PortfolioChart) {
+            return PortfolioChartCard(chart: item);
+          } else if (item is PortfolioTotal) {
             return PortfolioTotalCard(total: item);
           } else if (item is PortfolioItem) {
             return PortfolioItemCard(item: item);
