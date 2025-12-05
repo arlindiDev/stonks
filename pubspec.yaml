@@ -38,6 +38,11 @@ dependencies:
   intl: ^0.19.0
   flutter_bloc: ^9.1.1
   equatable: ^2.0.5
+  
+  # gRPC and Protocol Buffers
+  grpc: ^4.0.1
+  protobuf: ^3.1.0
+  fixnum: ^1.1.0
 
 dev_dependencies:
   flutter_test:
@@ -49,6 +54,10 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^5.0.0
+  
+  # Code generation for Protocol Buffers
+  build_runner: ^2.4.12
+  protoc_plugin: ^21.1.2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
