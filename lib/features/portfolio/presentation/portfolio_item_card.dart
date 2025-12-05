@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../mock_data.dart';
+import '../../mock_data.dart';
+import '../../utils/formatters.dart';
 
 class PortfolioItemCard extends StatelessWidget {
   final PortfolioItem item;
@@ -31,29 +32,29 @@ class PortfolioItemCard extends StatelessWidget {
             const SizedBox(height: 12),
             
             // Position
-            _buildRow('Position', '${item.position.toStringAsFixed(0)} shares'),
+            _buildRow('Position', Formatters.shares(item.position)),
             const SizedBox(height: 6),
             
             // Average Price
-            _buildRow('AVG Price', '\$${item.avgPrice.toStringAsFixed(2)}'),
+            _buildRow('AVG Price', Formatters.currency(item.avgPrice)),
             const SizedBox(height: 6),
             
             // Current Price
-            _buildRow('Current Price', '\$${item.currentPrice.toStringAsFixed(2)}'),
+            _buildRow('Current Price', Formatters.currency(item.currentPrice)),
             const SizedBox(height: 6),
             
             // Market Value
-            _buildRow('Market Value', '\$${item.marketValue.toStringAsFixed(2)}'),
+            _buildRow('Market Value', Formatters.currency(item.marketValue)),
             const SizedBox(height: 6),
             
             // % of Portfolio
-            _buildRow('% of Portfolio', '${item.portfolioPercent.toStringAsFixed(2)}%'),
+            _buildRow('% of Portfolio', Formatters.percent(item.portfolioPercent)),
             const SizedBox(height: 6),
             
             // Unrealized P&L
             _buildRow(
               'Unrealized P&L',
-              '${isPositive ? '+' : '-'}\$${item.unrealizedPL.abs().toStringAsFixed(2)}',
+              Formatters.currencyWithSign(item.unrealizedPL),
               color: isPositive ? Colors.green : Colors.red,
             ),
             const SizedBox(height: 6),
@@ -61,7 +62,7 @@ class PortfolioItemCard extends StatelessWidget {
             // Unrealized P&L %
             _buildRow(
               'Unrealized P&L %',
-              '${isPositive ? '+' : '-'}${item.unrealizedPLPercent.abs().toStringAsFixed(2)}%',
+              Formatters.percentWithSign(item.unrealizedPLPercent),
               color: isPositive ? Colors.green : Colors.red,
             ),
           ],

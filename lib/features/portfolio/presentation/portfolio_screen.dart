@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../mock_data.dart';
+import '../../mock_data.dart';
 import 'portfolio_chart_card.dart';
 import 'portfolio_total_card.dart';
 import 'portfolio_item_card.dart';

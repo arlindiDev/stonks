@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
-import '../mock_data.dart';
-import '../utils/formatters.dart';
+import '../../mock_data.dart';
+import '../../utils/formatters.dart';
 
 class PortfolioChartCard extends StatefulWidget {
   final PortfolioChart chart;
