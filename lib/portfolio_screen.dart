@@ -59,7 +59,7 @@ class PortfolioScreen extends StatelessWidget {
                   // Unrealized P&L
                   _buildRow(
                     'Unrealized P&L',
-                    '${isPositive ? '+' : ''}\$${item.unrealizedPL.toStringAsFixed(2)}',
+                    '${isPositive ? '+' : '-'}\$${item.unrealizedPL.abs().toStringAsFixed(2)}',
                     color: isPositive ? Colors.green : Colors.red,
                   ),
                   const SizedBox(height: 6),
@@ -67,7 +67,7 @@ class PortfolioScreen extends StatelessWidget {
                   // Unrealized P&L %
                   _buildRow(
                     'Unrealized P&L %',
-                    '${isPositive ? '+' : ''}${item.unrealizedPLPercent.toStringAsFixed(2)}%',
+                    '${isPositive ? '+' : '-'}${item.unrealizedPLPercent.abs().toStringAsFixed(2)}%',
                     color: isPositive ? Colors.green : Colors.red,
                   ),
                 ],
