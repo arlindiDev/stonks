@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'features/portfolio/data/grpc/portfolio_grpc_client.dart';
-import 'features/portfolio/data/datasource/portfolio_remote_datasource.dart';
-import 'features/portfolio/domain/repository/portfolio_repository_impl.dart';
+import 'core/di/injection.dart';
 import 'features/portfolio/presentation/state/portfolio_bloc.dart';
 import 'features/portfolio/presentation/ui/screens/portfolio_screen.dart';
 import 'features/theme/presentation/state/theme_bloc.dart';
@@ -11,21 +9,16 @@ import 'features/theme/presentation/state/theme_state.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  final grpcClient = await PortfolioGrpcClient.createMockClient();
+  await setupDependencies();
 
-  runApp(MyApp(grpcClient: grpcClient));
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  final PortfolioGrpcClient grpcClient;
-
-  const MyApp({super.key, required this.grpcClient});
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final remoteDataSource = PortfolioRemoteDataSourceImpl(grpcClient);
-    
-    final repository = PortfolioRepositoryImpl(remoteDataSource);
 
     return MultiBlocProvider(
       providers: [
@@ -34,7 +27,7 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => PortfolioBloc(
-            repository: repository,
+            repository: getIt(),
           ),
         ),
       ],
