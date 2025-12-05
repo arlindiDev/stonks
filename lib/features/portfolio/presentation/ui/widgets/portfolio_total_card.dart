@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../mock_data.dart';
+import '../../../data/mock_data.dart';
 import '../../../../utils/formatters.dart';
 
 class PortfolioTotalCard extends StatelessWidget {

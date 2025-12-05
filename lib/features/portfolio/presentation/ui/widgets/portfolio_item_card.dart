@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../theme/presentation/state/theme_bloc.dart';
 import '../../../../theme/presentation/state/theme_state.dart';
-import '../../../../mock_data.dart';
+import '../../../data/mock_data.dart';
 import '../../../../utils/formatters.dart';
 
 class PortfolioItemCard extends StatelessWidget {
