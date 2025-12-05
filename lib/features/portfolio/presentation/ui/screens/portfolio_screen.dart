@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../theme/theme_bloc.dart';
-import '../../theme/theme_event.dart';
-import '../../theme/theme_state.dart';
-import '../../mock_data.dart';
-import 'portfolio_chart_card.dart';
-import 'portfolio_total_card.dart';
-import 'portfolio_item_card.dart';
+import '../../../../theme/presentation/state/theme_bloc.dart';
+import '../../../../theme/presentation/state/theme_event.dart';
+import '../../../../theme/presentation/state/theme_state.dart';
+import '../../../../mock_data.dart';
+import '../widgets/portfolio_chart_card.dart';
+import '../widgets/portfolio_total_card.dart';
+import '../widgets/portfolio_item_card.dart';
 
 class PortfolioScreen extends StatelessWidget {
   const PortfolioScreen({super.key});

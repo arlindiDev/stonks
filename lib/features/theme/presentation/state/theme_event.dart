@@ -1,4 +1,4 @@
-import 'themes.dart';
+import '../../themes.dart';
 
 abstract class ThemeEvent {}
 

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'features/portfolio/presentation/portfolio_screen.dart';
-import 'features/theme/theme_bloc.dart';
-import 'features/theme/theme_state.dart';
+import 'features/portfolio/presentation/ui/screens/portfolio_screen.dart';
+import 'features/theme/presentation/state/theme_bloc.dart';
+import 'features/theme/presentation/state/theme_state.dart';
 
 void main() {
   runApp(const MyApp());

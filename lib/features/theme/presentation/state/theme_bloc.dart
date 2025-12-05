@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'theme_event.dart';
 import 'theme_state.dart';
-import 'themes.dart';
+import '../../themes.dart';
 
 class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
   ThemeBloc() : super(ThemeState(themeMode: AppThemeMode.retailBank)) {

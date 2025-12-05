@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../theme/theme_bloc.dart';
-import '../../theme/theme_state.dart';
-import '../../mock_data.dart';
-import '../../utils/formatters.dart';
+import '../../../../theme/presentation/state/theme_bloc.dart';
+import '../../../../theme/presentation/state/theme_state.dart';
+import '../../../../mock_data.dart';
+import '../../../../utils/formatters.dart';
 
 class PortfolioChartCard extends StatefulWidget {
   final PortfolioChart chart;

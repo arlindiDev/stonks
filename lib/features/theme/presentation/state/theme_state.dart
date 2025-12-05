@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../core/theme/colors.dart';
-import 'themes.dart';
+import '../../../../core/theme/colors.dart';
+import '../../themes.dart';
 
 class ThemeState {
   final AppThemeMode themeMode;
