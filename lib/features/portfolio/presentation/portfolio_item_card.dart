@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../theme/theme_bloc.dart';
+import '../../theme/theme_state.dart';
 import '../../mock_data.dart';
 import '../../utils/formatters.dart';
 
@@ -13,6 +16,15 @@ class PortfolioItemCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isPositive = item.unrealizedPL >= 0;
+
+    return BlocBuilder<ThemeBloc, ThemeState>(
+      builder: (context, themeState) {
+        return _buildCard(context, themeState, isPositive);
+      },
+    );
+  }
+
+  Widget _buildCard(BuildContext context, ThemeState themeState, bool isPositive) {
 
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
@@ -32,38 +44,40 @@ class PortfolioItemCard extends StatelessWidget {
             const SizedBox(height: 12),
             
             // Position
-            _buildRow('Position', Formatters.shares(item.position)),
+            _buildRow(themeState, 'Position', Formatters.shares(item.position)),
             const SizedBox(height: 6),
             
             // Average Price
-            _buildRow('AVG Price', Formatters.currency(item.avgPrice)),
+            _buildRow(themeState, 'AVG Price', Formatters.currency(item.avgPrice)),
             const SizedBox(height: 6),
             
             // Current Price
-            _buildRow('Current Price', Formatters.currency(item.currentPrice)),
+            _buildRow(themeState, 'Current Price', Formatters.currency(item.currentPrice)),
             const SizedBox(height: 6),
             
             // Market Value
-            _buildRow('Market Value', Formatters.currency(item.marketValue)),
+            _buildRow(themeState, 'Market Value', Formatters.currency(item.marketValue)),
             const SizedBox(height: 6),
             
             // % of Portfolio
-            _buildRow('% of Portfolio', Formatters.percent(item.portfolioPercent)),
+            _buildRow(themeState, '% of Portfolio', Formatters.percent(item.portfolioPercent)),
             const SizedBox(height: 6),
             
             // Unrealized P&L
             _buildRow(
+              themeState,
               'Unrealized P&L',
               Formatters.currencyWithSign(item.unrealizedPL),
-              color: isPositive ? Colors.green : Colors.red,
+              color: isPositive ? themeState.positiveColor : themeState.negativeColor,
             ),
             const SizedBox(height: 6),
             
             // Unrealized P&L %
             _buildRow(
+              themeState,
               'Unrealized P&L %',
               Formatters.percentWithSign(item.unrealizedPLPercent),
-              color: isPositive ? Colors.green : Colors.red,
+              color: isPositive ? themeState.positiveColor : themeState.negativeColor,
             ),
           ],
         ),
@@ -71,15 +85,15 @@ class PortfolioItemCard extends StatelessWidget {
     );
   }
 
-  Widget _buildRow(String label, String value, {Color? color}) {
+  Widget _buildRow(ThemeState themeState, String label, String value, {Color? color}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 14,
-            color: Colors.grey,
+            color: themeState.textSecondaryColor,
           ),
         ),
         Text(

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../theme/theme_bloc.dart';
+import '../../theme/theme_state.dart';
 import '../../mock_data.dart';
 import '../../utils/formatters.dart';
 
@@ -35,6 +38,24 @@ class _PortfolioChartCardState extends State<PortfolioChartCard> {
         : periodData.unrealizedPL;
     final displayDate = touchedDataPoint?.timestamp;
 
+    return BlocBuilder<ThemeBloc, ThemeState>(
+      builder: (context, themeState) {
+        return _buildCard(context, themeState, periodData, isPositive, displayValue, displayPercent, displayPL, displayDate);
+      },
+    );
+  }
+
+  Widget _buildCard(
+    BuildContext context,
+    ThemeState themeState,
+    ChartPeriodData periodData,
+    bool isPositive,
+    double displayValue,
+    double displayPercent,
+    double displayPL,
+    DateTime? displayDate,
+  ) {
+
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       child: Padding(
@@ -64,7 +85,7 @@ class _PortfolioChartCardState extends State<PortfolioChartCard> {
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.normal,
-                              color: Colors.grey[600],
+                              color: themeState.textSecondaryColor,
                             ),
                           ),
                         ],
@@ -76,7 +97,7 @@ class _PortfolioChartCardState extends State<PortfolioChartCard> {
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
-                        color: displayPL >= 0 ? Colors.green : Colors.red,
+                        color: displayPL >= 0 ? themeState.positiveColor : themeState.negativeColor,
                       ),
                     ),
                   ],
@@ -102,7 +123,7 @@ class _PortfolioChartCardState extends State<PortfolioChartCard> {
                         return FlSpot(entry.key.toDouble(), entry.value.value);
                       }).toList(),
                       isCurved: true,
-                      color: isPositive ? Colors.green : Colors.red,
+                      color: isPositive ? themeState.positiveColor : themeState.negativeColor,
                       barWidth: 2,
                       isStrokeCapRound: true,
                       dotData: FlDotData(
@@ -111,9 +132,9 @@ class _PortfolioChartCardState extends State<PortfolioChartCard> {
                           if (index == touchedIndex) {
                             return FlDotCirclePainter(
                               radius: 6,
-                              color: Colors.white,
+                              color: Theme.of(context).colorScheme.surface,
                               strokeWidth: 3,
-                              strokeColor: isPositive ? Colors.green : Colors.red,
+                              strokeColor: isPositive ? themeState.positiveColor : themeState.negativeColor,
                             );
                           }
                           return FlDotCirclePainter(
@@ -124,7 +145,7 @@ class _PortfolioChartCardState extends State<PortfolioChartCard> {
                       ),
                       belowBarData: BarAreaData(
                         show: true,
-                        color: (isPositive ? Colors.green : Colors.red).withValues(alpha: 0.1),
+                        color: (isPositive ? themeState.positiveColor : themeState.negativeColor).withValues(alpha: 0.1),
                       ),
                     ),
                   ],
@@ -147,7 +168,7 @@ class _PortfolioChartCardState extends State<PortfolioChartCard> {
                       return spotIndexes.map((index) {
                         return TouchedSpotIndicatorData(
                           FlLine(
-                            color: isPositive ? Colors.green.withValues(alpha: 0.5) : Colors.red.withValues(alpha: 0.5),
+                            color: (isPositive ? themeState.positiveColor : themeState.negativeColor).withValues(alpha: 0.5),
                             strokeWidth: 2,
                             dashArray: [5, 5],
                           ),
@@ -184,14 +205,14 @@ class _PortfolioChartCardState extends State<PortfolioChartCard> {
                     child: Container(
                       padding: const EdgeInsets.symmetric(vertical: 8),
                       decoration: BoxDecoration(
-                        color: isSelected ? Colors.blue : Colors.transparent,
+                        color: isSelected ? themeState.selectedTabColor : themeState.unselectedTabColor,
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Center(
                         child: Text(
                           period,
                           style: TextStyle(
-                            color: isSelected ? Colors.white : Colors.black87,
+                            color: isSelected ? themeState.selectedTabTextColor : themeState.unselectedTabTextColor,
                             fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                             fontSize: 13,
                           ),
