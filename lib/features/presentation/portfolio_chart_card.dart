@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import '../mock_data.dart';
+import '../utils/formatters.dart';
 
 class PortfolioChartCard extends StatefulWidget {
   final PortfolioChart chart;
@@ -37,7 +38,7 @@ class _PortfolioChartCardState extends State<PortfolioChartCard> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '\$${periodData.latestPrice.toStringAsFixed(2)}',
+                      Formatters.currency(periodData.latestPrice),
                       style: const TextStyle(
                         fontSize: 28,
                         fontWeight: FontWeight.bold,
@@ -45,7 +46,7 @@ class _PortfolioChartCardState extends State<PortfolioChartCard> {
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      '${isPositive ? '+' : '-'}\$${periodData.unrealizedPL.abs().toStringAsFixed(2)} (${isPositive ? '+' : ''}${periodData.unrealizedPLPercent.toStringAsFixed(2)}%)',
+                      '${Formatters.currencyWithSign(periodData.unrealizedPL)} (${Formatters.percentWithSign(periodData.unrealizedPLPercent)})',
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../mock_data.dart';
+import '../utils/formatters.dart';
 
 class PortfolioTotalCard extends StatelessWidget {
   final PortfolioTotal total;
@@ -28,7 +29,7 @@ class PortfolioTotalCard extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              '\$${total.totalValue.toStringAsFixed(2)}',
+              Formatters.currency(total.totalValue),
               style: const TextStyle(
                 fontSize: 32,
                 fontWeight: FontWeight.bold,
