@@ -1,6 +1,6 @@
 import '../../data/datasource/portfolio_remote_datasource.dart';
 import '../../data/mappers/portfolio_mapper.dart';
-import '../../data/mock_data.dart';
+import '../entities/portfolio_ui_item.dart';
 import 'portfolio_repository.dart';
 
 class PortfolioRepositoryImpl implements PortfolioRepository {
@@ -15,7 +15,7 @@ class PortfolioRepositoryImpl implements PortfolioRepository {
       
       return PortfolioMapper.fromProtoResponse(response);
     } catch (e) {
-      // need to return a proper Failure, with a wrapper object
+      // TODO: Return a proper Failure object (Either<Failure, Success> pattern)
       rethrow;
     }
   }

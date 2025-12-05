@@ -1,5 +1,10 @@
 import '../generated/portfolio.pb.dart' as proto;
-import '../mock_data.dart';
+import '../../domain/entities/portfolio_ui_item.dart';
+import '../../domain/entities/portfolio_total.dart';
+import '../../domain/entities/portfolio_chart.dart';
+import '../../domain/entities/portfolio_item.dart';
+import '../../domain/entities/chart_period_data.dart';
+import '../../domain/entities/chart_data_point.dart';
 
 class PortfolioMapper {
   static List<PortfolioUIItem> fromProtoResponse(

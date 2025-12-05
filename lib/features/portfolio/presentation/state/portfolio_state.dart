@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import '../../data/mock_data.dart';
+import '../../domain/entities/portfolio_ui_item.dart';
 
 abstract class PortfolioState extends Equatable {
   const PortfolioState();
