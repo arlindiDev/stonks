@@ -1,13 +1,25 @@
 class PortfolioUIItem { }
 
+class ChartDataPoint {
+  final double value;
+  final DateTime timestamp;
+  final double percentChange;
+
+  ChartDataPoint({
+    required this.value,
+    required this.timestamp,
+    required this.percentChange,
+  });
+}
+
 class ChartPeriodData {
-  final List<double> values;
+  final List<ChartDataPoint> dataPoints;
   final double latestPrice;
   final double unrealizedPL;
   final double unrealizedPLPercent;
 
   ChartPeriodData({
-    required this.values,
+    required this.dataPoints,
     required this.latestPrice,
     required this.unrealizedPL,
     required this.unrealizedPLPercent,
@@ -54,146 +66,2955 @@ class PortfolioItem extends PortfolioUIItem {
 
 List<PortfolioUIItem> getMockPortfolioData() {
   return [
-PortfolioChart(
-  periods: {
-    '1D': ChartPeriodData(
-      values: [
-        126800, 126850, 126900, 126920, 126940, 126960, 126980, 127020, 127040, 127060, 127080, 127100,
-        127120, 127140, 127160, 127180, 127190, 127200, 127210, 127220, 127230, 127240, 127250, 127240,
-        127220, 127190, 127150, 127100, 127060, 127020, 126980, 126940, 126900, 126860, 126820, 126780,
-        126740, 126720, 126700, 126680, 126660, 126640, 126630, 126620, 126640, 126680, 126720, 126760,
-        126800, 126840, 126880, 126920, 126960, 127000, 127040, 127020, 126990, 126960, 126930, 126900,
-        126880, 126900, 126940, 126980, 127020, 127060, 127100, 127140, 127180, 127220, 127260, 127300,
-        127320, 127350, 127360, 127380, 127390, 127410, 127420, 127430, 127439.25
-      ],
-      latestPrice: 127439.25,
-      unrealizedPL: 639.25,
-      unrealizedPLPercent: 0.50,
-    ),
-
-    '1W': ChartPeriodData(
-      values: [
-        125800, 125900, 126000, 126050, 126120, 126160, 126200, 126250, 126300, 126340,
-        126380, 126420, 126460, 126480, 126500, 126520, 126540, 126560, 126580, 126600,
-        126620, 126640, 126660, 126680, 126700, 126720, 126740, 126760, 126780, 126800,
-        126820, 126840, 126860, 126880, 126880, 126860, 126820, 126780, 126740, 126700,
-        126660, 126620, 126600, 126580, 126560, 126580, 126620, 126660, 126700, 126740,
-        126780, 126820, 126860, 126900, 126860, 126820, 126780, 126740, 126700, 126660,
-        126640, 126660, 126700, 126740, 126780, 126820, 126860, 126900, 126940, 126980,
-        127000, 127020, 127040, 127060, 127080, 127100, 127120, 127140, 127160, 127180,
-        127160, 127140, 127120, 127140, 127180, 127220, 127260, 127300, 127320, 127340,
-        127360, 127380, 127400, 127420, 127439.25
-      ],
-      latestPrice: 127439.25,
-      unrealizedPL: 2439.25,
-      unrealizedPLPercent: 1.95,
-    ),
-
-    '1M': ChartPeriodData(
-      values: [
-        // Earlier 3 weeks of the month (one data point per day = 21 points)
-        130000, 129800, 129600, 129400, 129200, 128900, 128600, 128400, 128200, 128000,
-        127800, 127600, 127400, 127200, 127000, 126900, 126800, 126700, 126600, 126500,
-        126400,
-        // Last week averaged down from 95 points to ~7 points (one per day)
-        125950, 126420, 126700, 126700, 126740, 127080, 127439.25
-      ],
-      latestPrice: 127439.25,
-      unrealizedPL: -2560.75,
-      unrealizedPLPercent: -1.97,
-    ),
-
-    '6M': ChartPeriodData(
-      values: [
-        // Earlier 5 months with volatility, dips and rebounds (weekly averages = ~22 weeks)
-        115000, 115400, 115800, 116200, 116600, 116200, 115800, 115400, 115000, 114600,
-        114200, 114800, 115400, 116000, 116600, 117200, 117800, 118200, 118600, 119000,
-        118400, 117800, 117200, 116600, 116200, 115800, 116200, 116600, 117000, 117400,
-        117800, 118200, 118600, 119000, 119400, 119800, 120200, 120600, 121000, 121400,
-        121800,
-        // First mid-period pullback (deeper)
-        120800, 119900, 118800, 117900, 117000, 116200, 115500, 115900, 116400, 116900,
-        // Recovery rally into second half
-        117600, 118300, 119000, 119700, 120400, 121100, 121800, 122400, 123000, 123600,
-        // Second mid-period dip (sharper) then recovery
-        122200, 120800, 119600, 118800, 119200, 120000, 120800, 121600, 122400, 123000,
-        123600, 124200,
-        // Last month: averaged down to weekly data points (4 weeks)
-        129000, 127650, 126700, 127439.25
-      ],
-      latestPrice: 127439.25,
-      unrealizedPL: 17439.25,
-      unrealizedPLPercent: 15.85,
-    ),
-
-    'YTD': ChartPeriodData(
-      values: [
-        105000, 105400, 105800, 106200, 106600, 107000, 107400, 107800, 108200, 108600,
-        109000, 109400, 109800, 110200, 110600, 111000, 111400, 111800, 112200, 112600,
-        112300, 112000, 111700, 111400, 111100, 110800, 110500, 110200, 109900, 109600,
-        110000, 110400, 110800, 111200, 111600, 112000, 112400, 112800, 113200, 113600,
-        114000, 114400, 114800, 115200, 115600, 116000, 116400, 116800, 117200, 117600,
-        116800, 116000, 115200, 114600, 114000, 113600, 113200, 113800, 114400, 115000,
-        115600, 116200, 116800, 117400, 118000, 118600, 119200, 119800, 120400, 121000,
-        121600, 122200, 122800, 123400, 123800, 124200, 124600, 125000, 125400, 125800,
-        126500, 127000, 126700, 127439.25
-      ],
-      latestPrice: 127439.25,
-      unrealizedPL: 22439.25,
-      unrealizedPLPercent: 21.37,
-    ),
-
-    '1Y': ChartPeriodData(
-      values: [
-        98000, 99000, 100000, 
-        105000, 105400, 105800, 106200, 106600, 107000, 107400, 107800, 108200, 108600,
-        109000, 109400, 109800, 110200, 110600, 111000, 111400, 111800, 112200, 112600,
-        112300, 112000, 111700, 111400, 111100, 110800, 110500, 110200, 109900, 109600,
-        110000, 110400, 110800, 111200, 111600, 112000, 112400, 112800, 113200, 113600,
-        114000, 114400, 114800, 115200, 115600, 116000, 116400, 116800, 117200, 117600,
-        116800, 116000, 115200, 114600, 114000, 113600, 113200, 113800, 114400, 115000,
-        115600, 116200, 116800, 117400, 118000, 118600, 119200, 119800, 120400, 121000,
-        121600, 122200, 122800, 123400, 123800, 124200, 124600, 125000, 125400, 125800,
-        126500, 127000, 126700, 127439.25
-      ],
-      latestPrice: 127439.25,
-      unrealizedPL: 27439.25,
-      unrealizedPLPercent: 27.44,
-    ),
-
-    '5Y': ChartPeriodData(
-      values: [
-        50000, 52000, 54000, 56000, 58000, 60000, 58000, 62000, 64000, 66000,
-        48000, 42000, 36000, 42000, 40000, 44000, 48000, 42000, 46000, 50000,
-        54000, 58000, 62000, 66000, 70000, 64000, 68000, 82000, 86000, 100000,
-        94000, 98000, 102000, 106000, 100000, 102000, 114000, 113000, 114000, 116000,
-        116000, 114000, 115500, 117000, 119000, 121000, 120000, 124500, 126000, 120000,
-        107500, 106000, 106500, 107000, 108500, 112000, 116000, 120000, 123500, 125500, 126800, 127439.25
-      ],
-      latestPrice: 127439.25,
-      unrealizedPL: 77439.25,
-      unrealizedPLPercent: 154.88,
-    ),
-
-    'ALL': ChartPeriodData(
-      values: [
-        50000, 52000, 54000, 56000, 58000, 60000, 58000, 62000, 64000, 66000,
-        48000, 42000, 36000, 42000, 40000, 44000, 48000, 42000, 46000, 50000,
-        54000, 58000, 62000, 66000, 70000, 64000, 68000, 82000, 86000, 100000,
-        94000, 98000, 102000, 106000, 100000, 102000, 114000, 113000, 114000, 116000,
-        116000, 114000, 115500, 117000, 119000, 121000, 120000, 124500, 126000, 120000,
-        107500, 106000, 106500, 107000, 108500, 112000, 116000, 120000, 123500, 125500, 126800, 127439.25
-      ],
-      latestPrice: 127439.25,
-      unrealizedPL: 102439.25,
-      unrealizedPLPercent: 409.76,
-    ),
-  },
-),
-
-
-PortfolioTotal(
+    PortfolioTotal(
       totalValue: 127439.25,
+    ),
+    PortfolioChart(
+      periods: {
+        '1D': ChartPeriodData(
+          dataPoints: [
+            ChartDataPoint(
+              value: 126800.0,
+              timestamp: DateTime(2025, 12, 5, 8, 44),
+              percentChange: 0.00,
+            ),
+            ChartDataPoint(
+              value: 126850.0,
+              timestamp: DateTime(2025, 12, 5, 8, 49),
+              percentChange: 0.04,
+            ),
+            ChartDataPoint(
+              value: 126900.0,
+              timestamp: DateTime(2025, 12, 5, 8, 54),
+              percentChange: 0.08,
+            ),
+            ChartDataPoint(
+              value: 126920.0,
+              timestamp: DateTime(2025, 12, 5, 8, 59),
+              percentChange: 0.09,
+            ),
+            ChartDataPoint(
+              value: 126940.0,
+              timestamp: DateTime(2025, 12, 5, 9, 4),
+              percentChange: 0.11,
+            ),
+            ChartDataPoint(
+              value: 126960.0,
+              timestamp: DateTime(2025, 12, 5, 9, 9),
+              percentChange: 0.13,
+            ),
+            ChartDataPoint(
+              value: 126980.0,
+              timestamp: DateTime(2025, 12, 5, 9, 14),
+              percentChange: 0.14,
+            ),
+            ChartDataPoint(
+              value: 127020.0,
+              timestamp: DateTime(2025, 12, 5, 9, 19),
+              percentChange: 0.17,
+            ),
+            ChartDataPoint(
+              value: 127040.0,
+              timestamp: DateTime(2025, 12, 5, 9, 24),
+              percentChange: 0.19,
+            ),
+            ChartDataPoint(
+              value: 127060.0,
+              timestamp: DateTime(2025, 12, 5, 9, 29),
+              percentChange: 0.21,
+            ),
+            ChartDataPoint(
+              value: 127080.0,
+              timestamp: DateTime(2025, 12, 5, 9, 34),
+              percentChange: 0.22,
+            ),
+            ChartDataPoint(
+              value: 127100.0,
+              timestamp: DateTime(2025, 12, 5, 9, 39),
+              percentChange: 0.24,
+            ),
+            ChartDataPoint(
+              value: 127120.0,
+              timestamp: DateTime(2025, 12, 5, 9, 44),
+              percentChange: 0.25,
+            ),
+            ChartDataPoint(
+              value: 127140.0,
+              timestamp: DateTime(2025, 12, 5, 9, 49),
+              percentChange: 0.27,
+            ),
+            ChartDataPoint(
+              value: 127160.0,
+              timestamp: DateTime(2025, 12, 5, 9, 54),
+              percentChange: 0.28,
+            ),
+            ChartDataPoint(
+              value: 127180.0,
+              timestamp: DateTime(2025, 12, 5, 9, 59),
+              percentChange: 0.30,
+            ),
+            ChartDataPoint(
+              value: 127190.0,
+              timestamp: DateTime(2025, 12, 5, 10, 4),
+              percentChange: 0.31,
+            ),
+            ChartDataPoint(
+              value: 127200.0,
+              timestamp: DateTime(2025, 12, 5, 10, 9),
+              percentChange: 0.32,
+            ),
+            ChartDataPoint(
+              value: 127210.0,
+              timestamp: DateTime(2025, 12, 5, 10, 14),
+              percentChange: 0.32,
+            ),
+            ChartDataPoint(
+              value: 127220.0,
+              timestamp: DateTime(2025, 12, 5, 10, 19),
+              percentChange: 0.33,
+            ),
+            ChartDataPoint(
+              value: 127230.0,
+              timestamp: DateTime(2025, 12, 5, 10, 24),
+              percentChange: 0.34,
+            ),
+            ChartDataPoint(
+              value: 127240.0,
+              timestamp: DateTime(2025, 12, 5, 10, 29),
+              percentChange: 0.35,
+            ),
+            ChartDataPoint(
+              value: 127250.0,
+              timestamp: DateTime(2025, 12, 5, 10, 34),
+              percentChange: 0.35,
+            ),
+            ChartDataPoint(
+              value: 127240.0,
+              timestamp: DateTime(2025, 12, 5, 10, 39),
+              percentChange: 0.35,
+            ),
+            ChartDataPoint(
+              value: 127220.0,
+              timestamp: DateTime(2025, 12, 5, 10, 44),
+              percentChange: 0.33,
+            ),
+            ChartDataPoint(
+              value: 127190.0,
+              timestamp: DateTime(2025, 12, 5, 10, 49),
+              percentChange: 0.31,
+            ),
+            ChartDataPoint(
+              value: 127150.0,
+              timestamp: DateTime(2025, 12, 5, 10, 54),
+              percentChange: 0.28,
+            ),
+            ChartDataPoint(
+              value: 127100.0,
+              timestamp: DateTime(2025, 12, 5, 10, 59),
+              percentChange: 0.24,
+            ),
+            ChartDataPoint(
+              value: 127060.0,
+              timestamp: DateTime(2025, 12, 5, 11, 4),
+              percentChange: 0.21,
+            ),
+            ChartDataPoint(
+              value: 127020.0,
+              timestamp: DateTime(2025, 12, 5, 11, 9),
+              percentChange: 0.17,
+            ),
+            ChartDataPoint(
+              value: 126980.0,
+              timestamp: DateTime(2025, 12, 5, 11, 14),
+              percentChange: 0.14,
+            ),
+            ChartDataPoint(
+              value: 126940.0,
+              timestamp: DateTime(2025, 12, 5, 11, 19),
+              percentChange: 0.11,
+            ),
+            ChartDataPoint(
+              value: 126900.0,
+              timestamp: DateTime(2025, 12, 5, 11, 24),
+              percentChange: 0.08,
+            ),
+            ChartDataPoint(
+              value: 126860.0,
+              timestamp: DateTime(2025, 12, 5, 11, 29),
+              percentChange: 0.05,
+            ),
+            ChartDataPoint(
+              value: 126820.0,
+              timestamp: DateTime(2025, 12, 5, 11, 34),
+              percentChange: 0.02,
+            ),
+            ChartDataPoint(
+              value: 126780.0,
+              timestamp: DateTime(2025, 12, 5, 11, 39),
+              percentChange: -0.02,
+            ),
+            ChartDataPoint(
+              value: 126740.0,
+              timestamp: DateTime(2025, 12, 5, 11, 44),
+              percentChange: -0.05,
+            ),
+            ChartDataPoint(
+              value: 126720.0,
+              timestamp: DateTime(2025, 12, 5, 11, 49),
+              percentChange: -0.06,
+            ),
+            ChartDataPoint(
+              value: 126700.0,
+              timestamp: DateTime(2025, 12, 5, 11, 54),
+              percentChange: -0.08,
+            ),
+            ChartDataPoint(
+              value: 126680.0,
+              timestamp: DateTime(2025, 12, 5, 11, 59),
+              percentChange: -0.09,
+            ),
+            ChartDataPoint(
+              value: 126660.0,
+              timestamp: DateTime(2025, 12, 5, 12, 4),
+              percentChange: -0.11,
+            ),
+            ChartDataPoint(
+              value: 126640.0,
+              timestamp: DateTime(2025, 12, 5, 12, 9),
+              percentChange: -0.13,
+            ),
+            ChartDataPoint(
+              value: 126630.0,
+              timestamp: DateTime(2025, 12, 5, 12, 14),
+              percentChange: -0.13,
+            ),
+            ChartDataPoint(
+              value: 126620.0,
+              timestamp: DateTime(2025, 12, 5, 12, 19),
+              percentChange: -0.14,
+            ),
+            ChartDataPoint(
+              value: 126640.0,
+              timestamp: DateTime(2025, 12, 5, 12, 24),
+              percentChange: -0.13,
+            ),
+            ChartDataPoint(
+              value: 126680.0,
+              timestamp: DateTime(2025, 12, 5, 12, 29),
+              percentChange: -0.09,
+            ),
+            ChartDataPoint(
+              value: 126720.0,
+              timestamp: DateTime(2025, 12, 5, 12, 34),
+              percentChange: -0.06,
+            ),
+            ChartDataPoint(
+              value: 126760.0,
+              timestamp: DateTime(2025, 12, 5, 12, 39),
+              percentChange: -0.03,
+            ),
+            ChartDataPoint(
+              value: 126800.0,
+              timestamp: DateTime(2025, 12, 5, 12, 44),
+              percentChange: 0.00,
+            ),
+            ChartDataPoint(
+              value: 126840.0,
+              timestamp: DateTime(2025, 12, 5, 12, 49),
+              percentChange: 0.03,
+            ),
+            ChartDataPoint(
+              value: 126880.0,
+              timestamp: DateTime(2025, 12, 5, 12, 54),
+              percentChange: 0.06,
+            ),
+            ChartDataPoint(
+              value: 126920.0,
+              timestamp: DateTime(2025, 12, 5, 12, 59),
+              percentChange: 0.09,
+            ),
+            ChartDataPoint(
+              value: 126960.0,
+              timestamp: DateTime(2025, 12, 5, 13, 4),
+              percentChange: 0.13,
+            ),
+            ChartDataPoint(
+              value: 127000.0,
+              timestamp: DateTime(2025, 12, 5, 13, 9),
+              percentChange: 0.16,
+            ),
+            ChartDataPoint(
+              value: 127040.0,
+              timestamp: DateTime(2025, 12, 5, 13, 14),
+              percentChange: 0.19,
+            ),
+            ChartDataPoint(
+              value: 127020.0,
+              timestamp: DateTime(2025, 12, 5, 13, 19),
+              percentChange: 0.17,
+            ),
+            ChartDataPoint(
+              value: 126990.0,
+              timestamp: DateTime(2025, 12, 5, 13, 24),
+              percentChange: 0.15,
+            ),
+            ChartDataPoint(
+              value: 126960.0,
+              timestamp: DateTime(2025, 12, 5, 13, 29),
+              percentChange: 0.13,
+            ),
+            ChartDataPoint(
+              value: 126930.0,
+              timestamp: DateTime(2025, 12, 5, 13, 34),
+              percentChange: 0.10,
+            ),
+            ChartDataPoint(
+              value: 126900.0,
+              timestamp: DateTime(2025, 12, 5, 13, 39),
+              percentChange: 0.08,
+            ),
+            ChartDataPoint(
+              value: 126880.0,
+              timestamp: DateTime(2025, 12, 5, 13, 44),
+              percentChange: 0.06,
+            ),
+            ChartDataPoint(
+              value: 126900.0,
+              timestamp: DateTime(2025, 12, 5, 13, 49),
+              percentChange: 0.08,
+            ),
+            ChartDataPoint(
+              value: 126940.0,
+              timestamp: DateTime(2025, 12, 5, 13, 54),
+              percentChange: 0.11,
+            ),
+            ChartDataPoint(
+              value: 126980.0,
+              timestamp: DateTime(2025, 12, 5, 13, 59),
+              percentChange: 0.14,
+            ),
+            ChartDataPoint(
+              value: 127020.0,
+              timestamp: DateTime(2025, 12, 5, 14, 4),
+              percentChange: 0.17,
+            ),
+            ChartDataPoint(
+              value: 127060.0,
+              timestamp: DateTime(2025, 12, 5, 14, 9),
+              percentChange: 0.21,
+            ),
+            ChartDataPoint(
+              value: 127100.0,
+              timestamp: DateTime(2025, 12, 5, 14, 14),
+              percentChange: 0.24,
+            ),
+            ChartDataPoint(
+              value: 127140.0,
+              timestamp: DateTime(2025, 12, 5, 14, 19),
+              percentChange: 0.27,
+            ),
+            ChartDataPoint(
+              value: 127180.0,
+              timestamp: DateTime(2025, 12, 5, 14, 24),
+              percentChange: 0.30,
+            ),
+            ChartDataPoint(
+              value: 127220.0,
+              timestamp: DateTime(2025, 12, 5, 14, 29),
+              percentChange: 0.33,
+            ),
+            ChartDataPoint(
+              value: 127260.0,
+              timestamp: DateTime(2025, 12, 5, 14, 34),
+              percentChange: 0.36,
+            ),
+            ChartDataPoint(
+              value: 127300.0,
+              timestamp: DateTime(2025, 12, 5, 14, 39),
+              percentChange: 0.39,
+            ),
+            ChartDataPoint(
+              value: 127320.0,
+              timestamp: DateTime(2025, 12, 5, 14, 44),
+              percentChange: 0.41,
+            ),
+            ChartDataPoint(
+              value: 127350.0,
+              timestamp: DateTime(2025, 12, 5, 14, 49),
+              percentChange: 0.43,
+            ),
+            ChartDataPoint(
+              value: 127360.0,
+              timestamp: DateTime(2025, 12, 5, 14, 54),
+              percentChange: 0.44,
+            ),
+            ChartDataPoint(
+              value: 127380.0,
+              timestamp: DateTime(2025, 12, 5, 14, 59),
+              percentChange: 0.46,
+            ),
+            ChartDataPoint(
+              value: 127390.0,
+              timestamp: DateTime(2025, 12, 5, 15, 4),
+              percentChange: 0.47,
+            ),
+            ChartDataPoint(
+              value: 127410.0,
+              timestamp: DateTime(2025, 12, 5, 15, 9),
+              percentChange: 0.48,
+            ),
+            ChartDataPoint(
+              value: 127420.0,
+              timestamp: DateTime(2025, 12, 5, 15, 14),
+              percentChange: 0.49,
+            ),
+            ChartDataPoint(
+              value: 127430.0,
+              timestamp: DateTime(2025, 12, 5, 15, 19),
+              percentChange: 0.50,
+            ),
+            ChartDataPoint(
+              value: 127439.25,
+              timestamp: DateTime(2025, 12, 5, 15, 24),
+              percentChange: 0.50,
+            ),
+          ],
+          latestPrice: 127439.25,
+          unrealizedPL: 639.25,
+          unrealizedPLPercent: 0.50,
+        ),
+        
+        '1W': ChartPeriodData(
+          dataPoints: [
+            ChartDataPoint(
+              value: 125800.0,
+              timestamp: DateTime(2025, 11, 28, 15, 14),
+              percentChange: 0.00,
+            ),
+            ChartDataPoint(
+              value: 125900.0,
+              timestamp: DateTime(2025, 11, 28, 17, 14),
+              percentChange: 0.08,
+            ),
+            ChartDataPoint(
+              value: 126000.0,
+              timestamp: DateTime(2025, 11, 28, 19, 14),
+              percentChange: 0.16,
+            ),
+            ChartDataPoint(
+              value: 126050.0,
+              timestamp: DateTime(2025, 11, 28, 21, 14),
+              percentChange: 0.20,
+            ),
+            ChartDataPoint(
+              value: 126120.0,
+              timestamp: DateTime(2025, 11, 28, 23, 14),
+              percentChange: 0.25,
+            ),
+            ChartDataPoint(
+              value: 126160.0,
+              timestamp: DateTime(2025, 11, 29, 1, 14),
+              percentChange: 0.29,
+            ),
+            ChartDataPoint(
+              value: 126200.0,
+              timestamp: DateTime(2025, 11, 29, 3, 14),
+              percentChange: 0.32,
+            ),
+            ChartDataPoint(
+              value: 126250.0,
+              timestamp: DateTime(2025, 11, 29, 5, 14),
+              percentChange: 0.36,
+            ),
+            ChartDataPoint(
+              value: 126300.0,
+              timestamp: DateTime(2025, 11, 29, 7, 14),
+              percentChange: 0.40,
+            ),
+            ChartDataPoint(
+              value: 126340.0,
+              timestamp: DateTime(2025, 11, 29, 9, 14),
+              percentChange: 0.43,
+            ),
+            ChartDataPoint(
+              value: 126380.0,
+              timestamp: DateTime(2025, 11, 29, 11, 14),
+              percentChange: 0.46,
+            ),
+            ChartDataPoint(
+              value: 126420.0,
+              timestamp: DateTime(2025, 11, 29, 13, 14),
+              percentChange: 0.49,
+            ),
+            ChartDataPoint(
+              value: 126460.0,
+              timestamp: DateTime(2025, 11, 29, 15, 14),
+              percentChange: 0.52,
+            ),
+            ChartDataPoint(
+              value: 126480.0,
+              timestamp: DateTime(2025, 11, 29, 17, 14),
+              percentChange: 0.54,
+            ),
+            ChartDataPoint(
+              value: 126500.0,
+              timestamp: DateTime(2025, 11, 29, 19, 14),
+              percentChange: 0.56,
+            ),
+            ChartDataPoint(
+              value: 126520.0,
+              timestamp: DateTime(2025, 11, 29, 21, 14),
+              percentChange: 0.57,
+            ),
+            ChartDataPoint(
+              value: 126540.0,
+              timestamp: DateTime(2025, 11, 29, 23, 14),
+              percentChange: 0.59,
+            ),
+            ChartDataPoint(
+              value: 126560.0,
+              timestamp: DateTime(2025, 11, 30, 1, 14),
+              percentChange: 0.60,
+            ),
+            ChartDataPoint(
+              value: 126580.0,
+              timestamp: DateTime(2025, 11, 30, 3, 14),
+              percentChange: 0.62,
+            ),
+            ChartDataPoint(
+              value: 126600.0,
+              timestamp: DateTime(2025, 11, 30, 5, 14),
+              percentChange: 0.64,
+            ),
+            ChartDataPoint(
+              value: 126620.0,
+              timestamp: DateTime(2025, 11, 30, 7, 14),
+              percentChange: 0.65,
+            ),
+            ChartDataPoint(
+              value: 126640.0,
+              timestamp: DateTime(2025, 11, 30, 9, 14),
+              percentChange: 0.67,
+            ),
+            ChartDataPoint(
+              value: 126660.0,
+              timestamp: DateTime(2025, 11, 30, 11, 14),
+              percentChange: 0.68,
+            ),
+            ChartDataPoint(
+              value: 126680.0,
+              timestamp: DateTime(2025, 11, 30, 13, 14),
+              percentChange: 0.70,
+            ),
+            ChartDataPoint(
+              value: 126700.0,
+              timestamp: DateTime(2025, 11, 30, 15, 14),
+              percentChange: 0.72,
+            ),
+            ChartDataPoint(
+              value: 126720.0,
+              timestamp: DateTime(2025, 11, 30, 17, 14),
+              percentChange: 0.73,
+            ),
+            ChartDataPoint(
+              value: 126740.0,
+              timestamp: DateTime(2025, 11, 30, 19, 14),
+              percentChange: 0.75,
+            ),
+            ChartDataPoint(
+              value: 126760.0,
+              timestamp: DateTime(2025, 11, 30, 21, 14),
+              percentChange: 0.76,
+            ),
+            ChartDataPoint(
+              value: 126780.0,
+              timestamp: DateTime(2025, 11, 30, 23, 14),
+              percentChange: 0.78,
+            ),
+            ChartDataPoint(
+              value: 126800.0,
+              timestamp: DateTime(2025, 12, 1, 1, 14),
+              percentChange: 0.79,
+            ),
+            ChartDataPoint(
+              value: 126820.0,
+              timestamp: DateTime(2025, 12, 1, 3, 14),
+              percentChange: 0.81,
+            ),
+            ChartDataPoint(
+              value: 126840.0,
+              timestamp: DateTime(2025, 12, 1, 5, 14),
+              percentChange: 0.83,
+            ),
+            ChartDataPoint(
+              value: 126860.0,
+              timestamp: DateTime(2025, 12, 1, 7, 14),
+              percentChange: 0.84,
+            ),
+            ChartDataPoint(
+              value: 126880.0,
+              timestamp: DateTime(2025, 12, 1, 9, 14),
+              percentChange: 0.86,
+            ),
+            ChartDataPoint(
+              value: 126880.0,
+              timestamp: DateTime(2025, 12, 1, 11, 14),
+              percentChange: 0.86,
+            ),
+            ChartDataPoint(
+              value: 126860.0,
+              timestamp: DateTime(2025, 12, 1, 13, 14),
+              percentChange: 0.84,
+            ),
+            ChartDataPoint(
+              value: 126820.0,
+              timestamp: DateTime(2025, 12, 1, 15, 14),
+              percentChange: 0.81,
+            ),
+            ChartDataPoint(
+              value: 126780.0,
+              timestamp: DateTime(2025, 12, 1, 17, 14),
+              percentChange: 0.78,
+            ),
+            ChartDataPoint(
+              value: 126740.0,
+              timestamp: DateTime(2025, 12, 1, 19, 14),
+              percentChange: 0.75,
+            ),
+            ChartDataPoint(
+              value: 126700.0,
+              timestamp: DateTime(2025, 12, 1, 21, 14),
+              percentChange: 0.72,
+            ),
+            ChartDataPoint(
+              value: 126660.0,
+              timestamp: DateTime(2025, 12, 1, 23, 14),
+              percentChange: 0.68,
+            ),
+            ChartDataPoint(
+              value: 126620.0,
+              timestamp: DateTime(2025, 12, 2, 1, 14),
+              percentChange: 0.65,
+            ),
+            ChartDataPoint(
+              value: 126600.0,
+              timestamp: DateTime(2025, 12, 2, 3, 14),
+              percentChange: 0.64,
+            ),
+            ChartDataPoint(
+              value: 126580.0,
+              timestamp: DateTime(2025, 12, 2, 5, 14),
+              percentChange: 0.62,
+            ),
+            ChartDataPoint(
+              value: 126560.0,
+              timestamp: DateTime(2025, 12, 2, 7, 14),
+              percentChange: 0.60,
+            ),
+            ChartDataPoint(
+              value: 126580.0,
+              timestamp: DateTime(2025, 12, 2, 9, 14),
+              percentChange: 0.62,
+            ),
+            ChartDataPoint(
+              value: 126620.0,
+              timestamp: DateTime(2025, 12, 2, 11, 14),
+              percentChange: 0.65,
+            ),
+            ChartDataPoint(
+              value: 126660.0,
+              timestamp: DateTime(2025, 12, 2, 13, 14),
+              percentChange: 0.68,
+            ),
+            ChartDataPoint(
+              value: 126700.0,
+              timestamp: DateTime(2025, 12, 2, 15, 14),
+              percentChange: 0.72,
+            ),
+            ChartDataPoint(
+              value: 126740.0,
+              timestamp: DateTime(2025, 12, 2, 17, 14),
+              percentChange: 0.75,
+            ),
+            ChartDataPoint(
+              value: 126780.0,
+              timestamp: DateTime(2025, 12, 2, 19, 14),
+              percentChange: 0.78,
+            ),
+            ChartDataPoint(
+              value: 126820.0,
+              timestamp: DateTime(2025, 12, 2, 21, 14),
+              percentChange: 0.81,
+            ),
+            ChartDataPoint(
+              value: 126860.0,
+              timestamp: DateTime(2025, 12, 2, 23, 14),
+              percentChange: 0.84,
+            ),
+            ChartDataPoint(
+              value: 126900.0,
+              timestamp: DateTime(2025, 12, 3, 1, 14),
+              percentChange: 0.87,
+            ),
+            ChartDataPoint(
+              value: 126860.0,
+              timestamp: DateTime(2025, 12, 3, 3, 14),
+              percentChange: 0.84,
+            ),
+            ChartDataPoint(
+              value: 126820.0,
+              timestamp: DateTime(2025, 12, 3, 5, 14),
+              percentChange: 0.81,
+            ),
+            ChartDataPoint(
+              value: 126780.0,
+              timestamp: DateTime(2025, 12, 3, 7, 14),
+              percentChange: 0.78,
+            ),
+            ChartDataPoint(
+              value: 126740.0,
+              timestamp: DateTime(2025, 12, 3, 9, 14),
+              percentChange: 0.75,
+            ),
+            ChartDataPoint(
+              value: 126700.0,
+              timestamp: DateTime(2025, 12, 3, 11, 14),
+              percentChange: 0.72,
+            ),
+            ChartDataPoint(
+              value: 126660.0,
+              timestamp: DateTime(2025, 12, 3, 13, 14),
+              percentChange: 0.68,
+            ),
+            ChartDataPoint(
+              value: 126640.0,
+              timestamp: DateTime(2025, 12, 3, 15, 14),
+              percentChange: 0.67,
+            ),
+            ChartDataPoint(
+              value: 126660.0,
+              timestamp: DateTime(2025, 12, 3, 17, 14),
+              percentChange: 0.68,
+            ),
+            ChartDataPoint(
+              value: 126700.0,
+              timestamp: DateTime(2025, 12, 3, 19, 14),
+              percentChange: 0.72,
+            ),
+            ChartDataPoint(
+              value: 126740.0,
+              timestamp: DateTime(2025, 12, 3, 21, 14),
+              percentChange: 0.75,
+            ),
+            ChartDataPoint(
+              value: 126780.0,
+              timestamp: DateTime(2025, 12, 3, 23, 14),
+              percentChange: 0.78,
+            ),
+            ChartDataPoint(
+              value: 126820.0,
+              timestamp: DateTime(2025, 12, 4, 1, 14),
+              percentChange: 0.81,
+            ),
+            ChartDataPoint(
+              value: 126860.0,
+              timestamp: DateTime(2025, 12, 4, 3, 14),
+              percentChange: 0.84,
+            ),
+            ChartDataPoint(
+              value: 126900.0,
+              timestamp: DateTime(2025, 12, 4, 5, 14),
+              percentChange: 0.87,
+            ),
+            ChartDataPoint(
+              value: 126940.0,
+              timestamp: DateTime(2025, 12, 4, 7, 14),
+              percentChange: 0.91,
+            ),
+            ChartDataPoint(
+              value: 126980.0,
+              timestamp: DateTime(2025, 12, 4, 9, 14),
+              percentChange: 0.94,
+            ),
+            ChartDataPoint(
+              value: 127000.0,
+              timestamp: DateTime(2025, 12, 4, 11, 14),
+              percentChange: 0.95,
+            ),
+            ChartDataPoint(
+              value: 127020.0,
+              timestamp: DateTime(2025, 12, 4, 13, 14),
+              percentChange: 0.97,
+            ),
+            ChartDataPoint(
+              value: 127040.0,
+              timestamp: DateTime(2025, 12, 4, 15, 14),
+              percentChange: 0.99,
+            ),
+            ChartDataPoint(
+              value: 127060.0,
+              timestamp: DateTime(2025, 12, 4, 17, 14),
+              percentChange: 1.00,
+            ),
+            ChartDataPoint(
+              value: 127080.0,
+              timestamp: DateTime(2025, 12, 4, 19, 14),
+              percentChange: 1.02,
+            ),
+            ChartDataPoint(
+              value: 127100.0,
+              timestamp: DateTime(2025, 12, 4, 21, 14),
+              percentChange: 1.03,
+            ),
+            ChartDataPoint(
+              value: 127120.0,
+              timestamp: DateTime(2025, 12, 4, 23, 14),
+              percentChange: 1.05,
+            ),
+            ChartDataPoint(
+              value: 127140.0,
+              timestamp: DateTime(2025, 12, 5, 1, 14),
+              percentChange: 1.07,
+            ),
+            ChartDataPoint(
+              value: 127160.0,
+              timestamp: DateTime(2025, 12, 5, 3, 14),
+              percentChange: 1.08,
+            ),
+            ChartDataPoint(
+              value: 127180.0,
+              timestamp: DateTime(2025, 12, 5, 5, 14),
+              percentChange: 1.10,
+            ),
+            ChartDataPoint(
+              value: 127160.0,
+              timestamp: DateTime(2025, 12, 5, 7, 14),
+              percentChange: 1.08,
+            ),
+            ChartDataPoint(
+              value: 127140.0,
+              timestamp: DateTime(2025, 12, 5, 9, 14),
+              percentChange: 1.07,
+            ),
+            ChartDataPoint(
+              value: 127120.0,
+              timestamp: DateTime(2025, 12, 5, 11, 14),
+              percentChange: 1.05,
+            ),
+            ChartDataPoint(
+              value: 127140.0,
+              timestamp: DateTime(2025, 12, 5, 13, 14),
+              percentChange: 1.07,
+            ),
+            ChartDataPoint(
+              value: 127180.0,
+              timestamp: DateTime(2025, 12, 5, 15, 14),
+              percentChange: 1.10,
+            ),
+            ChartDataPoint(
+              value: 127220.0,
+              timestamp: DateTime(2025, 12, 5, 17, 14),
+              percentChange: 1.13,
+            ),
+            ChartDataPoint(
+              value: 127260.0,
+              timestamp: DateTime(2025, 12, 5, 19, 14),
+              percentChange: 1.16,
+            ),
+            ChartDataPoint(
+              value: 127300.0,
+              timestamp: DateTime(2025, 12, 5, 21, 14),
+              percentChange: 1.19,
+            ),
+            ChartDataPoint(
+              value: 127320.0,
+              timestamp: DateTime(2025, 12, 5, 23, 14),
+              percentChange: 1.21,
+            ),
+            ChartDataPoint(
+              value: 127340.0,
+              timestamp: DateTime(2025, 12, 6, 1, 14),
+              percentChange: 1.22,
+            ),
+            ChartDataPoint(
+              value: 127360.0,
+              timestamp: DateTime(2025, 12, 6, 3, 14),
+              percentChange: 1.24,
+            ),
+            ChartDataPoint(
+              value: 127380.0,
+              timestamp: DateTime(2025, 12, 6, 5, 14),
+              percentChange: 1.26,
+            ),
+            ChartDataPoint(
+              value: 127400.0,
+              timestamp: DateTime(2025, 12, 6, 7, 14),
+              percentChange: 1.27,
+            ),
+            ChartDataPoint(
+              value: 127420.0,
+              timestamp: DateTime(2025, 12, 6, 9, 14),
+              percentChange: 1.29,
+            ),
+            ChartDataPoint(
+              value: 127439.25,
+              timestamp: DateTime(2025, 12, 6, 11, 14),
+              percentChange: 1.30,
+            ),
+          ],
+          latestPrice: 127439.25,
+          unrealizedPL: 2439.25,
+          unrealizedPLPercent: 1.95,
+        ),
+        
+        '1M': ChartPeriodData(
+          dataPoints: [
+            ChartDataPoint(
+              value: 130000.0,
+              timestamp: DateTime(2025, 11, 7, 15, 14),
+              percentChange: 0.00,
+            ),
+            ChartDataPoint(
+              value: 129800.0,
+              timestamp: DateTime(2025, 11, 8, 15, 14),
+              percentChange: -0.15,
+            ),
+            ChartDataPoint(
+              value: 129600.0,
+              timestamp: DateTime(2025, 11, 9, 15, 14),
+              percentChange: -0.31,
+            ),
+            ChartDataPoint(
+              value: 129400.0,
+              timestamp: DateTime(2025, 11, 10, 15, 14),
+              percentChange: -0.46,
+            ),
+            ChartDataPoint(
+              value: 129200.0,
+              timestamp: DateTime(2025, 11, 11, 15, 14),
+              percentChange: -0.62,
+            ),
+            ChartDataPoint(
+              value: 128900.0,
+              timestamp: DateTime(2025, 11, 12, 15, 14),
+              percentChange: -0.85,
+            ),
+            ChartDataPoint(
+              value: 128600.0,
+              timestamp: DateTime(2025, 11, 13, 15, 14),
+              percentChange: -1.08,
+            ),
+            ChartDataPoint(
+              value: 128400.0,
+              timestamp: DateTime(2025, 11, 14, 15, 14),
+              percentChange: -1.23,
+            ),
+            ChartDataPoint(
+              value: 128200.0,
+              timestamp: DateTime(2025, 11, 15, 15, 14),
+              percentChange: -1.38,
+            ),
+            ChartDataPoint(
+              value: 128000.0,
+              timestamp: DateTime(2025, 11, 16, 15, 14),
+              percentChange: -1.54,
+            ),
+            ChartDataPoint(
+              value: 127800.0,
+              timestamp: DateTime(2025, 11, 17, 15, 14),
+              percentChange: -1.69,
+            ),
+            ChartDataPoint(
+              value: 127600.0,
+              timestamp: DateTime(2025, 11, 18, 15, 14),
+              percentChange: -1.85,
+            ),
+            ChartDataPoint(
+              value: 127400.0,
+              timestamp: DateTime(2025, 11, 19, 15, 14),
+              percentChange: -2.00,
+            ),
+            ChartDataPoint(
+              value: 127200.0,
+              timestamp: DateTime(2025, 11, 20, 15, 14),
+              percentChange: -2.15,
+            ),
+            ChartDataPoint(
+              value: 127000.0,
+              timestamp: DateTime(2025, 11, 21, 15, 14),
+              percentChange: -2.31,
+            ),
+            ChartDataPoint(
+              value: 126900.0,
+              timestamp: DateTime(2025, 11, 22, 15, 14),
+              percentChange: -2.38,
+            ),
+            ChartDataPoint(
+              value: 126800.0,
+              timestamp: DateTime(2025, 11, 23, 15, 14),
+              percentChange: -2.46,
+            ),
+            ChartDataPoint(
+              value: 126700.0,
+              timestamp: DateTime(2025, 11, 24, 15, 14),
+              percentChange: -2.54,
+            ),
+            ChartDataPoint(
+              value: 126600.0,
+              timestamp: DateTime(2025, 11, 25, 15, 14),
+              percentChange: -2.62,
+            ),
+            ChartDataPoint(
+              value: 126500.0,
+              timestamp: DateTime(2025, 11, 26, 15, 14),
+              percentChange: -2.69,
+            ),
+            ChartDataPoint(
+              value: 126400.0,
+              timestamp: DateTime(2025, 11, 27, 15, 14),
+              percentChange: -2.77,
+            ),
+            ChartDataPoint(
+              value: 125950.0,
+              timestamp: DateTime(2025, 11, 28, 15, 14),
+              percentChange: -3.12,
+            ),
+            ChartDataPoint(
+              value: 126420.0,
+              timestamp: DateTime(2025, 11, 29, 15, 14),
+              percentChange: -2.75,
+            ),
+            ChartDataPoint(
+              value: 126700.0,
+              timestamp: DateTime(2025, 11, 30, 15, 14),
+              percentChange: -2.54,
+            ),
+            ChartDataPoint(
+              value: 126700.0,
+              timestamp: DateTime(2025, 12, 1, 15, 14),
+              percentChange: -2.54,
+            ),
+            ChartDataPoint(
+              value: 126740.0,
+              timestamp: DateTime(2025, 12, 2, 15, 14),
+              percentChange: -2.51,
+            ),
+            ChartDataPoint(
+              value: 127080.0,
+              timestamp: DateTime(2025, 12, 3, 15, 14),
+              percentChange: -2.25,
+            ),
+            ChartDataPoint(
+              value: 127439.25,
+              timestamp: DateTime(2025, 12, 4, 15, 14),
+              percentChange: -1.97,
+            ),
+          ],
+          latestPrice: 127439.25,
+          unrealizedPL: -2560.75,
+          unrealizedPLPercent: -1.97,
+        ),
+        
+        '6M': ChartPeriodData(
+          dataPoints: [
+            ChartDataPoint(
+              value: 115000.0,
+              timestamp: DateTime(2025, 6, 8, 16, 14),
+              percentChange: 0.00,
+            ),
+            ChartDataPoint(
+              value: 115400.0,
+              timestamp: DateTime(2025, 6, 15, 16, 14),
+              percentChange: 0.35,
+            ),
+            ChartDataPoint(
+              value: 115800.0,
+              timestamp: DateTime(2025, 6, 22, 16, 14),
+              percentChange: 0.70,
+            ),
+            ChartDataPoint(
+              value: 116200.0,
+              timestamp: DateTime(2025, 6, 29, 16, 14),
+              percentChange: 1.04,
+            ),
+            ChartDataPoint(
+              value: 116600.0,
+              timestamp: DateTime(2025, 7, 6, 16, 14),
+              percentChange: 1.39,
+            ),
+            ChartDataPoint(
+              value: 116200.0,
+              timestamp: DateTime(2025, 7, 13, 16, 14),
+              percentChange: 1.04,
+            ),
+            ChartDataPoint(
+              value: 115800.0,
+              timestamp: DateTime(2025, 7, 20, 16, 14),
+              percentChange: 0.70,
+            ),
+            ChartDataPoint(
+              value: 115400.0,
+              timestamp: DateTime(2025, 7, 27, 16, 14),
+              percentChange: 0.35,
+            ),
+            ChartDataPoint(
+              value: 115000.0,
+              timestamp: DateTime(2025, 8, 3, 16, 14),
+              percentChange: 0.00,
+            ),
+            ChartDataPoint(
+              value: 114600.0,
+              timestamp: DateTime(2025, 8, 10, 16, 14),
+              percentChange: -0.35,
+            ),
+            ChartDataPoint(
+              value: 114200.0,
+              timestamp: DateTime(2025, 8, 17, 16, 14),
+              percentChange: -0.70,
+            ),
+            ChartDataPoint(
+              value: 114800.0,
+              timestamp: DateTime(2025, 8, 24, 16, 14),
+              percentChange: -0.17,
+            ),
+            ChartDataPoint(
+              value: 115400.0,
+              timestamp: DateTime(2025, 8, 31, 16, 14),
+              percentChange: 0.35,
+            ),
+            ChartDataPoint(
+              value: 116000.0,
+              timestamp: DateTime(2025, 9, 7, 16, 14),
+              percentChange: 0.87,
+            ),
+            ChartDataPoint(
+              value: 116600.0,
+              timestamp: DateTime(2025, 9, 14, 16, 14),
+              percentChange: 1.39,
+            ),
+            ChartDataPoint(
+              value: 117200.0,
+              timestamp: DateTime(2025, 9, 21, 16, 14),
+              percentChange: 1.91,
+            ),
+            ChartDataPoint(
+              value: 117800.0,
+              timestamp: DateTime(2025, 9, 28, 16, 14),
+              percentChange: 2.43,
+            ),
+            ChartDataPoint(
+              value: 118200.0,
+              timestamp: DateTime(2025, 10, 5, 16, 14),
+              percentChange: 2.78,
+            ),
+            ChartDataPoint(
+              value: 118600.0,
+              timestamp: DateTime(2025, 10, 12, 16, 14),
+              percentChange: 3.13,
+            ),
+            ChartDataPoint(
+              value: 119000.0,
+              timestamp: DateTime(2025, 10, 19, 16, 14),
+              percentChange: 3.48,
+            ),
+            ChartDataPoint(
+              value: 118400.0,
+              timestamp: DateTime(2025, 10, 26, 15, 14),
+              percentChange: 2.96,
+            ),
+            ChartDataPoint(
+              value: 117800.0,
+              timestamp: DateTime(2025, 11, 2, 15, 14),
+              percentChange: 2.43,
+            ),
+            ChartDataPoint(
+              value: 117200.0,
+              timestamp: DateTime(2025, 11, 9, 15, 14),
+              percentChange: 1.91,
+            ),
+            ChartDataPoint(
+              value: 116600.0,
+              timestamp: DateTime(2025, 11, 16, 15, 14),
+              percentChange: 1.39,
+            ),
+            ChartDataPoint(
+              value: 116200.0,
+              timestamp: DateTime(2025, 11, 23, 15, 14),
+              percentChange: 1.04,
+            ),
+            ChartDataPoint(
+              value: 115800.0,
+              timestamp: DateTime(2025, 11, 30, 15, 14),
+              percentChange: 0.70,
+            ),
+            ChartDataPoint(
+              value: 116200.0,
+              timestamp: DateTime(2025, 12, 7, 15, 14),
+              percentChange: 1.04,
+            ),
+            ChartDataPoint(
+              value: 116600.0,
+              timestamp: DateTime(2025, 12, 14, 15, 14),
+              percentChange: 1.39,
+            ),
+            ChartDataPoint(
+              value: 117000.0,
+              timestamp: DateTime(2025, 12, 21, 15, 14),
+              percentChange: 1.74,
+            ),
+            ChartDataPoint(
+              value: 117400.0,
+              timestamp: DateTime(2025, 12, 28, 15, 14),
+              percentChange: 2.09,
+            ),
+            ChartDataPoint(
+              value: 117800.0,
+              timestamp: DateTime(2026, 1, 4, 15, 14),
+              percentChange: 2.43,
+            ),
+            ChartDataPoint(
+              value: 118200.0,
+              timestamp: DateTime(2026, 1, 11, 15, 14),
+              percentChange: 2.78,
+            ),
+            ChartDataPoint(
+              value: 118600.0,
+              timestamp: DateTime(2026, 1, 18, 15, 14),
+              percentChange: 3.13,
+            ),
+            ChartDataPoint(
+              value: 119000.0,
+              timestamp: DateTime(2026, 1, 25, 15, 14),
+              percentChange: 3.48,
+            ),
+            ChartDataPoint(
+              value: 119400.0,
+              timestamp: DateTime(2026, 2, 1, 15, 14),
+              percentChange: 3.83,
+            ),
+            ChartDataPoint(
+              value: 119800.0,
+              timestamp: DateTime(2026, 2, 8, 15, 14),
+              percentChange: 4.17,
+            ),
+            ChartDataPoint(
+              value: 120200.0,
+              timestamp: DateTime(2026, 2, 15, 15, 14),
+              percentChange: 4.52,
+            ),
+            ChartDataPoint(
+              value: 120600.0,
+              timestamp: DateTime(2026, 2, 22, 15, 14),
+              percentChange: 4.87,
+            ),
+            ChartDataPoint(
+              value: 121000.0,
+              timestamp: DateTime(2026, 3, 1, 15, 14),
+              percentChange: 5.22,
+            ),
+            ChartDataPoint(
+              value: 121400.0,
+              timestamp: DateTime(2026, 3, 8, 15, 14),
+              percentChange: 5.57,
+            ),
+            ChartDataPoint(
+              value: 121800.0,
+              timestamp: DateTime(2026, 3, 15, 15, 14),
+              percentChange: 5.91,
+            ),
+            ChartDataPoint(
+              value: 120800.0,
+              timestamp: DateTime(2026, 3, 22, 15, 14),
+              percentChange: 5.04,
+            ),
+            ChartDataPoint(
+              value: 119900.0,
+              timestamp: DateTime(2026, 3, 29, 16, 14),
+              percentChange: 4.26,
+            ),
+            ChartDataPoint(
+              value: 118800.0,
+              timestamp: DateTime(2026, 4, 5, 16, 14),
+              percentChange: 3.30,
+            ),
+            ChartDataPoint(
+              value: 117900.0,
+              timestamp: DateTime(2026, 4, 12, 16, 14),
+              percentChange: 2.52,
+            ),
+            ChartDataPoint(
+              value: 117000.0,
+              timestamp: DateTime(2026, 4, 19, 16, 14),
+              percentChange: 1.74,
+            ),
+            ChartDataPoint(
+              value: 116200.0,
+              timestamp: DateTime(2026, 4, 26, 16, 14),
+              percentChange: 1.04,
+            ),
+            ChartDataPoint(
+              value: 115500.0,
+              timestamp: DateTime(2026, 5, 3, 16, 14),
+              percentChange: 0.43,
+            ),
+            ChartDataPoint(
+              value: 115900.0,
+              timestamp: DateTime(2026, 5, 10, 16, 14),
+              percentChange: 0.78,
+            ),
+            ChartDataPoint(
+              value: 116400.0,
+              timestamp: DateTime(2026, 5, 17, 16, 14),
+              percentChange: 1.22,
+            ),
+            ChartDataPoint(
+              value: 116900.0,
+              timestamp: DateTime(2026, 5, 24, 16, 14),
+              percentChange: 1.65,
+            ),
+            ChartDataPoint(
+              value: 117600.0,
+              timestamp: DateTime(2026, 5, 31, 16, 14),
+              percentChange: 2.26,
+            ),
+            ChartDataPoint(
+              value: 118300.0,
+              timestamp: DateTime(2026, 6, 7, 16, 14),
+              percentChange: 2.87,
+            ),
+            ChartDataPoint(
+              value: 119000.0,
+              timestamp: DateTime(2026, 6, 14, 16, 14),
+              percentChange: 3.48,
+            ),
+            ChartDataPoint(
+              value: 119700.0,
+              timestamp: DateTime(2026, 6, 21, 16, 14),
+              percentChange: 4.09,
+            ),
+            ChartDataPoint(
+              value: 120400.0,
+              timestamp: DateTime(2026, 6, 28, 16, 14),
+              percentChange: 4.70,
+            ),
+            ChartDataPoint(
+              value: 121100.0,
+              timestamp: DateTime(2026, 7, 5, 16, 14),
+              percentChange: 5.30,
+            ),
+            ChartDataPoint(
+              value: 121800.0,
+              timestamp: DateTime(2026, 7, 12, 16, 14),
+              percentChange: 5.91,
+            ),
+            ChartDataPoint(
+              value: 122400.0,
+              timestamp: DateTime(2026, 7, 19, 16, 14),
+              percentChange: 6.43,
+            ),
+            ChartDataPoint(
+              value: 123000.0,
+              timestamp: DateTime(2026, 7, 26, 16, 14),
+              percentChange: 6.96,
+            ),
+            ChartDataPoint(
+              value: 123600.0,
+              timestamp: DateTime(2026, 8, 2, 16, 14),
+              percentChange: 7.48,
+            ),
+            ChartDataPoint(
+              value: 122200.0,
+              timestamp: DateTime(2026, 8, 9, 16, 14),
+              percentChange: 6.26,
+            ),
+            ChartDataPoint(
+              value: 120800.0,
+              timestamp: DateTime(2026, 8, 16, 16, 14),
+              percentChange: 5.04,
+            ),
+            ChartDataPoint(
+              value: 119600.0,
+              timestamp: DateTime(2026, 8, 23, 16, 14),
+              percentChange: 4.00,
+            ),
+            ChartDataPoint(
+              value: 118800.0,
+              timestamp: DateTime(2026, 8, 30, 16, 14),
+              percentChange: 3.30,
+            ),
+            ChartDataPoint(
+              value: 119200.0,
+              timestamp: DateTime(2026, 9, 6, 16, 14),
+              percentChange: 3.65,
+            ),
+            ChartDataPoint(
+              value: 120000.0,
+              timestamp: DateTime(2026, 9, 13, 16, 14),
+              percentChange: 4.35,
+            ),
+            ChartDataPoint(
+              value: 120800.0,
+              timestamp: DateTime(2026, 9, 20, 16, 14),
+              percentChange: 5.04,
+            ),
+            ChartDataPoint(
+              value: 121600.0,
+              timestamp: DateTime(2026, 9, 27, 16, 14),
+              percentChange: 5.74,
+            ),
+            ChartDataPoint(
+              value: 122400.0,
+              timestamp: DateTime(2026, 10, 4, 16, 14),
+              percentChange: 6.43,
+            ),
+            ChartDataPoint(
+              value: 123000.0,
+              timestamp: DateTime(2026, 10, 11, 16, 14),
+              percentChange: 6.96,
+            ),
+            ChartDataPoint(
+              value: 123600.0,
+              timestamp: DateTime(2026, 10, 18, 16, 14),
+              percentChange: 7.48,
+            ),
+            ChartDataPoint(
+              value: 124200.0,
+              timestamp: DateTime(2026, 10, 25, 15, 14),
+              percentChange: 8.00,
+            ),
+            ChartDataPoint(
+              value: 129000.0,
+              timestamp: DateTime(2026, 11, 1, 15, 14),
+              percentChange: 12.17,
+            ),
+            ChartDataPoint(
+              value: 127650.0,
+              timestamp: DateTime(2026, 11, 8, 15, 14),
+              percentChange: 11.00,
+            ),
+            ChartDataPoint(
+              value: 126700.0,
+              timestamp: DateTime(2026, 11, 15, 15, 14),
+              percentChange: 10.17,
+            ),
+            ChartDataPoint(
+              value: 127439.25,
+              timestamp: DateTime(2026, 11, 22, 15, 14),
+              percentChange: 10.82,
+            ),
+          ],
+          latestPrice: 127439.25,
+          unrealizedPL: 17439.25,
+          unrealizedPLPercent: 15.85,
+        ),
+        
+        'YTD': ChartPeriodData(
+          dataPoints: [
+            ChartDataPoint(
+              value: 105000.0,
+              timestamp: DateTime(2025, 1, 4, 15, 14),
+              percentChange: 0.00,
+            ),
+            ChartDataPoint(
+              value: 105400.0,
+              timestamp: DateTime(2025, 1, 7, 15, 14),
+              percentChange: 0.38,
+            ),
+            ChartDataPoint(
+              value: 105800.0,
+              timestamp: DateTime(2025, 1, 10, 15, 14),
+              percentChange: 0.76,
+            ),
+            ChartDataPoint(
+              value: 106200.0,
+              timestamp: DateTime(2025, 1, 13, 15, 14),
+              percentChange: 1.14,
+            ),
+            ChartDataPoint(
+              value: 106600.0,
+              timestamp: DateTime(2025, 1, 16, 15, 14),
+              percentChange: 1.52,
+            ),
+            ChartDataPoint(
+              value: 107000.0,
+              timestamp: DateTime(2025, 1, 19, 15, 14),
+              percentChange: 1.90,
+            ),
+            ChartDataPoint(
+              value: 107400.0,
+              timestamp: DateTime(2025, 1, 22, 15, 14),
+              percentChange: 2.29,
+            ),
+            ChartDataPoint(
+              value: 107800.0,
+              timestamp: DateTime(2025, 1, 25, 15, 14),
+              percentChange: 2.67,
+            ),
+            ChartDataPoint(
+              value: 108200.0,
+              timestamp: DateTime(2025, 1, 28, 15, 14),
+              percentChange: 3.05,
+            ),
+            ChartDataPoint(
+              value: 108600.0,
+              timestamp: DateTime(2025, 1, 31, 15, 14),
+              percentChange: 3.43,
+            ),
+            ChartDataPoint(
+              value: 109000.0,
+              timestamp: DateTime(2025, 2, 3, 15, 14),
+              percentChange: 3.81,
+            ),
+            ChartDataPoint(
+              value: 109400.0,
+              timestamp: DateTime(2025, 2, 6, 15, 14),
+              percentChange: 4.19,
+            ),
+            ChartDataPoint(
+              value: 109800.0,
+              timestamp: DateTime(2025, 2, 9, 15, 14),
+              percentChange: 4.57,
+            ),
+            ChartDataPoint(
+              value: 110200.0,
+              timestamp: DateTime(2025, 2, 12, 15, 14),
+              percentChange: 4.95,
+            ),
+            ChartDataPoint(
+              value: 110600.0,
+              timestamp: DateTime(2025, 2, 15, 15, 14),
+              percentChange: 5.33,
+            ),
+            ChartDataPoint(
+              value: 111000.0,
+              timestamp: DateTime(2025, 2, 18, 15, 14),
+              percentChange: 5.71,
+            ),
+            ChartDataPoint(
+              value: 111400.0,
+              timestamp: DateTime(2025, 2, 21, 15, 14),
+              percentChange: 6.10,
+            ),
+            ChartDataPoint(
+              value: 111800.0,
+              timestamp: DateTime(2025, 2, 24, 15, 14),
+              percentChange: 6.48,
+            ),
+            ChartDataPoint(
+              value: 112200.0,
+              timestamp: DateTime(2025, 2, 27, 15, 14),
+              percentChange: 6.86,
+            ),
+            ChartDataPoint(
+              value: 112600.0,
+              timestamp: DateTime(2025, 3, 2, 15, 14),
+              percentChange: 7.24,
+            ),
+            ChartDataPoint(
+              value: 112300.0,
+              timestamp: DateTime(2025, 3, 5, 15, 14),
+              percentChange: 6.95,
+            ),
+            ChartDataPoint(
+              value: 112000.0,
+              timestamp: DateTime(2025, 3, 8, 15, 14),
+              percentChange: 6.67,
+            ),
+            ChartDataPoint(
+              value: 111700.0,
+              timestamp: DateTime(2025, 3, 11, 15, 14),
+              percentChange: 6.38,
+            ),
+            ChartDataPoint(
+              value: 111400.0,
+              timestamp: DateTime(2025, 3, 14, 15, 14),
+              percentChange: 6.10,
+            ),
+            ChartDataPoint(
+              value: 111100.0,
+              timestamp: DateTime(2025, 3, 17, 15, 14),
+              percentChange: 5.81,
+            ),
+            ChartDataPoint(
+              value: 110800.0,
+              timestamp: DateTime(2025, 3, 20, 15, 14),
+              percentChange: 5.52,
+            ),
+            ChartDataPoint(
+              value: 110500.0,
+              timestamp: DateTime(2025, 3, 23, 15, 14),
+              percentChange: 5.24,
+            ),
+            ChartDataPoint(
+              value: 110200.0,
+              timestamp: DateTime(2025, 3, 26, 15, 14),
+              percentChange: 4.95,
+            ),
+            ChartDataPoint(
+              value: 109900.0,
+              timestamp: DateTime(2025, 3, 29, 15, 14),
+              percentChange: 4.67,
+            ),
+            ChartDataPoint(
+              value: 109600.0,
+              timestamp: DateTime(2025, 4, 1, 16, 14),
+              percentChange: 4.38,
+            ),
+            ChartDataPoint(
+              value: 110000.0,
+              timestamp: DateTime(2025, 4, 4, 16, 14),
+              percentChange: 4.76,
+            ),
+            ChartDataPoint(
+              value: 110400.0,
+              timestamp: DateTime(2025, 4, 7, 16, 14),
+              percentChange: 5.14,
+            ),
+            ChartDataPoint(
+              value: 110800.0,
+              timestamp: DateTime(2025, 4, 10, 16, 14),
+              percentChange: 5.52,
+            ),
+            ChartDataPoint(
+              value: 111200.0,
+              timestamp: DateTime(2025, 4, 13, 16, 14),
+              percentChange: 5.90,
+            ),
+            ChartDataPoint(
+              value: 111600.0,
+              timestamp: DateTime(2025, 4, 16, 16, 14),
+              percentChange: 6.29,
+            ),
+            ChartDataPoint(
+              value: 112000.0,
+              timestamp: DateTime(2025, 4, 19, 16, 14),
+              percentChange: 6.67,
+            ),
+            ChartDataPoint(
+              value: 112400.0,
+              timestamp: DateTime(2025, 4, 22, 16, 14),
+              percentChange: 7.05,
+            ),
+            ChartDataPoint(
+              value: 112800.0,
+              timestamp: DateTime(2025, 4, 25, 16, 14),
+              percentChange: 7.43,
+            ),
+            ChartDataPoint(
+              value: 113200.0,
+              timestamp: DateTime(2025, 4, 28, 16, 14),
+              percentChange: 7.81,
+            ),
+            ChartDataPoint(
+              value: 113600.0,
+              timestamp: DateTime(2025, 5, 1, 16, 14),
+              percentChange: 8.19,
+            ),
+            ChartDataPoint(
+              value: 114000.0,
+              timestamp: DateTime(2025, 5, 4, 16, 14),
+              percentChange: 8.57,
+            ),
+            ChartDataPoint(
+              value: 114400.0,
+              timestamp: DateTime(2025, 5, 7, 16, 14),
+              percentChange: 8.95,
+            ),
+            ChartDataPoint(
+              value: 114800.0,
+              timestamp: DateTime(2025, 5, 10, 16, 14),
+              percentChange: 9.33,
+            ),
+            ChartDataPoint(
+              value: 115200.0,
+              timestamp: DateTime(2025, 5, 13, 16, 14),
+              percentChange: 9.71,
+            ),
+            ChartDataPoint(
+              value: 115600.0,
+              timestamp: DateTime(2025, 5, 16, 16, 14),
+              percentChange: 10.10,
+            ),
+            ChartDataPoint(
+              value: 116000.0,
+              timestamp: DateTime(2025, 5, 19, 16, 14),
+              percentChange: 10.48,
+            ),
+            ChartDataPoint(
+              value: 116400.0,
+              timestamp: DateTime(2025, 5, 22, 16, 14),
+              percentChange: 10.86,
+            ),
+            ChartDataPoint(
+              value: 116800.0,
+              timestamp: DateTime(2025, 5, 25, 16, 14),
+              percentChange: 11.24,
+            ),
+            ChartDataPoint(
+              value: 117200.0,
+              timestamp: DateTime(2025, 5, 28, 16, 14),
+              percentChange: 11.62,
+            ),
+            ChartDataPoint(
+              value: 117600.0,
+              timestamp: DateTime(2025, 5, 31, 16, 14),
+              percentChange: 12.00,
+            ),
+            ChartDataPoint(
+              value: 116800.0,
+              timestamp: DateTime(2025, 6, 3, 16, 14),
+              percentChange: 11.24,
+            ),
+            ChartDataPoint(
+              value: 116000.0,
+              timestamp: DateTime(2025, 6, 6, 16, 14),
+              percentChange: 10.48,
+            ),
+            ChartDataPoint(
+              value: 115200.0,
+              timestamp: DateTime(2025, 6, 9, 16, 14),
+              percentChange: 9.71,
+            ),
+            ChartDataPoint(
+              value: 114600.0,
+              timestamp: DateTime(2025, 6, 12, 16, 14),
+              percentChange: 9.14,
+            ),
+            ChartDataPoint(
+              value: 114000.0,
+              timestamp: DateTime(2025, 6, 15, 16, 14),
+              percentChange: 8.57,
+            ),
+            ChartDataPoint(
+              value: 113600.0,
+              timestamp: DateTime(2025, 6, 18, 16, 14),
+              percentChange: 8.19,
+            ),
+            ChartDataPoint(
+              value: 113200.0,
+              timestamp: DateTime(2025, 6, 21, 16, 14),
+              percentChange: 7.81,
+            ),
+            ChartDataPoint(
+              value: 113800.0,
+              timestamp: DateTime(2025, 6, 24, 16, 14),
+              percentChange: 8.38,
+            ),
+            ChartDataPoint(
+              value: 114400.0,
+              timestamp: DateTime(2025, 6, 27, 16, 14),
+              percentChange: 8.95,
+            ),
+            ChartDataPoint(
+              value: 115000.0,
+              timestamp: DateTime(2025, 6, 30, 16, 14),
+              percentChange: 9.52,
+            ),
+            ChartDataPoint(
+              value: 115600.0,
+              timestamp: DateTime(2025, 7, 3, 16, 14),
+              percentChange: 10.10,
+            ),
+            ChartDataPoint(
+              value: 116200.0,
+              timestamp: DateTime(2025, 7, 6, 16, 14),
+              percentChange: 10.67,
+            ),
+            ChartDataPoint(
+              value: 116800.0,
+              timestamp: DateTime(2025, 7, 9, 16, 14),
+              percentChange: 11.24,
+            ),
+            ChartDataPoint(
+              value: 117400.0,
+              timestamp: DateTime(2025, 7, 12, 16, 14),
+              percentChange: 11.81,
+            ),
+            ChartDataPoint(
+              value: 118000.0,
+              timestamp: DateTime(2025, 7, 15, 16, 14),
+              percentChange: 12.38,
+            ),
+            ChartDataPoint(
+              value: 118600.0,
+              timestamp: DateTime(2025, 7, 18, 16, 14),
+              percentChange: 12.95,
+            ),
+            ChartDataPoint(
+              value: 119200.0,
+              timestamp: DateTime(2025, 7, 21, 16, 14),
+              percentChange: 13.52,
+            ),
+            ChartDataPoint(
+              value: 119800.0,
+              timestamp: DateTime(2025, 7, 24, 16, 14),
+              percentChange: 14.10,
+            ),
+            ChartDataPoint(
+              value: 120400.0,
+              timestamp: DateTime(2025, 7, 27, 16, 14),
+              percentChange: 14.67,
+            ),
+            ChartDataPoint(
+              value: 121000.0,
+              timestamp: DateTime(2025, 7, 30, 16, 14),
+              percentChange: 15.24,
+            ),
+            ChartDataPoint(
+              value: 121600.0,
+              timestamp: DateTime(2025, 8, 2, 16, 14),
+              percentChange: 15.81,
+            ),
+            ChartDataPoint(
+              value: 122200.0,
+              timestamp: DateTime(2025, 8, 5, 16, 14),
+              percentChange: 16.38,
+            ),
+            ChartDataPoint(
+              value: 122800.0,
+              timestamp: DateTime(2025, 8, 8, 16, 14),
+              percentChange: 16.95,
+            ),
+            ChartDataPoint(
+              value: 123400.0,
+              timestamp: DateTime(2025, 8, 11, 16, 14),
+              percentChange: 17.52,
+            ),
+            ChartDataPoint(
+              value: 123800.0,
+              timestamp: DateTime(2025, 8, 14, 16, 14),
+              percentChange: 17.90,
+            ),
+            ChartDataPoint(
+              value: 124200.0,
+              timestamp: DateTime(2025, 8, 17, 16, 14),
+              percentChange: 18.29,
+            ),
+            ChartDataPoint(
+              value: 124600.0,
+              timestamp: DateTime(2025, 8, 20, 16, 14),
+              percentChange: 18.67,
+            ),
+            ChartDataPoint(
+              value: 125000.0,
+              timestamp: DateTime(2025, 8, 23, 16, 14),
+              percentChange: 19.05,
+            ),
+            ChartDataPoint(
+              value: 125400.0,
+              timestamp: DateTime(2025, 8, 26, 16, 14),
+              percentChange: 19.43,
+            ),
+            ChartDataPoint(
+              value: 125800.0,
+              timestamp: DateTime(2025, 8, 29, 16, 14),
+              percentChange: 19.81,
+            ),
+            ChartDataPoint(
+              value: 126500.0,
+              timestamp: DateTime(2025, 9, 1, 16, 14),
+              percentChange: 20.48,
+            ),
+            ChartDataPoint(
+              value: 127000.0,
+              timestamp: DateTime(2025, 9, 4, 16, 14),
+              percentChange: 20.95,
+            ),
+            ChartDataPoint(
+              value: 126700.0,
+              timestamp: DateTime(2025, 9, 7, 16, 14),
+              percentChange: 20.67,
+            ),
+            ChartDataPoint(
+              value: 127439.25,
+              timestamp: DateTime(2025, 9, 10, 16, 14),
+              percentChange: 21.37,
+            ),
+          ],
+          latestPrice: 127439.25,
+          unrealizedPL: 22439.25,
+          unrealizedPLPercent: 21.37,
+        ),
+        
+        '1Y': ChartPeriodData(
+          dataPoints: [
+            ChartDataPoint(
+              value: 98000.0,
+              timestamp: DateTime(2024, 12, 5, 15, 14),
+              percentChange: 0.00,
+            ),
+            ChartDataPoint(
+              value: 99000.0,
+              timestamp: DateTime(2024, 12, 9, 15, 14),
+              percentChange: 1.02,
+            ),
+            ChartDataPoint(
+              value: 100000.0,
+              timestamp: DateTime(2024, 12, 13, 15, 14),
+              percentChange: 2.04,
+            ),
+            ChartDataPoint(
+              value: 105000.0,
+              timestamp: DateTime(2024, 12, 17, 15, 14),
+              percentChange: 7.14,
+            ),
+            ChartDataPoint(
+              value: 105400.0,
+              timestamp: DateTime(2024, 12, 21, 15, 14),
+              percentChange: 7.55,
+            ),
+            ChartDataPoint(
+              value: 105800.0,
+              timestamp: DateTime(2024, 12, 25, 15, 14),
+              percentChange: 7.96,
+            ),
+            ChartDataPoint(
+              value: 106200.0,
+              timestamp: DateTime(2024, 12, 29, 15, 14),
+              percentChange: 8.37,
+            ),
+            ChartDataPoint(
+              value: 106600.0,
+              timestamp: DateTime(2025, 1, 2, 15, 14),
+              percentChange: 8.78,
+            ),
+            ChartDataPoint(
+              value: 107000.0,
+              timestamp: DateTime(2025, 1, 6, 15, 14),
+              percentChange: 9.18,
+            ),
+            ChartDataPoint(
+              value: 107400.0,
+              timestamp: DateTime(2025, 1, 10, 15, 14),
+              percentChange: 9.59,
+            ),
+            ChartDataPoint(
+              value: 107800.0,
+              timestamp: DateTime(2025, 1, 14, 15, 14),
+              percentChange: 10.00,
+            ),
+            ChartDataPoint(
+              value: 108200.0,
+              timestamp: DateTime(2025, 1, 18, 15, 14),
+              percentChange: 10.41,
+            ),
+            ChartDataPoint(
+              value: 108600.0,
+              timestamp: DateTime(2025, 1, 22, 15, 14),
+              percentChange: 10.82,
+            ),
+            ChartDataPoint(
+              value: 109000.0,
+              timestamp: DateTime(2025, 1, 26, 15, 14),
+              percentChange: 11.22,
+            ),
+            ChartDataPoint(
+              value: 109400.0,
+              timestamp: DateTime(2025, 1, 30, 15, 14),
+              percentChange: 11.63,
+            ),
+            ChartDataPoint(
+              value: 109800.0,
+              timestamp: DateTime(2025, 2, 3, 15, 14),
+              percentChange: 12.04,
+            ),
+            ChartDataPoint(
+              value: 110200.0,
+              timestamp: DateTime(2025, 2, 7, 15, 14),
+              percentChange: 12.45,
+            ),
+            ChartDataPoint(
+              value: 110600.0,
+              timestamp: DateTime(2025, 2, 11, 15, 14),
+              percentChange: 12.86,
+            ),
+            ChartDataPoint(
+              value: 111000.0,
+              timestamp: DateTime(2025, 2, 15, 15, 14),
+              percentChange: 13.27,
+            ),
+            ChartDataPoint(
+              value: 111400.0,
+              timestamp: DateTime(2025, 2, 19, 15, 14),
+              percentChange: 13.67,
+            ),
+            ChartDataPoint(
+              value: 111800.0,
+              timestamp: DateTime(2025, 2, 23, 15, 14),
+              percentChange: 14.08,
+            ),
+            ChartDataPoint(
+              value: 112200.0,
+              timestamp: DateTime(2025, 2, 27, 15, 14),
+              percentChange: 14.49,
+            ),
+            ChartDataPoint(
+              value: 112600.0,
+              timestamp: DateTime(2025, 3, 3, 15, 14),
+              percentChange: 14.90,
+            ),
+            ChartDataPoint(
+              value: 112300.0,
+              timestamp: DateTime(2025, 3, 7, 15, 14),
+              percentChange: 14.59,
+            ),
+            ChartDataPoint(
+              value: 112000.0,
+              timestamp: DateTime(2025, 3, 11, 15, 14),
+              percentChange: 14.29,
+            ),
+            ChartDataPoint(
+              value: 111700.0,
+              timestamp: DateTime(2025, 3, 15, 15, 14),
+              percentChange: 13.98,
+            ),
+            ChartDataPoint(
+              value: 111400.0,
+              timestamp: DateTime(2025, 3, 19, 15, 14),
+              percentChange: 13.67,
+            ),
+            ChartDataPoint(
+              value: 111100.0,
+              timestamp: DateTime(2025, 3, 23, 15, 14),
+              percentChange: 13.37,
+            ),
+            ChartDataPoint(
+              value: 110800.0,
+              timestamp: DateTime(2025, 3, 27, 15, 14),
+              percentChange: 13.06,
+            ),
+            ChartDataPoint(
+              value: 110500.0,
+              timestamp: DateTime(2025, 3, 31, 16, 14),
+              percentChange: 12.76,
+            ),
+            ChartDataPoint(
+              value: 110200.0,
+              timestamp: DateTime(2025, 4, 4, 16, 14),
+              percentChange: 12.45,
+            ),
+            ChartDataPoint(
+              value: 109900.0,
+              timestamp: DateTime(2025, 4, 8, 16, 14),
+              percentChange: 12.14,
+            ),
+            ChartDataPoint(
+              value: 109600.0,
+              timestamp: DateTime(2025, 4, 12, 16, 14),
+              percentChange: 11.84,
+            ),
+            ChartDataPoint(
+              value: 110000.0,
+              timestamp: DateTime(2025, 4, 16, 16, 14),
+              percentChange: 12.24,
+            ),
+            ChartDataPoint(
+              value: 110400.0,
+              timestamp: DateTime(2025, 4, 20, 16, 14),
+              percentChange: 12.65,
+            ),
+            ChartDataPoint(
+              value: 110800.0,
+              timestamp: DateTime(2025, 4, 24, 16, 14),
+              percentChange: 13.06,
+            ),
+            ChartDataPoint(
+              value: 111200.0,
+              timestamp: DateTime(2025, 4, 28, 16, 14),
+              percentChange: 13.47,
+            ),
+            ChartDataPoint(
+              value: 111600.0,
+              timestamp: DateTime(2025, 5, 2, 16, 14),
+              percentChange: 13.88,
+            ),
+            ChartDataPoint(
+              value: 112000.0,
+              timestamp: DateTime(2025, 5, 6, 16, 14),
+              percentChange: 14.29,
+            ),
+            ChartDataPoint(
+              value: 112400.0,
+              timestamp: DateTime(2025, 5, 10, 16, 14),
+              percentChange: 14.69,
+            ),
+            ChartDataPoint(
+              value: 112800.0,
+              timestamp: DateTime(2025, 5, 14, 16, 14),
+              percentChange: 15.10,
+            ),
+            ChartDataPoint(
+              value: 113200.0,
+              timestamp: DateTime(2025, 5, 18, 16, 14),
+              percentChange: 15.51,
+            ),
+            ChartDataPoint(
+              value: 113600.0,
+              timestamp: DateTime(2025, 5, 22, 16, 14),
+              percentChange: 15.92,
+            ),
+            ChartDataPoint(
+              value: 114000.0,
+              timestamp: DateTime(2025, 5, 26, 16, 14),
+              percentChange: 16.33,
+            ),
+            ChartDataPoint(
+              value: 114400.0,
+              timestamp: DateTime(2025, 5, 30, 16, 14),
+              percentChange: 16.73,
+            ),
+            ChartDataPoint(
+              value: 114800.0,
+              timestamp: DateTime(2025, 6, 3, 16, 14),
+              percentChange: 17.14,
+            ),
+            ChartDataPoint(
+              value: 115200.0,
+              timestamp: DateTime(2025, 6, 7, 16, 14),
+              percentChange: 17.55,
+            ),
+            ChartDataPoint(
+              value: 115600.0,
+              timestamp: DateTime(2025, 6, 11, 16, 14),
+              percentChange: 17.96,
+            ),
+            ChartDataPoint(
+              value: 116000.0,
+              timestamp: DateTime(2025, 6, 15, 16, 14),
+              percentChange: 18.37,
+            ),
+            ChartDataPoint(
+              value: 116400.0,
+              timestamp: DateTime(2025, 6, 19, 16, 14),
+              percentChange: 18.78,
+            ),
+            ChartDataPoint(
+              value: 116800.0,
+              timestamp: DateTime(2025, 6, 23, 16, 14),
+              percentChange: 19.18,
+            ),
+            ChartDataPoint(
+              value: 117200.0,
+              timestamp: DateTime(2025, 6, 27, 16, 14),
+              percentChange: 19.59,
+            ),
+            ChartDataPoint(
+              value: 117600.0,
+              timestamp: DateTime(2025, 7, 1, 16, 14),
+              percentChange: 20.00,
+            ),
+            ChartDataPoint(
+              value: 116800.0,
+              timestamp: DateTime(2025, 7, 5, 16, 14),
+              percentChange: 19.18,
+            ),
+            ChartDataPoint(
+              value: 116000.0,
+              timestamp: DateTime(2025, 7, 9, 16, 14),
+              percentChange: 18.37,
+            ),
+            ChartDataPoint(
+              value: 115200.0,
+              timestamp: DateTime(2025, 7, 13, 16, 14),
+              percentChange: 17.55,
+            ),
+            ChartDataPoint(
+              value: 114600.0,
+              timestamp: DateTime(2025, 7, 17, 16, 14),
+              percentChange: 16.94,
+            ),
+            ChartDataPoint(
+              value: 114000.0,
+              timestamp: DateTime(2025, 7, 21, 16, 14),
+              percentChange: 16.33,
+            ),
+            ChartDataPoint(
+              value: 113600.0,
+              timestamp: DateTime(2025, 7, 25, 16, 14),
+              percentChange: 15.92,
+            ),
+            ChartDataPoint(
+              value: 113200.0,
+              timestamp: DateTime(2025, 7, 29, 16, 14),
+              percentChange: 15.51,
+            ),
+            ChartDataPoint(
+              value: 113800.0,
+              timestamp: DateTime(2025, 8, 2, 16, 14),
+              percentChange: 16.12,
+            ),
+            ChartDataPoint(
+              value: 114400.0,
+              timestamp: DateTime(2025, 8, 6, 16, 14),
+              percentChange: 16.73,
+            ),
+            ChartDataPoint(
+              value: 115000.0,
+              timestamp: DateTime(2025, 8, 10, 16, 14),
+              percentChange: 17.35,
+            ),
+            ChartDataPoint(
+              value: 115600.0,
+              timestamp: DateTime(2025, 8, 14, 16, 14),
+              percentChange: 17.96,
+            ),
+            ChartDataPoint(
+              value: 116200.0,
+              timestamp: DateTime(2025, 8, 18, 16, 14),
+              percentChange: 18.57,
+            ),
+            ChartDataPoint(
+              value: 116800.0,
+              timestamp: DateTime(2025, 8, 22, 16, 14),
+              percentChange: 19.18,
+            ),
+            ChartDataPoint(
+              value: 117400.0,
+              timestamp: DateTime(2025, 8, 26, 16, 14),
+              percentChange: 19.80,
+            ),
+            ChartDataPoint(
+              value: 118000.0,
+              timestamp: DateTime(2025, 8, 30, 16, 14),
+              percentChange: 20.41,
+            ),
+            ChartDataPoint(
+              value: 118600.0,
+              timestamp: DateTime(2025, 9, 3, 16, 14),
+              percentChange: 21.02,
+            ),
+            ChartDataPoint(
+              value: 119200.0,
+              timestamp: DateTime(2025, 9, 7, 16, 14),
+              percentChange: 21.63,
+            ),
+            ChartDataPoint(
+              value: 119800.0,
+              timestamp: DateTime(2025, 9, 11, 16, 14),
+              percentChange: 22.24,
+            ),
+            ChartDataPoint(
+              value: 120400.0,
+              timestamp: DateTime(2025, 9, 15, 16, 14),
+              percentChange: 22.86,
+            ),
+            ChartDataPoint(
+              value: 121000.0,
+              timestamp: DateTime(2025, 9, 19, 16, 14),
+              percentChange: 23.47,
+            ),
+            ChartDataPoint(
+              value: 121600.0,
+              timestamp: DateTime(2025, 9, 23, 16, 14),
+              percentChange: 24.08,
+            ),
+            ChartDataPoint(
+              value: 122200.0,
+              timestamp: DateTime(2025, 9, 27, 16, 14),
+              percentChange: 24.69,
+            ),
+            ChartDataPoint(
+              value: 122800.0,
+              timestamp: DateTime(2025, 10, 1, 16, 14),
+              percentChange: 25.31,
+            ),
+            ChartDataPoint(
+              value: 123400.0,
+              timestamp: DateTime(2025, 10, 5, 16, 14),
+              percentChange: 25.92,
+            ),
+            ChartDataPoint(
+              value: 123800.0,
+              timestamp: DateTime(2025, 10, 9, 16, 14),
+              percentChange: 26.33,
+            ),
+            ChartDataPoint(
+              value: 124200.0,
+              timestamp: DateTime(2025, 10, 13, 16, 14),
+              percentChange: 26.73,
+            ),
+            ChartDataPoint(
+              value: 124600.0,
+              timestamp: DateTime(2025, 10, 17, 16, 14),
+              percentChange: 27.14,
+            ),
+            ChartDataPoint(
+              value: 125000.0,
+              timestamp: DateTime(2025, 10, 21, 16, 14),
+              percentChange: 27.55,
+            ),
+            ChartDataPoint(
+              value: 125400.0,
+              timestamp: DateTime(2025, 10, 25, 16, 14),
+              percentChange: 27.96,
+            ),
+            ChartDataPoint(
+              value: 125800.0,
+              timestamp: DateTime(2025, 10, 29, 15, 14),
+              percentChange: 28.37,
+            ),
+            ChartDataPoint(
+              value: 126500.0,
+              timestamp: DateTime(2025, 11, 2, 15, 14),
+              percentChange: 29.08,
+            ),
+            ChartDataPoint(
+              value: 127000.0,
+              timestamp: DateTime(2025, 11, 6, 15, 14),
+              percentChange: 29.59,
+            ),
+            ChartDataPoint(
+              value: 126700.0,
+              timestamp: DateTime(2025, 11, 10, 15, 14),
+              percentChange: 29.29,
+            ),
+            ChartDataPoint(
+              value: 127439.25,
+              timestamp: DateTime(2025, 11, 14, 15, 14),
+              percentChange: 30.04,
+            ),
+          ],
+          latestPrice: 127439.25,
+          unrealizedPL: 27439.25,
+          unrealizedPLPercent: 27.44,
+        ),
+        
+        '5Y': ChartPeriodData(
+          dataPoints: [
+            ChartDataPoint(
+              value: 50000.0,
+              timestamp: DateTime(2020, 12, 6, 15, 14),
+              percentChange: 0.00,
+            ),
+            ChartDataPoint(
+              value: 52000.0,
+              timestamp: DateTime(2021, 1, 5, 15, 14),
+              percentChange: 4.00,
+            ),
+            ChartDataPoint(
+              value: 54000.0,
+              timestamp: DateTime(2021, 2, 4, 15, 14),
+              percentChange: 8.00,
+            ),
+            ChartDataPoint(
+              value: 56000.0,
+              timestamp: DateTime(2021, 3, 6, 15, 14),
+              percentChange: 12.00,
+            ),
+            ChartDataPoint(
+              value: 58000.0,
+              timestamp: DateTime(2021, 4, 5, 16, 14),
+              percentChange: 16.00,
+            ),
+            ChartDataPoint(
+              value: 60000.0,
+              timestamp: DateTime(2021, 5, 5, 16, 14),
+              percentChange: 20.00,
+            ),
+            ChartDataPoint(
+              value: 58000.0,
+              timestamp: DateTime(2021, 6, 4, 16, 14),
+              percentChange: 16.00,
+            ),
+            ChartDataPoint(
+              value: 62000.0,
+              timestamp: DateTime(2021, 7, 4, 16, 14),
+              percentChange: 24.00,
+            ),
+            ChartDataPoint(
+              value: 64000.0,
+              timestamp: DateTime(2021, 8, 3, 16, 14),
+              percentChange: 28.00,
+            ),
+            ChartDataPoint(
+              value: 66000.0,
+              timestamp: DateTime(2021, 9, 2, 16, 14),
+              percentChange: 32.00,
+            ),
+            ChartDataPoint(
+              value: 48000.0,
+              timestamp: DateTime(2021, 10, 2, 16, 14),
+              percentChange: -4.00,
+            ),
+            ChartDataPoint(
+              value: 42000.0,
+              timestamp: DateTime(2021, 11, 1, 15, 14),
+              percentChange: -16.00,
+            ),
+            ChartDataPoint(
+              value: 36000.0,
+              timestamp: DateTime(2021, 12, 1, 15, 14),
+              percentChange: -28.00,
+            ),
+            ChartDataPoint(
+              value: 42000.0,
+              timestamp: DateTime(2021, 12, 31, 15, 14),
+              percentChange: -16.00,
+            ),
+            ChartDataPoint(
+              value: 40000.0,
+              timestamp: DateTime(2022, 1, 30, 15, 14),
+              percentChange: -20.00,
+            ),
+            ChartDataPoint(
+              value: 44000.0,
+              timestamp: DateTime(2022, 3, 1, 15, 14),
+              percentChange: -12.00,
+            ),
+            ChartDataPoint(
+              value: 48000.0,
+              timestamp: DateTime(2022, 3, 31, 16, 14),
+              percentChange: -4.00,
+            ),
+            ChartDataPoint(
+              value: 42000.0,
+              timestamp: DateTime(2022, 4, 30, 16, 14),
+              percentChange: -16.00,
+            ),
+            ChartDataPoint(
+              value: 46000.0,
+              timestamp: DateTime(2022, 5, 30, 16, 14),
+              percentChange: -8.00,
+            ),
+            ChartDataPoint(
+              value: 50000.0,
+              timestamp: DateTime(2022, 6, 29, 16, 14),
+              percentChange: 0.00,
+            ),
+            ChartDataPoint(
+              value: 54000.0,
+              timestamp: DateTime(2022, 7, 29, 16, 14),
+              percentChange: 8.00,
+            ),
+            ChartDataPoint(
+              value: 58000.0,
+              timestamp: DateTime(2022, 8, 28, 16, 14),
+              percentChange: 16.00,
+            ),
+            ChartDataPoint(
+              value: 62000.0,
+              timestamp: DateTime(2022, 9, 27, 16, 14),
+              percentChange: 24.00,
+            ),
+            ChartDataPoint(
+              value: 66000.0,
+              timestamp: DateTime(2022, 10, 27, 16, 14),
+              percentChange: 32.00,
+            ),
+            ChartDataPoint(
+              value: 70000.0,
+              timestamp: DateTime(2022, 11, 26, 15, 14),
+              percentChange: 40.00,
+            ),
+            ChartDataPoint(
+              value: 64000.0,
+              timestamp: DateTime(2022, 12, 26, 15, 14),
+              percentChange: 28.00,
+            ),
+            ChartDataPoint(
+              value: 68000.0,
+              timestamp: DateTime(2023, 1, 25, 15, 14),
+              percentChange: 36.00,
+            ),
+            ChartDataPoint(
+              value: 82000.0,
+              timestamp: DateTime(2023, 2, 24, 15, 14),
+              percentChange: 64.00,
+            ),
+            ChartDataPoint(
+              value: 86000.0,
+              timestamp: DateTime(2023, 3, 26, 16, 14),
+              percentChange: 72.00,
+            ),
+            ChartDataPoint(
+              value: 100000.0,
+              timestamp: DateTime(2023, 4, 25, 16, 14),
+              percentChange: 100.00,
+            ),
+            ChartDataPoint(
+              value: 94000.0,
+              timestamp: DateTime(2023, 5, 25, 16, 14),
+              percentChange: 88.00,
+            ),
+            ChartDataPoint(
+              value: 98000.0,
+              timestamp: DateTime(2023, 6, 24, 16, 14),
+              percentChange: 96.00,
+            ),
+            ChartDataPoint(
+              value: 102000.0,
+              timestamp: DateTime(2023, 7, 24, 16, 14),
+              percentChange: 104.00,
+            ),
+            ChartDataPoint(
+              value: 106000.0,
+              timestamp: DateTime(2023, 8, 23, 16, 14),
+              percentChange: 112.00,
+            ),
+            ChartDataPoint(
+              value: 100000.0,
+              timestamp: DateTime(2023, 9, 22, 16, 14),
+              percentChange: 100.00,
+            ),
+            ChartDataPoint(
+              value: 102000.0,
+              timestamp: DateTime(2023, 10, 22, 16, 14),
+              percentChange: 104.00,
+            ),
+            ChartDataPoint(
+              value: 114000.0,
+              timestamp: DateTime(2023, 11, 21, 15, 14),
+              percentChange: 128.00,
+            ),
+            ChartDataPoint(
+              value: 113000.0,
+              timestamp: DateTime(2023, 12, 21, 15, 14),
+              percentChange: 126.00,
+            ),
+            ChartDataPoint(
+              value: 114000.0,
+              timestamp: DateTime(2024, 1, 20, 15, 14),
+              percentChange: 128.00,
+            ),
+            ChartDataPoint(
+              value: 116000.0,
+              timestamp: DateTime(2024, 2, 19, 15, 14),
+              percentChange: 132.00,
+            ),
+            ChartDataPoint(
+              value: 116000.0,
+              timestamp: DateTime(2024, 3, 20, 15, 14),
+              percentChange: 132.00,
+            ),
+            ChartDataPoint(
+              value: 114000.0,
+              timestamp: DateTime(2024, 4, 19, 16, 14),
+              percentChange: 128.00,
+            ),
+            ChartDataPoint(
+              value: 115500.0,
+              timestamp: DateTime(2024, 5, 19, 16, 14),
+              percentChange: 131.00,
+            ),
+            ChartDataPoint(
+              value: 117000.0,
+              timestamp: DateTime(2024, 6, 18, 16, 14),
+              percentChange: 134.00,
+            ),
+            ChartDataPoint(
+              value: 119000.0,
+              timestamp: DateTime(2024, 7, 18, 16, 14),
+              percentChange: 138.00,
+            ),
+            ChartDataPoint(
+              value: 121000.0,
+              timestamp: DateTime(2024, 8, 17, 16, 14),
+              percentChange: 142.00,
+            ),
+            ChartDataPoint(
+              value: 120000.0,
+              timestamp: DateTime(2024, 9, 16, 16, 14),
+              percentChange: 140.00,
+            ),
+            ChartDataPoint(
+              value: 124500.0,
+              timestamp: DateTime(2024, 10, 16, 16, 14),
+              percentChange: 149.00,
+            ),
+            ChartDataPoint(
+              value: 126000.0,
+              timestamp: DateTime(2024, 11, 15, 15, 14),
+              percentChange: 152.00,
+            ),
+            ChartDataPoint(
+              value: 120000.0,
+              timestamp: DateTime(2024, 12, 15, 15, 14),
+              percentChange: 140.00,
+            ),
+            ChartDataPoint(
+              value: 107500.0,
+              timestamp: DateTime(2025, 1, 14, 15, 14),
+              percentChange: 115.00,
+            ),
+            ChartDataPoint(
+              value: 106000.0,
+              timestamp: DateTime(2025, 2, 13, 15, 14),
+              percentChange: 112.00,
+            ),
+            ChartDataPoint(
+              value: 106500.0,
+              timestamp: DateTime(2025, 3, 15, 15, 14),
+              percentChange: 113.00,
+            ),
+            ChartDataPoint(
+              value: 107000.0,
+              timestamp: DateTime(2025, 4, 14, 16, 14),
+              percentChange: 114.00,
+            ),
+            ChartDataPoint(
+              value: 108500.0,
+              timestamp: DateTime(2025, 5, 14, 16, 14),
+              percentChange: 117.00,
+            ),
+            ChartDataPoint(
+              value: 112000.0,
+              timestamp: DateTime(2025, 6, 13, 16, 14),
+              percentChange: 124.00,
+            ),
+            ChartDataPoint(
+              value: 116000.0,
+              timestamp: DateTime(2025, 7, 13, 16, 14),
+              percentChange: 132.00,
+            ),
+            ChartDataPoint(
+              value: 120000.0,
+              timestamp: DateTime(2025, 8, 12, 16, 14),
+              percentChange: 140.00,
+            ),
+            ChartDataPoint(
+              value: 123500.0,
+              timestamp: DateTime(2025, 9, 11, 16, 14),
+              percentChange: 147.00,
+            ),
+            ChartDataPoint(
+              value: 125500.0,
+              timestamp: DateTime(2025, 10, 11, 16, 14),
+              percentChange: 151.00,
+            ),
+            ChartDataPoint(
+              value: 126800.0,
+              timestamp: DateTime(2025, 11, 10, 15, 14),
+              percentChange: 153.60,
+            ),
+            ChartDataPoint(
+              value: 127439.25,
+              timestamp: DateTime(2025, 12, 10, 15, 14),
+              percentChange: 154.88,
+            ),
+          ],
+          latestPrice: 127439.25,
+          unrealizedPL: 77439.25,
+          unrealizedPLPercent: 154.88,
+        ),
+        
+        'ALL': ChartPeriodData(
+          dataPoints: [
+            ChartDataPoint(
+              value: 50000.0,
+              timestamp: DateTime(2020, 12, 6, 15, 14),
+              percentChange: 0.00,
+            ),
+            ChartDataPoint(
+              value: 52000.0,
+              timestamp: DateTime(2021, 1, 5, 15, 14),
+              percentChange: 4.00,
+            ),
+            ChartDataPoint(
+              value: 54000.0,
+              timestamp: DateTime(2021, 2, 4, 15, 14),
+              percentChange: 8.00,
+            ),
+            ChartDataPoint(
+              value: 56000.0,
+              timestamp: DateTime(2021, 3, 6, 15, 14),
+              percentChange: 12.00,
+            ),
+            ChartDataPoint(
+              value: 58000.0,
+              timestamp: DateTime(2021, 4, 5, 16, 14),
+              percentChange: 16.00,
+            ),
+            ChartDataPoint(
+              value: 60000.0,
+              timestamp: DateTime(2021, 5, 5, 16, 14),
+              percentChange: 20.00,
+            ),
+            ChartDataPoint(
+              value: 58000.0,
+              timestamp: DateTime(2021, 6, 4, 16, 14),
+              percentChange: 16.00,
+            ),
+            ChartDataPoint(
+              value: 62000.0,
+              timestamp: DateTime(2021, 7, 4, 16, 14),
+              percentChange: 24.00,
+            ),
+            ChartDataPoint(
+              value: 64000.0,
+              timestamp: DateTime(2021, 8, 3, 16, 14),
+              percentChange: 28.00,
+            ),
+            ChartDataPoint(
+              value: 66000.0,
+              timestamp: DateTime(2021, 9, 2, 16, 14),
+              percentChange: 32.00,
+            ),
+            ChartDataPoint(
+              value: 48000.0,
+              timestamp: DateTime(2021, 10, 2, 16, 14),
+              percentChange: -4.00,
+            ),
+            ChartDataPoint(
+              value: 42000.0,
+              timestamp: DateTime(2021, 11, 1, 15, 14),
+              percentChange: -16.00,
+            ),
+            ChartDataPoint(
+              value: 36000.0,
+              timestamp: DateTime(2021, 12, 1, 15, 14),
+              percentChange: -28.00,
+            ),
+            ChartDataPoint(
+              value: 42000.0,
+              timestamp: DateTime(2021, 12, 31, 15, 14),
+              percentChange: -16.00,
+            ),
+            ChartDataPoint(
+              value: 40000.0,
+              timestamp: DateTime(2022, 1, 30, 15, 14),
+              percentChange: -20.00,
+            ),
+            ChartDataPoint(
+              value: 44000.0,
+              timestamp: DateTime(2022, 3, 1, 15, 14),
+              percentChange: -12.00,
+            ),
+            ChartDataPoint(
+              value: 48000.0,
+              timestamp: DateTime(2022, 3, 31, 16, 14),
+              percentChange: -4.00,
+            ),
+            ChartDataPoint(
+              value: 42000.0,
+              timestamp: DateTime(2022, 4, 30, 16, 14),
+              percentChange: -16.00,
+            ),
+            ChartDataPoint(
+              value: 46000.0,
+              timestamp: DateTime(2022, 5, 30, 16, 14),
+              percentChange: -8.00,
+            ),
+            ChartDataPoint(
+              value: 50000.0,
+              timestamp: DateTime(2022, 6, 29, 16, 14),
+              percentChange: 0.00,
+            ),
+            ChartDataPoint(
+              value: 54000.0,
+              timestamp: DateTime(2022, 7, 29, 16, 14),
+              percentChange: 8.00,
+            ),
+            ChartDataPoint(
+              value: 58000.0,
+              timestamp: DateTime(2022, 8, 28, 16, 14),
+              percentChange: 16.00,
+            ),
+            ChartDataPoint(
+              value: 62000.0,
+              timestamp: DateTime(2022, 9, 27, 16, 14),
+              percentChange: 24.00,
+            ),
+            ChartDataPoint(
+              value: 66000.0,
+              timestamp: DateTime(2022, 10, 27, 16, 14),
+              percentChange: 32.00,
+            ),
+            ChartDataPoint(
+              value: 70000.0,
+              timestamp: DateTime(2022, 11, 26, 15, 14),
+              percentChange: 40.00,
+            ),
+            ChartDataPoint(
+              value: 64000.0,
+              timestamp: DateTime(2022, 12, 26, 15, 14),
+              percentChange: 28.00,
+            ),
+            ChartDataPoint(
+              value: 68000.0,
+              timestamp: DateTime(2023, 1, 25, 15, 14),
+              percentChange: 36.00,
+            ),
+            ChartDataPoint(
+              value: 82000.0,
+              timestamp: DateTime(2023, 2, 24, 15, 14),
+              percentChange: 64.00,
+            ),
+            ChartDataPoint(
+              value: 86000.0,
+              timestamp: DateTime(2023, 3, 26, 16, 14),
+              percentChange: 72.00,
+            ),
+            ChartDataPoint(
+              value: 100000.0,
+              timestamp: DateTime(2023, 4, 25, 16, 14),
+              percentChange: 100.00,
+            ),
+            ChartDataPoint(
+              value: 94000.0,
+              timestamp: DateTime(2023, 5, 25, 16, 14),
+              percentChange: 88.00,
+            ),
+            ChartDataPoint(
+              value: 98000.0,
+              timestamp: DateTime(2023, 6, 24, 16, 14),
+              percentChange: 96.00,
+            ),
+            ChartDataPoint(
+              value: 102000.0,
+              timestamp: DateTime(2023, 7, 24, 16, 14),
+              percentChange: 104.00,
+            ),
+            ChartDataPoint(
+              value: 106000.0,
+              timestamp: DateTime(2023, 8, 23, 16, 14),
+              percentChange: 112.00,
+            ),
+            ChartDataPoint(
+              value: 100000.0,
+              timestamp: DateTime(2023, 9, 22, 16, 14),
+              percentChange: 100.00,
+            ),
+            ChartDataPoint(
+              value: 102000.0,
+              timestamp: DateTime(2023, 10, 22, 16, 14),
+              percentChange: 104.00,
+            ),
+            ChartDataPoint(
+              value: 114000.0,
+              timestamp: DateTime(2023, 11, 21, 15, 14),
+              percentChange: 128.00,
+            ),
+            ChartDataPoint(
+              value: 113000.0,
+              timestamp: DateTime(2023, 12, 21, 15, 14),
+              percentChange: 126.00,
+            ),
+            ChartDataPoint(
+              value: 114000.0,
+              timestamp: DateTime(2024, 1, 20, 15, 14),
+              percentChange: 128.00,
+            ),
+            ChartDataPoint(
+              value: 116000.0,
+              timestamp: DateTime(2024, 2, 19, 15, 14),
+              percentChange: 132.00,
+            ),
+            ChartDataPoint(
+              value: 116000.0,
+              timestamp: DateTime(2024, 3, 20, 15, 14),
+              percentChange: 132.00,
+            ),
+            ChartDataPoint(
+              value: 114000.0,
+              timestamp: DateTime(2024, 4, 19, 16, 14),
+              percentChange: 128.00,
+            ),
+            ChartDataPoint(
+              value: 115500.0,
+              timestamp: DateTime(2024, 5, 19, 16, 14),
+              percentChange: 131.00,
+            ),
+            ChartDataPoint(
+              value: 117000.0,
+              timestamp: DateTime(2024, 6, 18, 16, 14),
+              percentChange: 134.00,
+            ),
+            ChartDataPoint(
+              value: 119000.0,
+              timestamp: DateTime(2024, 7, 18, 16, 14),
+              percentChange: 138.00,
+            ),
+            ChartDataPoint(
+              value: 121000.0,
+              timestamp: DateTime(2024, 8, 17, 16, 14),
+              percentChange: 142.00,
+            ),
+            ChartDataPoint(
+              value: 120000.0,
+              timestamp: DateTime(2024, 9, 16, 16, 14),
+              percentChange: 140.00,
+            ),
+            ChartDataPoint(
+              value: 124500.0,
+              timestamp: DateTime(2024, 10, 16, 16, 14),
+              percentChange: 149.00,
+            ),
+            ChartDataPoint(
+              value: 126000.0,
+              timestamp: DateTime(2024, 11, 15, 15, 14),
+              percentChange: 152.00,
+            ),
+            ChartDataPoint(
+              value: 120000.0,
+              timestamp: DateTime(2024, 12, 15, 15, 14),
+              percentChange: 140.00,
+            ),
+            ChartDataPoint(
+              value: 107500.0,
+              timestamp: DateTime(2025, 1, 14, 15, 14),
+              percentChange: 115.00,
+            ),
+            ChartDataPoint(
+              value: 106000.0,
+              timestamp: DateTime(2025, 2, 13, 15, 14),
+              percentChange: 112.00,
+            ),
+            ChartDataPoint(
+              value: 106500.0,
+              timestamp: DateTime(2025, 3, 15, 15, 14),
+              percentChange: 113.00,
+            ),
+            ChartDataPoint(
+              value: 107000.0,
+              timestamp: DateTime(2025, 4, 14, 16, 14),
+              percentChange: 114.00,
+            ),
+            ChartDataPoint(
+              value: 108500.0,
+              timestamp: DateTime(2025, 5, 14, 16, 14),
+              percentChange: 117.00,
+            ),
+            ChartDataPoint(
+              value: 112000.0,
+              timestamp: DateTime(2025, 6, 13, 16, 14),
+              percentChange: 124.00,
+            ),
+            ChartDataPoint(
+              value: 116000.0,
+              timestamp: DateTime(2025, 7, 13, 16, 14),
+              percentChange: 132.00,
+            ),
+            ChartDataPoint(
+              value: 120000.0,
+              timestamp: DateTime(2025, 8, 12, 16, 14),
+              percentChange: 140.00,
+            ),
+            ChartDataPoint(
+              value: 123500.0,
+              timestamp: DateTime(2025, 9, 11, 16, 14),
+              percentChange: 147.00,
+            ),
+            ChartDataPoint(
+              value: 125500.0,
+              timestamp: DateTime(2025, 10, 11, 16, 14),
+              percentChange: 151.00,
+            ),
+            ChartDataPoint(
+              value: 126800.0,
+              timestamp: DateTime(2025, 11, 10, 15, 14),
+              percentChange: 153.60,
+            ),
+            ChartDataPoint(
+              value: 127439.25,
+              timestamp: DateTime(2025, 12, 10, 15, 14),
+              percentChange: 154.88,
+            ),
+          ],
+          latestPrice: 127439.25,
+          unrealizedPL: 102439.25,
+          unrealizedPLPercent: 409.76,
+        ),
+      },
     ),
     PortfolioItem(
       ticker: 'AAPL',

@@ -14,7 +14,6 @@ class PortfolioTotalCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-      color: Colors.blue.shade50,
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -33,7 +32,6 @@ class PortfolioTotalCard extends StatelessWidget {
               style: const TextStyle(
                 fontSize: 32,
                 fontWeight: FontWeight.bold,
-                color: Colors.blue,
               ),
             ),
           ],
