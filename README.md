@@ -94,29 +94,26 @@ Proto messages are converted to domain entities through mappers. This separation
 
 ### Portfolio Components
 
-#### 1. Portfolio Total Card
-Displays overall portfolio summary:
-- **Total Market Value**: Formatted currency display
-- **Total Unrealized P&L**: Color-coded (green for profit, red for loss)
-- **P&L Percentage**: Shows performance with percentage badge
-
-#### 2. Portfolio Chart Card
-Interactive chart with multiple time periods:
+#### 1. Portfolio Chart Card
+Interactive chart displaying total portfolio performance:
+- **Total Portfolio Value**: Large formatted currency display at the top
 - **Chart Periods**: 1D, 1W, 1M, 6M, YTD, 1Y, ALL
 - **Interactive Chart**: Built with fl_chart for smooth rendering
-- **Touchable Data Points**: Hover to see exact values
-- **Color-Coded**: Green for positive trends, red for negative
+- **Touchable Data Points**: Touch to see exact values at specific timestamps
+- **Period Selector**: Toggle between different time periods
 
-#### 3. Portfolio Item Cards
+#### 2. Portfolio Item Cards
 Individual stock position cards showing:
-- **Ticker Symbol**: Stock identifier
+- **Ticker Symbol**: Stock identifier (bold)
+- **Company Name**: Full company name
+- **Current Price**: Real-time market price
+- **Day Change %**: Daily price movement with color coding
 - **Position Size**: Number of shares owned
 - **Average Price**: Purchase price per share
-- **Current Price**: Real-time market price
 - **Market Value**: Total position value
-- **Unrealized P&L**: Profit/loss with color coding
-- **Portfolio Percentage**: Visual bar showing weight in portfolio
-- **Color-Coded Performance**: Green bars for gains, red for losses
+- **Portfolio Percentage**: Percentage of total portfolio
+- **Unrealized P&L**: Profit/loss with color coding (green for gains, red for losses)
+- **Unrealized P&L %**: Percentage gain/loss with color coding
 
 ## Theme System
 
@@ -180,28 +177,37 @@ Located in `lib/features/portfolio/data/proto/`:
 ## Error Handling
 
 ### Result Pattern
-Uses a functional `Result<T>` type (Either pattern):
+Uses a `Result` wrapper type for handling success/failure:
 ```dart
-Result<PortfolioData> result = await repository.getPortfolio();
-result.fold(
-  (failure) => emit(PortfolioError(failure.message)),
-  (data) => emit(PortfolioLoaded(data)),
-);
+final result = await repository.getPortfolioData();
+
+if (result.isSuccess) {
+  final data = result.getDataOrNull();
+  if (data != null) {
+    emit(PortfolioLoaded(portfolioData: data));
+  }
+} else if (result.isFailure) {
+  final failure = result.getFailureOrNull();
+  if (failure != null) {
+    emit(PortfolioError(message: failure.message));
+  }
+}
 ```
 
 ### Failure Types
-- **ServerFailure**: gRPC/network errors
-- **DataFailure**: Parsing or mapping errors
-- **CacheFailure**: Local storage errors
-
+- **NetworkFailure**: Network connection errors
+- **ServerFailure**: gRPC server errors
+- **DataParsingFailure**: Parsing or mapping errors
+- **UnexpectedFailure**: Unexpected errors
 
 ## Testing
 
 ### Current Test Coverage
-- ✅ **Unit Tests**: BLoC logic, mappers, entities, chart periods
-- ✅ **Widget Tests**: Portfolio cards, theme switching
+- ✅ **Unit Tests**: BLoC logic, entities, chart periods, Result/Failure types
+- ✅ **Widget Tests**: Portfolio item cards, portfolio screen, theme switching
 - ✅ **State Tests**: Portfolio states, theme states
 - ✅ **Mapper Tests**: Proto ↔ Entity conversion
+- ⚠️ **Missing Tests**: Portfolio chart card widget tests (I would recommend screenshot tests)
 
 **Run Tests:**
 ```bash
@@ -262,7 +268,6 @@ lib/core/ui/
 │   ├── typography.dart  # Font styles and weights
 │   ├── dimensions.dart  # Responsive sizing
 │   ├── shadows.dart     # Elevation and shadow styles
-│   └── colors.dart      # Extended color palette
 ```
 
 ### 4. **Responsive Design System**
