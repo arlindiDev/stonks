@@ -115,40 +115,53 @@ class _PortfolioChartCardState extends State<PortfolioChartCard> {
                 LineChartData(
                   gridData: FlGridData(show: false),
                   titlesData: FlTitlesData(
-                    show: true,
+                    show: false,
                     leftTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
                     topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
                     bottomTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                    rightTitles: AxisTitles(
-                      sideTitles: SideTitles(
-                        showTitles: true,
-                        reservedSize: 50,
-                        getTitlesWidget: (value, meta) {
-                          // Show labels at the top and bottom of the chart
-                          if (value == meta.min || value == meta.max) {
-                            final displayValue = value == meta.min ? periodData.minValue : periodData.maxValue;
-                            return Padding(
-                              padding: const EdgeInsets.only(left: 4),
-                              child: Text(
-                                Formatters.abbreviatedNumber(displayValue),
+                    rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                  ),
+                  borderData: FlBorderData(show: false),
+                  minX: 0,
+                  maxX: (periodData.dataPoints.length - 1).toDouble(),
+                  minY: periodData.minValue * 0.98, // 2% padding
+                  maxY: periodData.maxValue * 1.02, // 2% padding
+                  extraLinesData: ExtraLinesData(
+                    horizontalLines: [
+                      HorizontalLine(
+                        y: periodData.maxValue,
+                        color: Colors.transparent,
+                        strokeWidth: 0,
+                        label: HorizontalLineLabel(
+                          show: true,
+                          alignment: Alignment.topRight,
+                          padding: const EdgeInsets.only(left: 4, bottom: 2),
                                 style: TextStyle(
                                   color: themeState.textSecondaryColor,
                                   fontSize: 10,
                                   fontWeight: FontWeight.w500,
                                 ),
-                              ),
-                            );
-                          }
-                          return const SizedBox.shrink();
-                        },
+                          labelResolver: (line) => Formatters.abbreviatedNumber(line.y),
                       ),
                     ),
+                      HorizontalLine(
+                        y: periodData.minValue,
+                        color: Colors.transparent,
+                        strokeWidth: 0,
+                        label: HorizontalLineLabel(
+                          show: true,
+                          alignment: Alignment.bottomRight,
+                          padding: const EdgeInsets.only(left: 4, top: 2),
+                          style: TextStyle(
+                            color: themeState.textSecondaryColor,
+                            fontSize: 10,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          labelResolver: (line) => Formatters.abbreviatedNumber(line.y),
+                        ),
+                      ),
+                    ],
                   ),
-                  borderData: FlBorderData(show: false),
-                  minX: 0,
-                  maxX: (periodData.dataPoints.length - 1).toDouble(),
-                  minY: periodData.minValue * 0.98,
-                  maxY: periodData.maxValue * 1.02,
                   lineBarsData: [
                     LineChartBarData(
                       spots: periodData.dataPoints.asMap().entries.map((entry) {
