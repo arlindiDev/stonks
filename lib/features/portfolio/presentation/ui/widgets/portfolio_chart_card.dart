@@ -20,12 +20,17 @@ class PortfolioChartCard extends StatefulWidget {
   State<PortfolioChartCard> createState() => _PortfolioChartCardState();
 }
 
-class _PortfolioChartCardState extends State<PortfolioChartCard> {
+class _PortfolioChartCardState extends State<PortfolioChartCard> with AutomaticKeepAliveClientMixin {
   ChartPeriod selectedPeriod = ChartPeriod.oneDay;
   int? touchedIndex;
 
   @override
+  bool get wantKeepAlive => true;
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
+    
     final periodData = widget.chart.periods[selectedPeriod]!;
     final isPositive = periodData.unrealizedPL >= 0;
     
