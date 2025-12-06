@@ -115,38 +115,45 @@ class MockDataHelper {
     );
     
     chart.periods['1W'] = _createPeriod(
-      [_point(125000.0, DateTime.now().subtract(const Duration(days: 7)), -1.91), _point(127439.25, DateTime.now(), 1.95)],
+      _create1WData(),
       127439.25,
       2439.25,
       1.95,
     );
     
     chart.periods['1M'] = _createPeriod(
-      [_point(120000.0, DateTime.now().subtract(const Duration(days: 30)), -5.84), _point(127439.25, DateTime.now(), 6.20)],
+      _create1MData(),
       127439.25,
-      7439.25,
-      6.20,
+      -2560.75,
+      -1.97,
     );
     
-    chart.periods['3M'] = _createPeriod(
-      [_point(115000.0, DateTime.now().subtract(const Duration(days: 90)), -9.76), _point(127439.25, DateTime.now(), 10.81)],
+    chart.periods['6M'] = _createPeriod(
+      _create6MData(),
       127439.25,
-      12439.25,
-      10.81,
+      17439.25,
+      15.85,
+    );
+    
+    chart.periods['YTD'] = _createPeriod(
+      _createYTDData(),
+      127439.25,
+      22439.25,
+      21.37,
     );
     
     chart.periods['1Y'] = _createPeriod(
-      [_point(100000.0, DateTime.now().subtract(const Duration(days: 365)), -21.53), _point(127439.25, DateTime.now(), 27.44)],
+      _create1YData(),
       127439.25,
       27439.25,
       27.44,
     );
     
     chart.periods['ALL'] = _createPeriod(
-      [_point(50000.0, DateTime.now().subtract(const Duration(days: 1095)), -60.77), _point(127439.25, DateTime.now(), 154.88)],
+      _create1YData(), // Same as 1Y
       127439.25,
-      77439.25,
-      154.88,
+      27439.25,
+      27.44,
     );
     
     return chart;
@@ -203,5 +210,115 @@ class MockDataHelper {
       ..portfolioPercent = portfolioPercent
       ..unrealizedPl = unrealizedPl
       ..unrealizedPlPercent = unrealizedPlPercent;
+  }
+
+  // 1W data - 94 points at 2-hour intervals
+  static List<proto.ChartDataPoint> _create1WData() {
+    final values = [
+      125800.0, 125900.0, 126000.0, 126050.0, 126120.0, 126160.0, 126200.0, 126250.0, 126300.0, 126340.0,
+      126380.0, 126420.0, 126460.0, 126480.0, 126500.0, 126520.0, 126540.0, 126560.0, 126580.0, 126600.0,
+      126620.0, 126640.0, 126660.0, 126680.0, 126700.0, 126720.0, 126740.0, 126760.0, 126780.0, 126800.0,
+      126820.0, 126840.0, 126860.0, 126880.0, 126880.0, 126860.0, 126820.0, 126780.0, 126740.0, 126700.0,
+      126660.0, 126620.0, 126600.0, 126580.0, 126560.0, 126580.0, 126620.0, 126660.0, 126700.0, 126740.0,
+      126780.0, 126820.0, 126860.0, 126900.0, 126860.0, 126820.0, 126780.0, 126740.0, 126700.0, 126660.0,
+      126640.0, 126660.0, 126700.0, 126740.0, 126780.0, 126820.0, 126860.0, 126900.0, 126940.0, 126980.0,
+      127000.0, 127020.0, 127040.0, 127060.0, 127080.0, 127100.0, 127120.0, 127140.0, 127160.0, 127180.0,
+      127160.0, 127140.0, 127120.0, 127140.0, 127180.0, 127220.0, 127260.0, 127300.0, 127320.0, 127340.0,
+      127360.0, 127380.0, 127400.0, 127420.0, 127439.25
+    ];
+    final start = DateTime(2025, 11, 28, 15, 14);
+    final initialValue = values.first;
+    return List.generate(values.length, (i) {
+      final value = values[i];
+      final timestamp = start.add(Duration(hours: i * 2));
+      final percentChange = ((value - initialValue) / initialValue) * 100;
+      return _point(value, timestamp, percentChange);
+    });
+  }
+
+  // 1M data - 28 points at daily intervals
+  static List<proto.ChartDataPoint> _create1MData() {
+    final values = [
+      130000.0, 129800.0, 129600.0, 129400.0, 129200.0, 128900.0, 128600.0, 128400.0, 128200.0, 128000.0,
+      127800.0, 127600.0, 127400.0, 127200.0, 127000.0, 126900.0, 126800.0, 126700.0, 126600.0, 126500.0,
+      126400.0, 125950.0, 126420.0, 126700.0, 126700.0, 126740.0, 127080.0, 127439.25
+    ];
+    final start = DateTime(2025, 11, 7, 15, 14);
+    final initialValue = values.first;
+    return List.generate(values.length, (i) {
+      final value = values[i];
+      final timestamp = start.add(Duration(days: i));
+      final percentChange = ((value - initialValue) / initialValue) * 100;
+      return _point(value, timestamp, percentChange);
+    });
+  }
+
+  // 6M data - 76 points at weekly intervals
+  static List<proto.ChartDataPoint> _create6MData() {
+    final values = [
+      115000.0, 115400.0, 115800.0, 116200.0, 116600.0, 116200.0, 115800.0, 115400.0, 115000.0, 114600.0,
+      114200.0, 114800.0, 115400.0, 116000.0, 116600.0, 117200.0, 117800.0, 118200.0, 118600.0, 119000.0,
+      118400.0, 117800.0, 117200.0, 116600.0, 116200.0, 115800.0, 116200.0, 116600.0, 117000.0, 117400.0,
+      117800.0, 118200.0, 118600.0, 119000.0, 119400.0, 119800.0, 120200.0, 120600.0, 121000.0, 121400.0,
+      121800.0, 120800.0, 119900.0, 118800.0, 117900.0, 117000.0, 116200.0, 115500.0, 115900.0, 116400.0,
+      116900.0, 117600.0, 118300.0, 119000.0, 119700.0, 120400.0, 121100.0, 121800.0, 122400.0, 123000.0,
+      123600.0, 122200.0, 120800.0, 119600.0, 118800.0, 119200.0, 120000.0, 120800.0, 121600.0, 122400.0,
+      123000.0, 123600.0, 124200.0, 129000.0, 127650.0, 126700.0, 127439.25
+    ];
+    final start = DateTime(2025, 6, 8, 16, 14);
+    final initialValue = values.first;
+    return List.generate(values.length, (i) {
+      final value = values[i];
+      final timestamp = start.add(Duration(days: i * 7));
+      final percentChange = ((value - initialValue) / initialValue) * 100;
+      return _point(value, timestamp, percentChange);
+    });
+  }
+
+  // YTD data - 84 points at 3-day intervals
+  static List<proto.ChartDataPoint> _createYTDData() {
+    final values = [
+      105000.0, 105400.0, 105800.0, 106200.0, 106600.0, 107000.0, 107400.0, 107800.0, 108200.0, 108600.0,
+      109000.0, 109400.0, 109800.0, 110200.0, 110600.0, 111000.0, 111400.0, 111800.0, 112200.0, 112600.0,
+      112300.0, 112000.0, 111700.0, 111400.0, 111100.0, 110800.0, 110500.0, 110200.0, 109900.0, 109600.0,
+      110000.0, 110400.0, 110800.0, 111200.0, 111600.0, 112000.0, 112400.0, 112800.0, 113200.0, 113600.0,
+      114000.0, 114400.0, 114800.0, 115200.0, 115600.0, 116000.0, 116400.0, 116800.0, 117200.0, 117600.0,
+      116800.0, 116000.0, 115200.0, 114600.0, 114000.0, 113600.0, 113200.0, 113800.0, 114400.0, 115000.0,
+      115600.0, 116200.0, 116800.0, 117400.0, 118000.0, 118600.0, 119200.0, 119800.0, 120400.0, 121000.0,
+      121600.0, 122200.0, 122800.0, 123400.0, 123800.0, 124200.0, 124600.0, 125000.0, 125400.0, 125800.0,
+      126500.0, 127000.0, 126700.0, 127439.25
+    ];
+    final start = DateTime(2025, 1, 4, 15, 14);
+    final initialValue = values.first;
+    return List.generate(values.length, (i) {
+      final value = values[i];
+      final timestamp = start.add(Duration(days: i * 3));
+      final percentChange = ((value - initialValue) / initialValue) * 100;
+      return _point(value, timestamp, percentChange);
+    });
+  }
+
+  // 1Y data - 86 points at 4-day intervals
+  static List<proto.ChartDataPoint> _create1YData() {
+    final values = [
+      98000.0, 99000.0, 100000.0,
+      105000.0, 105400.0, 105800.0, 106200.0, 106600.0, 107000.0, 107400.0, 107800.0, 108200.0, 108600.0,
+      109000.0, 109400.0, 109800.0, 110200.0, 110600.0, 111000.0, 111400.0, 111800.0, 112200.0, 112600.0,
+      112300.0, 112000.0, 111700.0, 111400.0, 111100.0, 110800.0, 110500.0, 110200.0, 109900.0, 109600.0,
+      110000.0, 110400.0, 110800.0, 111200.0, 111600.0, 112000.0, 112400.0, 112800.0, 113200.0, 113600.0,
+      114000.0, 114400.0, 114800.0, 115200.0, 115600.0, 116000.0, 116400.0, 116800.0, 117200.0, 117600.0,
+      116800.0, 116000.0, 115200.0, 114600.0, 114000.0, 113600.0, 113200.0, 113800.0, 114400.0, 115000.0,
+      115600.0, 116200.0, 116800.0, 117400.0, 118000.0, 118600.0, 119200.0, 119800.0, 120400.0, 121000.0,
+      121600.0, 122200.0, 122800.0, 123400.0, 123800.0, 124200.0, 124600.0, 125000.0, 125400.0, 125800.0,
+      126500.0, 127000.0, 126700.0, 127439.25
+    ];
+    final start = DateTime(2024, 12, 5, 15, 14);
+    final initialValue = values.first;
+    return List.generate(values.length, (i) {
+      final value = values[i];
+      final timestamp = start.add(Duration(days: i * 4));
+      final percentChange = ((value - initialValue) / initialValue) * 100;
+      return _point(value, timestamp, percentChange);
+    });
   }
 }

@@ -8,13 +8,14 @@ void main() {
         expect(ChartPeriod.oneDay.value, '1D');
         expect(ChartPeriod.oneWeek.value, '1W');
         expect(ChartPeriod.oneMonth.value, '1M');
-        expect(ChartPeriod.threeMonths.value, '3M');
+        expect(ChartPeriod.sixMonths.value, '6M');
+        expect(ChartPeriod.yearToDate.value, 'YTD');
         expect(ChartPeriod.oneYear.value, '1Y');
         expect(ChartPeriod.all.value, 'ALL');
       });
 
-      test('has all 6 periods', () {
-        expect(ChartPeriod.values.length, 6);
+      test('has all 7 periods', () {
+        expect(ChartPeriod.values.length, 7);
       });
     });
 
@@ -34,9 +35,14 @@ void main() {
         expect(period, ChartPeriod.oneMonth);
       });
 
-      test('returns correct enum for valid 3M value', () {
-        final period = ChartPeriod.fromValue('3M');
-        expect(period, ChartPeriod.threeMonths);
+      test('returns correct enum for valid 6M value', () {
+        final period = ChartPeriod.fromValue('6M');
+        expect(period, ChartPeriod.sixMonths);
+      });
+
+      test('returns correct enum for valid YTD value', () {
+        final period = ChartPeriod.fromValue('YTD');
+        expect(period, ChartPeriod.yearToDate);
       });
 
       test('returns correct enum for valid 1Y value', () {
@@ -85,13 +91,14 @@ void main() {
       test('returns all periods in correct order', () {
         final periods = ChartPeriod.orderedPeriods;
 
-        expect(periods.length, 6);
+        expect(periods.length, 7);
         expect(periods[0], ChartPeriod.oneDay);
         expect(periods[1], ChartPeriod.oneWeek);
         expect(periods[2], ChartPeriod.oneMonth);
-        expect(periods[3], ChartPeriod.threeMonths);
-        expect(periods[4], ChartPeriod.oneYear);
-        expect(periods[5], ChartPeriod.all);
+        expect(periods[3], ChartPeriod.sixMonths);
+        expect(periods[4], ChartPeriod.yearToDate);
+        expect(periods[5], ChartPeriod.oneYear);
+        expect(periods[6], ChartPeriod.all);
       });
 
       test('orderedPeriods matches values order', () {

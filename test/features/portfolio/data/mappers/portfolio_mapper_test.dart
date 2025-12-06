@@ -194,7 +194,8 @@ void main() {
               '1D': proto.ChartPeriodData(latestPrice: 100000, unrealizedPl: 1000, unrealizedPlPercent: 1.0),
               '1W': proto.ChartPeriodData(latestPrice: 100000, unrealizedPl: 5000, unrealizedPlPercent: 5.0),
               '1M': proto.ChartPeriodData(latestPrice: 100000, unrealizedPl: 10000, unrealizedPlPercent: 10.0),
-              '3M': proto.ChartPeriodData(latestPrice: 100000, unrealizedPl: 15000, unrealizedPlPercent: 15.0),
+              '6M': proto.ChartPeriodData(latestPrice: 100000, unrealizedPl: 15000, unrealizedPlPercent: 15.0),
+              'YTD': proto.ChartPeriodData(latestPrice: 100000, unrealizedPl: 20000, unrealizedPlPercent: 20.0),
               '1Y': proto.ChartPeriodData(latestPrice: 100000, unrealizedPl: 25000, unrealizedPlPercent: 25.0),
               'ALL': proto.ChartPeriodData(latestPrice: 100000, unrealizedPl: 50000, unrealizedPlPercent: 50.0),
             },
@@ -205,11 +206,12 @@ void main() {
         final result = PortfolioMapper.fromProtoResponse(protoResponse);
         final chart = result[1] as PortfolioChart;
 
-        expect(chart.periods.length, 6);
+        expect(chart.periods.length, 7);
         expect(chart.periods[ChartPeriod.oneDay]!.unrealizedPL, 1000);
         expect(chart.periods[ChartPeriod.oneWeek]!.unrealizedPL, 5000);
         expect(chart.periods[ChartPeriod.oneMonth]!.unrealizedPL, 10000);
-        expect(chart.periods[ChartPeriod.threeMonths]!.unrealizedPL, 15000);
+        expect(chart.periods[ChartPeriod.sixMonths]!.unrealizedPL, 15000);
+        expect(chart.periods[ChartPeriod.yearToDate]!.unrealizedPL, 20000);
         expect(chart.periods[ChartPeriod.oneYear]!.unrealizedPL, 25000);
         expect(chart.periods[ChartPeriod.all]!.unrealizedPL, 50000);
       });

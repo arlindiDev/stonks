@@ -2,7 +2,8 @@ enum ChartPeriod {
   oneDay('1D'),
   oneWeek('1W'),
   oneMonth('1M'),
-  threeMonths('3M'),
+  sixMonths('6M'),
+  yearToDate('YTD'),
   oneYear('1Y'),
   all('ALL');
 
@@ -21,7 +22,8 @@ enum ChartPeriod {
         oneDay,
         oneWeek,
         oneMonth,
-        threeMonths,
+        sixMonths,
+        yearToDate,
         oneYear,
         all,
       ];

@@ -10,8 +10,6 @@ class PortfolioService extends PortfolioServiceBase {
     ServiceCall call,
     proto.GetPortfolioRequest request,
   ) async {
-    await Future.delayed(const Duration(milliseconds: 2500));
-
     return MockDataHelper.getMockPortfolioResponse();
   }
 }
