@@ -6,11 +6,15 @@ class ChartPeriodData {
   final double latestPrice;
   final double unrealizedPL;
   final double unrealizedPLPercent;
+  final double minValue;
+  final double maxValue;
 
   ChartPeriodData({
     required this.dataPoints,
     required this.latestPrice,
     required this.unrealizedPL,
     required this.unrealizedPLPercent,
+    required this.minValue,
+    required this.maxValue,
   });
 }

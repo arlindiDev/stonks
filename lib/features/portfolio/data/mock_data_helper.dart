@@ -160,11 +160,18 @@ class MockDataHelper {
     double unrealizedPl,
     double unrealizedPlPercent,
   ) {
+    // Calculate min and max values from the data points
+    final values = points.map((p) => p.value).toList();
+    final minValue = values.reduce((a, b) => a < b ? a : b);
+    final maxValue = values.reduce((a, b) => a > b ? a : b);
+    
     return proto.ChartPeriodData()
       ..dataPoints.addAll(points)
       ..latestPrice = latestPrice
       ..unrealizedPl = unrealizedPl
-      ..unrealizedPlPercent = unrealizedPlPercent;
+      ..unrealizedPlPercent = unrealizedPlPercent
+      ..minValue = minValue
+      ..maxValue = maxValue;
   }
 
   static proto.ChartDataPoint _point(double value, DateTime time, double change) {
@@ -234,8 +241,8 @@ class MockDataHelper {
   // 1M data - 28 points at daily intervals
   static List<proto.ChartDataPoint> _create1MData() {
     final values = [
-      130000.0, 129800.0, 129600.0, 129400.0, 129200.0, 128900.0, 128600.0, 128400.0, 128200.0, 128000.0,
-      127800.0, 127600.0, 127400.0, 127200.0, 127000.0, 126900.0, 126800.0, 126700.0, 126600.0, 126500.0,
+      127600.0, 124800.0, 123600.0, 122400.0, 121200.0, 122900.0, 123600.0, 124400.0, 125200.0, 126000.0,
+      127000.0, 124100.0, 127400.0, 127200.0, 127000.0, 126900.0, 126800.0, 126700.0, 126600.0, 126500.0,
       126400.0, 125950.0, 126420.0, 126700.0, 126700.0, 126740.0, 127080.0, 127439.25
     ];
     final start = DateTime(2025, 11, 7, 15, 14);

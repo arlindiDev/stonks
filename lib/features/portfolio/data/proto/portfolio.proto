@@ -33,6 +33,8 @@ message ChartPeriodData {
   double latest_price = 2;
   double unrealized_pl = 3;
   double unrealized_pl_percent = 4;
+  double min_value = 5;
+  double max_value = 6;
 }
 
 message ChartDataPoint {

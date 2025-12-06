@@ -51,4 +51,45 @@ class Formatters {
         return '${date.month}/${date.day}';
     }
   }
+
+  static String abbreviatedNumber(double value) {
+    final absValue = value.abs();
+    
+    if (absValue >= 1000000000) {
+      final billions = absValue / 1000000000;
+      if (billions >= 100) {
+        return '${billions.toStringAsFixed(0)}B';
+      } else if (billions >= 10) {
+        return '${billions.toStringAsFixed(1)}B';
+      } else {
+        return '${billions.toStringAsFixed(2)}B';
+      }
+    } else if (absValue >= 1000000) {
+      final millions = absValue / 1000000;
+      if (millions >= 100) {
+        return '${millions.toStringAsFixed(0)}M';
+      } else if (millions >= 10) {
+        return '${millions.toStringAsFixed(1)}M';
+      } else {
+        return '${millions.toStringAsFixed(2)}M';
+      }
+    } else if (absValue >= 1000) {
+      final thousands = absValue / 1000;
+      if (thousands >= 100) {
+        return '${thousands.toStringAsFixed(0)}k';
+      } else if (thousands >= 10) {
+        return '${thousands.toStringAsFixed(1)}k';
+      } else {
+        return '${thousands.toStringAsFixed(2)}k';
+      }
+    } else {
+      if (absValue >= 100) {
+        return absValue.toStringAsFixed(0);
+      } else if (absValue >= 10) {
+        return absValue.toStringAsFixed(1);
+      } else {
+        return absValue.toStringAsFixed(2);
+      }
+    }
+  }
 }

@@ -30,6 +30,8 @@ class PortfolioMapper {
         latestPrice: value.latestPrice,
         unrealizedPL: value.unrealizedPl,
         unrealizedPLPercent: value.unrealizedPlPercent,
+        minValue: value.minValue,
+        maxValue: value.maxValue,
       );
     });
 

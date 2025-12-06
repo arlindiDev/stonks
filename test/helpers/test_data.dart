@@ -45,16 +45,26 @@ class TestData {
     double latestPrice = 125000.0,
     double unrealizedPL = 3125.0,
     double unrealizedPLPercent = 2.56,
+    double? minValue,
+    double? maxValue,
   }) {
+    final points = dataPoints ?? [
+      createChartDataPoint(value: 121875.0, percentChange: 0.0),
+      createChartDataPoint(value: 123000.0, percentChange: 0.92),
+      createChartDataPoint(value: 125000.0, percentChange: 2.56),
+    ];
+    
+    final values = points.map((p) => p.value).toList();
+    final computedMin = values.reduce((a, b) => a < b ? a : b);
+    final computedMax = values.reduce((a, b) => a > b ? a : b);
+    
     return ChartPeriodData(
-      dataPoints: dataPoints ?? [
-        createChartDataPoint(value: 121875.0, percentChange: 0.0),
-        createChartDataPoint(value: 123000.0, percentChange: 0.92),
-        createChartDataPoint(value: 125000.0, percentChange: 2.56),
-      ],
+      dataPoints: points,
       latestPrice: latestPrice,
       unrealizedPL: unrealizedPL,
       unrealizedPLPercent: unrealizedPLPercent,
+      minValue: minValue ?? computedMin,
+      maxValue: maxValue ?? computedMax,
     );
   }
 

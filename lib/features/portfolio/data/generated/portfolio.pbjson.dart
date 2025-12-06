@@ -117,6 +117,8 @@ const ChartPeriodData$json = {
       '5': 1,
       '10': 'unrealizedPlPercent'
     },
+    {'1': 'min_value', '3': 5, '4': 1, '5': 1, '10': 'minValue'},
+    {'1': 'max_value', '3': 6, '4': 1, '5': 1, '10': 'maxValue'},
   ],
 };
 
@@ -125,7 +127,8 @@ final $typed_data.Uint8List chartPeriodDataDescriptor = $convert.base64Decode(
     'Cg9DaGFydFBlcmlvZERhdGESOgoLZGF0YV9wb2ludHMYASADKAsyGS5wb3J0Zm9saW8uQ2hhcn'
     'REYXRhUG9pbnRSCmRhdGFQb2ludHMSIQoMbGF0ZXN0X3ByaWNlGAIgASgBUgtsYXRlc3RQcmlj'
     'ZRIjCg11bnJlYWxpemVkX3BsGAMgASgBUgx1bnJlYWxpemVkUGwSMgoVdW5yZWFsaXplZF9wbF'
-    '9wZXJjZW50GAQgASgBUhN1bnJlYWxpemVkUGxQZXJjZW50');
+    '9wZXJjZW50GAQgASgBUhN1bnJlYWxpemVkUGxQZXJjZW50EhsKCW1pbl92YWx1ZRgFIAEoAVII'
+    'bWluVmFsdWUSGwoJbWF4X3ZhbHVlGAYgASgBUghtYXhWYWx1ZQ==');
 
 @$core.Deprecated('Use chartDataPointDescriptor instead')
 const ChartDataPoint$json = {

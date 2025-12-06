@@ -27,6 +27,8 @@ void main() {
           latestPrice: 125000.0,
           unrealizedPl: 3125.0,
           unrealizedPlPercent: 2.56,
+          minValue: 121875.0,
+          maxValue: 125000.0,
         );
         
         final protoResponse = proto.GetPortfolioResponse(
@@ -59,18 +61,24 @@ void main() {
           latestPrice: 100000.0,
           unrealizedPl: 1000.0,
           unrealizedPlPercent: 1.0,
+          minValue: 100000.0,
+          maxValue: 100000.0,
         );
         protoChart.periods['1W'] = proto.ChartPeriodData(
           dataPoints: [],
           latestPrice: 100000.0,
           unrealizedPl: 5000.0,
           unrealizedPlPercent: 5.0,
+          minValue: 100000.0,
+          maxValue: 100000.0,
         );
         protoChart.periods['1M'] = proto.ChartPeriodData(
           dataPoints: [],
           latestPrice: 100000.0,
           unrealizedPl: 10000.0,
           unrealizedPlPercent: 10.0,
+          minValue: 100000.0,
+          maxValue: 100000.0,
         );
         
         final protoResponse = proto.GetPortfolioResponse(
@@ -147,6 +155,8 @@ void main() {
           latestPrice: 100000.0,
           unrealizedPl: 1000.0,
           unrealizedPlPercent: 1.01,
+          minValue: 99000.0,
+          maxValue: 100000.0,
         );
         
         final protoResponse = proto.GetPortfolioResponse(
@@ -166,13 +176,13 @@ void main() {
 
       test('maps all chart periods', () {
         final protoChart = proto.PortfolioChart();
-        protoChart.periods['1D'] = proto.ChartPeriodData(latestPrice: 100000, unrealizedPl: 1000, unrealizedPlPercent: 1.0);
-        protoChart.periods['1W'] = proto.ChartPeriodData(latestPrice: 100000, unrealizedPl: 5000, unrealizedPlPercent: 5.0);
-        protoChart.periods['1M'] = proto.ChartPeriodData(latestPrice: 100000, unrealizedPl: 10000, unrealizedPlPercent: 10.0);
-        protoChart.periods['6M'] = proto.ChartPeriodData(latestPrice: 100000, unrealizedPl: 15000, unrealizedPlPercent: 15.0);
-        protoChart.periods['YTD'] = proto.ChartPeriodData(latestPrice: 100000, unrealizedPl: 20000, unrealizedPlPercent: 20.0);
-        protoChart.periods['1Y'] = proto.ChartPeriodData(latestPrice: 100000, unrealizedPl: 25000, unrealizedPlPercent: 25.0);
-        protoChart.periods['ALL'] = proto.ChartPeriodData(latestPrice: 100000, unrealizedPl: 50000, unrealizedPlPercent: 50.0);
+        protoChart.periods['1D'] = proto.ChartPeriodData(latestPrice: 100000, unrealizedPl: 1000, unrealizedPlPercent: 1.0, minValue: 100000, maxValue: 100000);
+        protoChart.periods['1W'] = proto.ChartPeriodData(latestPrice: 100000, unrealizedPl: 5000, unrealizedPlPercent: 5.0, minValue: 100000, maxValue: 100000);
+        protoChart.periods['1M'] = proto.ChartPeriodData(latestPrice: 100000, unrealizedPl: 10000, unrealizedPlPercent: 10.0, minValue: 100000, maxValue: 100000);
+        protoChart.periods['6M'] = proto.ChartPeriodData(latestPrice: 100000, unrealizedPl: 15000, unrealizedPlPercent: 15.0, minValue: 100000, maxValue: 100000);
+        protoChart.periods['YTD'] = proto.ChartPeriodData(latestPrice: 100000, unrealizedPl: 20000, unrealizedPlPercent: 20.0, minValue: 100000, maxValue: 100000);
+        protoChart.periods['1Y'] = proto.ChartPeriodData(latestPrice: 100000, unrealizedPl: 25000, unrealizedPlPercent: 25.0, minValue: 100000, maxValue: 100000);
+        protoChart.periods['ALL'] = proto.ChartPeriodData(latestPrice: 100000, unrealizedPl: 50000, unrealizedPlPercent: 50.0, minValue: 100000, maxValue: 100000);
         
         final protoResponse = proto.GetPortfolioResponse(
           chart: protoChart,
@@ -208,6 +218,8 @@ void main() {
           latestPrice: 100000.0,
           unrealizedPl: 0.0,
           unrealizedPlPercent: 0.0,
+          minValue: 100000.0,
+          maxValue: 100000.0,
         );
         
         final protoResponse = proto.GetPortfolioResponse(
@@ -237,6 +249,8 @@ void main() {
           latestPrice: 100000.0,
           unrealizedPl: 0.0,
           unrealizedPlPercent: 0.0,
+          minValue: 98500.50,
+          maxValue: 98500.50,
         );
         
         final protoResponse = proto.GetPortfolioResponse(

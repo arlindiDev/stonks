@@ -197,6 +197,8 @@ class ChartPeriodData extends $pb.GeneratedMessage {
     $core.double? latestPrice,
     $core.double? unrealizedPl,
     $core.double? unrealizedPlPercent,
+    $core.double? minValue,
+    $core.double? maxValue,
   }) {
     final result = create();
     if (dataPoints != null) result.dataPoints.addAll(dataPoints);
@@ -204,6 +206,8 @@ class ChartPeriodData extends $pb.GeneratedMessage {
     if (unrealizedPl != null) result.unrealizedPl = unrealizedPl;
     if (unrealizedPlPercent != null)
       result.unrealizedPlPercent = unrealizedPlPercent;
+    if (minValue != null) result.minValue = minValue;
+    if (maxValue != null) result.maxValue = maxValue;
     return result;
   }
 
@@ -225,6 +229,8 @@ class ChartPeriodData extends $pb.GeneratedMessage {
     ..aD(2, _omitFieldNames ? '' : 'latestPrice')
     ..aD(3, _omitFieldNames ? '' : 'unrealizedPl')
     ..aD(4, _omitFieldNames ? '' : 'unrealizedPlPercent')
+    ..aD(5, _omitFieldNames ? '' : 'minValue')
+    ..aD(6, _omitFieldNames ? '' : 'maxValue')
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -275,6 +281,24 @@ class ChartPeriodData extends $pb.GeneratedMessage {
   $core.bool hasUnrealizedPlPercent() => $_has(3);
   @$pb.TagNumber(4)
   void clearUnrealizedPlPercent() => $_clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.double get minValue => $_getN(4);
+  @$pb.TagNumber(5)
+  set minValue($core.double value) => $_setDouble(4, value);
+  @$pb.TagNumber(5)
+  $core.bool hasMinValue() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearMinValue() => $_clearField(5);
+
+  @$pb.TagNumber(6)
+  $core.double get maxValue => $_getN(5);
+  @$pb.TagNumber(6)
+  set maxValue($core.double value) => $_setDouble(5, value);
+  @$pb.TagNumber(6)
+  $core.bool hasMaxValue() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearMaxValue() => $_clearField(6);
 }
 
 class ChartDataPoint extends $pb.GeneratedMessage {
