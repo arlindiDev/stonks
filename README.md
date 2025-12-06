@@ -4,9 +4,11 @@ A Flutter application for tracking stock portfolios with Clean Architecture, BLo
 
 ## Demo
 
-https://github.com/user-attachments/assets/screenrecording.mp4
 
-☝️ **See the demo screen recording** ☝️
+
+https://github.com/user-attachments/assets/1e98a5b6-ddc2-4e8a-9106-2bd98f085341
+
+
 
 ## Architecture & Code Structure
 
