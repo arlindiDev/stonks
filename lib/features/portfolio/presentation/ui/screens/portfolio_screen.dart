@@ -100,27 +100,19 @@ class _PortfolioScreenState extends State<PortfolioScreen> {
               } else if (portfolioState is PortfolioLoaded) {
                 final portfolioData = portfolioState.portfolioData;
                 
-                return RefreshIndicator(
-                  onRefresh: () async {
-                    context.read<PortfolioBloc>().add(const RefreshPortfolioEvent());
-                    await context.read<PortfolioBloc>().stream.firstWhere(
-                      (state) => state is PortfolioLoaded || state is PortfolioError,
-                    );
+                return ListView.builder(
+                  itemCount: portfolioData.length,
+                  itemBuilder: (context, index) {
+                    final item = portfolioData[index];
+                    
+                    if (item is PortfolioChart) {
+                      return PortfolioChartCard(chart: item);
+                    } else if (item is PortfolioItem) {
+                      return PortfolioItemCard(item: item);
+                    }
+                    
+                    return const SizedBox.shrink();
                   },
-                  child: ListView.builder(
-                    itemCount: portfolioData.length,
-                    itemBuilder: (context, index) {
-                      final item = portfolioData[index];
-                      
-                      if (item is PortfolioChart) {
-                        return PortfolioChartCard(chart: item);
-                      } else if (item is PortfolioItem) {
-                        return PortfolioItemCard(item: item);
-                      }
-                      
-                      return const SizedBox.shrink();
-                    },
-                  ),
                 );
               }
               

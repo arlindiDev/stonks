@@ -87,7 +87,6 @@ Proto messages are converted to domain entities through mappers. This separation
 
 **Features:**
 - **Loading State**: Displays circular progress indicator while fetching data
-- **Pull to Refresh**: Swipe down to refresh portfolio data
 - **Error Handling**: Shows error view with retry button on failure
 - **Dynamic Theme Switching**: Toggle between Retail Bank (light) and Neobank (dark) themes
 - **Animated Theme Icon**: Smooth fade transition when switching themes
