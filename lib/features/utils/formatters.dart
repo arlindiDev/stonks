@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:intl/intl.dart';
 
 class Formatters {
@@ -54,42 +55,49 @@ class Formatters {
 
   static String abbreviatedNumber(double value) {
     final absValue = value.abs();
+    final sign = value < 0 ? '-' : '';
     
     if (absValue >= 1000000000) {
       final billions = absValue / 1000000000;
       if (billions >= 100) {
-        return '${billions.toStringAsFixed(0)}B';
+        return '$sign${billions.floor()}B';
       } else if (billions >= 10) {
-        return '${billions.toStringAsFixed(1)}B';
+        return '$sign${_floorToFixed(billions, 1)}B';
       } else {
-        return '${billions.toStringAsFixed(2)}B';
+        return '$sign${_floorToFixed(billions, 2)}B';
       }
     } else if (absValue >= 1000000) {
       final millions = absValue / 1000000;
       if (millions >= 100) {
-        return '${millions.toStringAsFixed(0)}M';
+        return '$sign${millions.floor()}M';
       } else if (millions >= 10) {
-        return '${millions.toStringAsFixed(1)}M';
+        return '$sign${_floorToFixed(millions, 1)}M';
       } else {
-        return '${millions.toStringAsFixed(2)}M';
+        return '$sign${_floorToFixed(millions, 2)}M';
       }
     } else if (absValue >= 1000) {
       final thousands = absValue / 1000;
       if (thousands >= 100) {
-        return '${thousands.toStringAsFixed(0)}k';
+        return '$sign${thousands.floor()}k';
       } else if (thousands >= 10) {
-        return '${thousands.toStringAsFixed(1)}k';
+        return '$sign${_floorToFixed(thousands, 1)}k';
       } else {
-        return '${thousands.toStringAsFixed(2)}k';
+        return '$sign${_floorToFixed(thousands, 2)}k';
       }
     } else {
       if (absValue >= 100) {
-        return absValue.toStringAsFixed(0);
+        return '$sign${absValue.floor()}';
       } else if (absValue >= 10) {
-        return absValue.toStringAsFixed(1);
+        return '$sign${_floorToFixed(absValue, 1)}';
       } else {
-        return absValue.toStringAsFixed(2);
+        return '$sign${_floorToFixed(absValue, 2)}';
       }
     }
+  }
+
+  static String _floorToFixed(double value, int decimals) {
+    final multiplier = pow(10, decimals);
+    final floored = (value * multiplier).floor() / multiplier;
+    return floored.toStringAsFixed(decimals);
   }
 }
