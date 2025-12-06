@@ -17,11 +17,18 @@ class PortfolioBloc extends Bloc<PortfolioEvent, PortfolioState> {
   ) async {
     emit(const PortfolioLoading());
     
-    try {
-      final portfolioData = await repository.getPortfolioData();
-      emit(PortfolioLoaded(portfolioData: portfolioData));
-    } catch (error) {
-      emit(PortfolioError(message: error.toString()));
+    final result = await repository.getPortfolioData();
+    
+    if (result.isSuccess) {
+      final data = result.getDataOrNull();
+      if (data != null) {
+        emit(PortfolioLoaded(portfolioData: data));
+      }
+    } else if (result.isFailure) {
+      final failure = result.getFailureOrNull();
+      if (failure != null) {
+        emit(PortfolioError(message: failure.message));
+      }
     }
   }
 
@@ -29,11 +36,18 @@ class PortfolioBloc extends Bloc<PortfolioEvent, PortfolioState> {
     RefreshPortfolioEvent event,
     Emitter<PortfolioState> emit,
   ) async {
-    try {
-      final portfolioData = await repository.getPortfolioData();
-      emit(PortfolioLoaded(portfolioData: portfolioData));
-    } catch (error) {
-      emit(PortfolioError(message: error.toString()));
+    final result = await repository.getPortfolioData();
+    
+    if (result.isSuccess) {
+      final data = result.getDataOrNull();
+      if (data != null) {
+        emit(PortfolioLoaded(portfolioData: data));
+      }
+    } else if (result.isFailure) {
+      final failure = result.getFailureOrNull();
+      if (failure != null) {
+        emit(PortfolioError(message: failure.message));
+      }
     }
   }
 }

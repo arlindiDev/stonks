@@ -1,5 +1,5 @@
-import '../entities/portfolio_ui_item.dart';
+import 'portfolio_result.dart';
 
 abstract class PortfolioRepository {
-  Future<List<PortfolioUIItem>> getPortfolioData();
+  Future<PortfolioResult> getPortfolioData();
 }
