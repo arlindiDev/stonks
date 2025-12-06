@@ -29,7 +29,7 @@ void main() {
 
   group('PortfolioItemCard', () {
     testWidgets('displays ticker symbol', (tester) async {
-      final item = PortfolioItem(
+      const item = PortfolioItem(
         ticker: 'AAPL',
         companyName: 'Apple Inc.',
         position: 100.0,
@@ -48,7 +48,7 @@ void main() {
     });
 
     testWidgets('displays all item details', (tester) async {
-      final item = PortfolioItem(
+      const item = PortfolioItem(
         ticker: 'GOOGL',
         companyName: 'Alphabet Inc.',
         position: 50.0,
@@ -89,7 +89,7 @@ void main() {
     });
 
     testWidgets('displays negative P/L with minus sign', (tester) async {
-      final item = PortfolioItem(
+      const item = PortfolioItem(
         ticker: 'LOSS',
         companyName: 'Loss Corp',
         position: 100.0,
@@ -109,7 +109,7 @@ void main() {
     });
 
     testWidgets('displays zero P/L correctly', (tester) async {
-      final item = PortfolioItem(
+      const item = PortfolioItem(
         ticker: 'FLAT',
         companyName: 'Flat Corp',
         position: 100.0,
@@ -130,7 +130,7 @@ void main() {
     });
 
     testWidgets('renders as a Card widget', (tester) async {
-      final item = PortfolioItem(
+      const item = PortfolioItem(
         ticker: 'AAPL',
         companyName: 'Apple Inc.',
         position: 100.0,
@@ -149,7 +149,7 @@ void main() {
     });
 
     testWidgets('has all required labels', (tester) async {
-      final item = PortfolioItem(
+      const item = PortfolioItem(
         ticker: 'TEST',
         companyName: 'Test Corp',
         position: 1.0,

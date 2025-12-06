@@ -103,7 +103,7 @@ void main() {
 
       test('orderedPeriods matches values order', () {
         final periods = ChartPeriod.orderedPeriods;
-        final values = ChartPeriod.values;
+        const values = ChartPeriod.values;
 
         for (var i = 0; i < periods.length; i++) {
           expect(periods[i], values[i]);

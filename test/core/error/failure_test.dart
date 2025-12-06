@@ -79,8 +79,8 @@ void main() {
       });
 
       test('stores parsing error details', () {
-        final parseError = FormatException('Invalid format');
-        final failure = DataParsingFailure(originalError: parseError);
+        const parseError = FormatException('Invalid format');
+        const failure = DataParsingFailure(originalError: parseError);
         expect(failure.originalError, parseError);
       });
     });

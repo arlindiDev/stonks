@@ -30,7 +30,7 @@ Future<void> setupDependencies() async {
 Future<void> disposeDependencies() async {
   // Close BLoCs
   if (getIt.isRegistered<ThemeBloc>()) {
-    getIt<ThemeBloc>().close();
+    await getIt<ThemeBloc>().close();
   }
   
   // Close gRPC client

@@ -100,7 +100,7 @@ void main() {
       test('all states extend PortfolioState', () {
         expect(const PortfolioInitial(), isA<PortfolioState>());
         expect(const PortfolioLoading(), isA<PortfolioState>());
-        expect(PortfolioLoaded(portfolioData: []), isA<PortfolioState>());
+        expect(const PortfolioLoaded(portfolioData: []), isA<PortfolioState>());
         expect(const PortfolioError(message: ''), isA<PortfolioState>());
       });
     });

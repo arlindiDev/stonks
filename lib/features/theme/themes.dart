@@ -12,25 +12,22 @@ class AppThemes {
       useMaterial3: true,
       brightness: Brightness.light,
       
-      colorScheme: ColorScheme.light(
+      colorScheme: const ColorScheme.light(
         primary: AppColors.retailPrimary,
         secondary: AppColors.retailAccent,
-        surface: AppColors.retailSurface,
         error: AppColors.retailNegative,
-        onPrimary: Colors.white,
         onSecondary: Colors.white,
         onSurface: AppColors.retailTextPrimary,
-        onError: Colors.white,
       ),
       
       scaffoldBackgroundColor: AppColors.retailBackground,
       
-      appBarTheme: AppBarTheme(
+      appBarTheme: const AppBarTheme(
         backgroundColor: AppColors.retailPrimary,
         foregroundColor: Colors.white,
         elevation: 0,
         centerTitle: false,
-        titleTextStyle: const TextStyle(
+        titleTextStyle: TextStyle(
           color: Colors.white,
           fontSize: 20,
           fontWeight: FontWeight.w600,
@@ -81,25 +78,24 @@ class AppThemes {
       useMaterial3: true,
       brightness: Brightness.dark,
       
-      colorScheme: ColorScheme.dark(
+      colorScheme: const ColorScheme.dark(
         primary: AppColors.neobankPrimary,
         secondary: AppColors.neobankAccent,
         surface: AppColors.neobankSurface,
         error: AppColors.neobankNegative,
         onPrimary: AppColors.neobankBackground,
         onSecondary: AppColors.neobankBackground,
-        onSurface: AppColors.neobankTextPrimary,
         onError: Colors.white,
       ),
       
       scaffoldBackgroundColor: AppColors.neobankBackground,
       
-      appBarTheme: AppBarTheme(
+      appBarTheme: const AppBarTheme(
         backgroundColor: AppColors.neobankSurface,
         foregroundColor: AppColors.neobankPrimary,
         elevation: 0,
         centerTitle: false,
-        titleTextStyle: const TextStyle(
+        titleTextStyle: TextStyle(
           color: AppColors.neobankPrimary,
           fontSize: 20,
           fontWeight: FontWeight.w600,
@@ -114,7 +110,6 @@ class AppThemes {
           borderRadius: BorderRadius.circular(12),
           side: BorderSide(
             color: AppColors.neobankPrimary.withValues(alpha: 0.2),
-            width: 1,
           ),
         ),
       ),

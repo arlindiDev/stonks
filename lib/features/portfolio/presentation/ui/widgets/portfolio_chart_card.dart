@@ -136,8 +136,8 @@ class _PortfolioChartCardState extends State<PortfolioChartCard> with AutomaticK
       child: LineChart(
         duration: Duration.zero,
         LineChartData(
-          gridData: FlGridData(show: false),
-          titlesData: FlTitlesData(show: false),
+          gridData: const FlGridData(show: false),
+          titlesData: const FlTitlesData(show: false),
           borderData: FlBorderData(show: false),
           minX: 0,
           maxX: (periodData.dataPoints.length - 1).toDouble(),
@@ -202,10 +202,8 @@ class _PortfolioChartCardState extends State<PortfolioChartCard> with AutomaticK
       }).toList(),
       isCurved: true,
       color: isPositive ? themeState.positiveColor : themeState.negativeColor,
-      barWidth: 2,
       isStrokeCapRound: true,
       dotData: FlDotData(
-        show: true,
         getDotPainter: (spot, percent, barData, index) {
           if (index == touchedIndex) {
             return FlDotCirclePainter(
@@ -230,7 +228,6 @@ class _PortfolioChartCardState extends State<PortfolioChartCard> with AutomaticK
 
   LineTouchData _buildTouchData(ThemeState themeState, bool isPositive) {
     return LineTouchData(
-      enabled: true,
       touchCallback: (FlTouchEvent event, LineTouchResponse? touchResponse) {
         if (!event.isInterestedForInteractions ||
             touchResponse == null ||
@@ -252,7 +249,7 @@ class _PortfolioChartCardState extends State<PortfolioChartCard> with AutomaticK
               strokeWidth: 2,
               dashArray: [5, 5],
             ),
-            FlDotData(show: false),
+            const FlDotData(show: false),
           );
         }).toList();
       },

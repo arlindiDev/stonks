@@ -72,7 +72,7 @@ void main() {
         build: () {
           when(() => mockRepository.getPortfolioData()).thenAnswer(
             (_) async => const PortfolioResult.failure(
-              ServerFailure(message: 'Server error occurred'),
+              ServerFailure(),
             ),
           );
           return bloc;
@@ -89,7 +89,7 @@ void main() {
         build: () {
           when(() => mockRepository.getPortfolioData()).thenAnswer(
             (_) async => const PortfolioResult.failure(
-              DataParsingFailure(message: 'Failed to parse data'),
+              DataParsingFailure(),
             ),
           );
           return bloc;

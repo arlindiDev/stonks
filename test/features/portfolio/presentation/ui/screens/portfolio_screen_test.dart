@@ -65,7 +65,7 @@ void main() {
       shouldComplete = true;
       await tester.pumpAndSettle();
       
-      portfolioBloc.close();
+      await portfolioBloc.close();
     });
   });
 
@@ -86,7 +86,7 @@ void main() {
       expect(find.text('Error: Network error'), findsOneWidget);
       expect(find.byIcon(Icons.error_outline), findsOneWidget);
       
-      portfolioBloc.close();
+      await portfolioBloc.close();
     });
 
     testWidgets('shows retry button on error', (tester) async {
@@ -104,7 +104,7 @@ void main() {
       expect(find.text('Retry'), findsOneWidget);
       expect(find.byType(ElevatedButton), findsOneWidget);
       
-      portfolioBloc.close();
+      await portfolioBloc.close();
     });
 
     testWidgets('retry button reloads data', (tester) async {
@@ -130,7 +130,7 @@ void main() {
 
       expect(find.byType(PortfolioChartCard), findsOneWidget);
       
-      portfolioBloc.close();
+      await portfolioBloc.close();
     });
   });
 
@@ -147,7 +147,7 @@ void main() {
 
       expect(find.byType(PortfolioChartCard), findsOneWidget);
       
-      portfolioBloc.close();
+      await portfolioBloc.close();
     });
 
     testWidgets('displays all portfolio item cards', (tester) async {
@@ -165,7 +165,7 @@ void main() {
       
       expect(find.text('AAPL'), findsOneWidget);
       
-      portfolioBloc.close();
+      await portfolioBloc.close();
     });
 
     testWidgets('shows RefreshIndicator for pull-to-refresh', (tester) async {
@@ -180,7 +180,7 @@ void main() {
 
       expect(find.byType(RefreshIndicator), findsOneWidget);
       
-      portfolioBloc.close();
+      await portfolioBloc.close();
     });
   });
 
@@ -198,7 +198,7 @@ void main() {
       expect(find.text('Portfolio'), findsOneWidget);
       expect(find.byType(AppBar), findsOneWidget);
       
-      portfolioBloc.close();
+      await portfolioBloc.close();
     });
 
     testWidgets('has theme toggle button', (tester) async {
@@ -213,7 +213,7 @@ void main() {
 
       expect(find.byType(IconButton), findsOneWidget);
       
-      portfolioBloc.close();
+      await portfolioBloc.close();
     });
 
     testWidgets('theme toggle changes theme mode', (tester) async {
@@ -233,7 +233,7 @@ void main() {
 
       expect(themeBloc.state.themeMode, AppThemeMode.neobank);
       
-      portfolioBloc.close();
+      await portfolioBloc.close();
     });
   });
 
@@ -250,7 +250,7 @@ void main() {
 
       verify(() => mockRepository.getPortfolioData()).called(1);
       
-      portfolioBloc.close();
+      await portfolioBloc.close();
     });
   });
 
@@ -267,7 +267,7 @@ void main() {
 
       expect(find.byType(PortfolioItemCard), findsNothing);
       
-      portfolioBloc.close();
+      await portfolioBloc.close();
     });
   });
 }
