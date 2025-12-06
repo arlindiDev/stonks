@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => ThemeBloc(),
+          create: (context) => getIt<ThemeBloc>(),
         ),
         BlocProvider(
           create: (context) => PortfolioBloc(

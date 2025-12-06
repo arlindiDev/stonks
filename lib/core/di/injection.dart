@@ -3,10 +3,15 @@ import '../../features/portfolio/data/datasource/portfolio_remote_datasource.dar
 import '../../features/portfolio/data/grpc/portfolio_grpc_client.dart';
 import '../../features/portfolio/domain/repository/portfolio_repository.dart';
 import '../../features/portfolio/domain/repository/portfolio_repository_impl.dart';
+import '../../features/theme/presentation/state/theme_bloc.dart';
 
 final getIt = GetIt.instance;
 
 Future<void> setupDependencies() async {
+  // Theme
+  getIt.registerLazySingleton<ThemeBloc>(() => ThemeBloc());
+
+  // Portfolio
   getIt.registerSingletonAsync<PortfolioGrpcClient>(
     () async => await PortfolioGrpcClient.createMockClient(),
   );
@@ -23,7 +28,16 @@ Future<void> setupDependencies() async {
 }
 
 Future<void> disposeDependencies() async {
-  final client = getIt<PortfolioGrpcClient>();
-  await client.close();
+  // Close BLoCs
+  if (getIt.isRegistered<ThemeBloc>()) {
+    getIt<ThemeBloc>().close();
+  }
+  
+  // Close gRPC client
+  if (getIt.isRegistered<PortfolioGrpcClient>()) {
+    final client = getIt<PortfolioGrpcClient>();
+    await client.close();
+  }
+  
   await getIt.reset();
 }
