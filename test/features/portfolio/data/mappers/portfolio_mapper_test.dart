@@ -10,28 +10,27 @@ void main() {
   group('PortfolioMapper', () {
     group('fromProtoResponse', () {
       test('maps complete proto response correctly', () {
+        final chart = proto.PortfolioChart();
+        chart.periods['1D'] = proto.ChartPeriodData(
+          dataPoints: [
+            proto.ChartDataPoint(
+              value: 121875.0,
+              timestampMillis: Int64(1704103800000), // 2024-01-01 09:30:00
+              percentChange: 0.0,
+            ),
+            proto.ChartDataPoint(
+              value: 125000.0,
+              timestampMillis: Int64(1704107400000), // 2024-01-01 10:30:00
+              percentChange: 2.56,
+            ),
+          ],
+          latestPrice: 125000.0,
+          unrealizedPl: 3125.0,
+          unrealizedPlPercent: 2.56,
+        );
+        
         final protoResponse = proto.GetPortfolioResponse(
-          chart: proto.PortfolioChart(
-            periods: {
-              '1D': proto.ChartPeriodData(
-                dataPoints: [
-                  proto.ChartDataPoint(
-                    value: 121875.0,
-                    timestampMillis: Int64(1704103800000), // 2024-01-01 09:30:00
-                    percentChange: 0.0,
-                  ),
-                  proto.ChartDataPoint(
-                    value: 125000.0,
-                    timestampMillis: Int64(1704107400000), // 2024-01-01 10:30:00
-                    percentChange: 2.56,
-                  ),
-                ],
-                latestPrice: 125000.0,
-                unrealizedPl: 3125.0,
-                unrealizedPlPercent: 2.56,
-              ),
-            },
-          ),
+          chart: chart,
           items: [
             proto.PortfolioItem(
               ticker: 'AAPL',
@@ -54,29 +53,28 @@ void main() {
       });
 
       test('maps PortfolioChart with multiple periods', () {
+        final protoChart = proto.PortfolioChart();
+        protoChart.periods['1D'] = proto.ChartPeriodData(
+          dataPoints: [],
+          latestPrice: 100000.0,
+          unrealizedPl: 1000.0,
+          unrealizedPlPercent: 1.0,
+        );
+        protoChart.periods['1W'] = proto.ChartPeriodData(
+          dataPoints: [],
+          latestPrice: 100000.0,
+          unrealizedPl: 5000.0,
+          unrealizedPlPercent: 5.0,
+        );
+        protoChart.periods['1M'] = proto.ChartPeriodData(
+          dataPoints: [],
+          latestPrice: 100000.0,
+          unrealizedPl: 10000.0,
+          unrealizedPlPercent: 10.0,
+        );
+        
         final protoResponse = proto.GetPortfolioResponse(
-          chart: proto.PortfolioChart(
-            periods: {
-              '1D': proto.ChartPeriodData(
-                dataPoints: [],
-                latestPrice: 100000.0,
-                unrealizedPl: 1000.0,
-                unrealizedPlPercent: 1.0,
-              ),
-              '1W': proto.ChartPeriodData(
-                dataPoints: [],
-                latestPrice: 100000.0,
-                unrealizedPl: 5000.0,
-                unrealizedPlPercent: 5.0,
-              ),
-              '1M': proto.ChartPeriodData(
-                dataPoints: [],
-                latestPrice: 100000.0,
-                unrealizedPl: 10000.0,
-                unrealizedPlPercent: 10.0,
-              ),
-            },
-          ),
+          chart: protoChart,
           items: [],
         );
 
@@ -132,28 +130,27 @@ void main() {
 
     group('_fromProtoChart', () {
       test('maps chart period data correctly', () {
+        final protoChart = proto.PortfolioChart();
+        protoChart.periods['1D'] = proto.ChartPeriodData(
+          dataPoints: [
+            proto.ChartDataPoint(
+              value: 99000.0,
+              timestampMillis: Int64(1704103800000),
+              percentChange: 0.0,
+            ),
+            proto.ChartDataPoint(
+              value: 100000.0,
+              timestampMillis: Int64(1704107400000),
+              percentChange: 1.01,
+            ),
+          ],
+          latestPrice: 100000.0,
+          unrealizedPl: 1000.0,
+          unrealizedPlPercent: 1.01,
+        );
+        
         final protoResponse = proto.GetPortfolioResponse(
-          chart: proto.PortfolioChart(
-            periods: {
-              '1D': proto.ChartPeriodData(
-                dataPoints: [
-                  proto.ChartDataPoint(
-                    value: 99000.0,
-                    timestampMillis: Int64(1704103800000),
-                    percentChange: 0.0,
-                  ),
-                  proto.ChartDataPoint(
-                    value: 100000.0,
-                    timestampMillis: Int64(1704107400000),
-                    percentChange: 1.01,
-                  ),
-                ],
-                latestPrice: 100000.0,
-                unrealizedPl: 1000.0,
-                unrealizedPlPercent: 1.01,
-              ),
-            },
-          ),
+          chart: protoChart,
           items: [],
         );
 
@@ -168,18 +165,17 @@ void main() {
       });
 
       test('maps all chart periods', () {
+        final protoChart = proto.PortfolioChart();
+        protoChart.periods['1D'] = proto.ChartPeriodData(latestPrice: 100000, unrealizedPl: 1000, unrealizedPlPercent: 1.0);
+        protoChart.periods['1W'] = proto.ChartPeriodData(latestPrice: 100000, unrealizedPl: 5000, unrealizedPlPercent: 5.0);
+        protoChart.periods['1M'] = proto.ChartPeriodData(latestPrice: 100000, unrealizedPl: 10000, unrealizedPlPercent: 10.0);
+        protoChart.periods['6M'] = proto.ChartPeriodData(latestPrice: 100000, unrealizedPl: 15000, unrealizedPlPercent: 15.0);
+        protoChart.periods['YTD'] = proto.ChartPeriodData(latestPrice: 100000, unrealizedPl: 20000, unrealizedPlPercent: 20.0);
+        protoChart.periods['1Y'] = proto.ChartPeriodData(latestPrice: 100000, unrealizedPl: 25000, unrealizedPlPercent: 25.0);
+        protoChart.periods['ALL'] = proto.ChartPeriodData(latestPrice: 100000, unrealizedPl: 50000, unrealizedPlPercent: 50.0);
+        
         final protoResponse = proto.GetPortfolioResponse(
-          chart: proto.PortfolioChart(
-            periods: {
-              '1D': proto.ChartPeriodData(latestPrice: 100000, unrealizedPl: 1000, unrealizedPlPercent: 1.0),
-              '1W': proto.ChartPeriodData(latestPrice: 100000, unrealizedPl: 5000, unrealizedPlPercent: 5.0),
-              '1M': proto.ChartPeriodData(latestPrice: 100000, unrealizedPl: 10000, unrealizedPlPercent: 10.0),
-              '6M': proto.ChartPeriodData(latestPrice: 100000, unrealizedPl: 15000, unrealizedPlPercent: 15.0),
-              'YTD': proto.ChartPeriodData(latestPrice: 100000, unrealizedPl: 20000, unrealizedPlPercent: 20.0),
-              '1Y': proto.ChartPeriodData(latestPrice: 100000, unrealizedPl: 25000, unrealizedPlPercent: 25.0),
-              'ALL': proto.ChartPeriodData(latestPrice: 100000, unrealizedPl: 50000, unrealizedPlPercent: 50.0),
-            },
-          ),
+          chart: protoChart,
           items: [],
         );
 
@@ -200,23 +196,22 @@ void main() {
     group('_fromProtoDataPoint', () {
       test('converts timestamp correctly', () {
         final timestamp = Int64(1704103800000); // 2024-01-01 09:30:00 UTC
+        final protoChart = proto.PortfolioChart();
+        protoChart.periods['1D'] = proto.ChartPeriodData(
+          dataPoints: [
+            proto.ChartDataPoint(
+              value: 100000.0,
+              timestampMillis: timestamp,
+              percentChange: 0.0,
+            ),
+          ],
+          latestPrice: 100000.0,
+          unrealizedPl: 0.0,
+          unrealizedPlPercent: 0.0,
+        );
+        
         final protoResponse = proto.GetPortfolioResponse(
-          chart: proto.PortfolioChart(
-            periods: {
-              '1D': proto.ChartPeriodData(
-                dataPoints: [
-                  proto.ChartDataPoint(
-                    value: 100000.0,
-                    timestampMillis: timestamp,
-                    percentChange: 0.0,
-                  ),
-                ],
-                latestPrice: 100000.0,
-                unrealizedPl: 0.0,
-                unrealizedPlPercent: 0.0,
-              ),
-            },
-          ),
+          chart: protoChart,
           items: [],
         );
 
@@ -230,23 +225,22 @@ void main() {
       });
 
       test('maps all data point fields correctly', () {
+        final protoChart = proto.PortfolioChart();
+        protoChart.periods['1D'] = proto.ChartPeriodData(
+          dataPoints: [
+            proto.ChartDataPoint(
+              value: 98500.50,
+              timestampMillis: Int64(1704103800000),
+              percentChange: -1.5,
+            ),
+          ],
+          latestPrice: 100000.0,
+          unrealizedPl: 0.0,
+          unrealizedPlPercent: 0.0,
+        );
+        
         final protoResponse = proto.GetPortfolioResponse(
-          chart: proto.PortfolioChart(
-            periods: {
-              '1D': proto.ChartPeriodData(
-                dataPoints: [
-                  proto.ChartDataPoint(
-                    value: 98500.50,
-                    timestampMillis: Int64(1704103800000),
-                    percentChange: -1.5,
-                  ),
-                ],
-                latestPrice: 100000.0,
-                unrealizedPl: 0.0,
-                unrealizedPlPercent: 0.0,
-              ),
-            },
-          ),
+          chart: protoChart,
           items: [],
         );
 
@@ -330,7 +324,7 @@ void main() {
 
       test('handles chart with empty periods', () {
         final protoResponse = proto.GetPortfolioResponse(
-          chart: proto.PortfolioChart(periods: {}),
+          chart: proto.PortfolioChart(),
           items: [],
         );
 

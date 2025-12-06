@@ -40,9 +40,9 @@ dependencies:
   equatable: ^2.0.5
   
   # gRPC and Protocol Buffers
-  grpc: ^4.0.1
-  protobuf: ^3.1.0
-  fixnum: ^1.1.0
+  grpc: ^5.0.0
+  protobuf: ^5.1.0
+  fixnum: ^1.1.1
   
   # Dependency Injection
   get_it: ^7.6.4
@@ -60,7 +60,7 @@ dev_dependencies:
   
   # Code generation for Protocol Buffers
   build_runner: ^2.4.12
-  protoc_plugin: ^21.1.2
+  protoc_plugin: ^24.0.0
   
   # Testing utilities
   mocktail: ^1.0.0

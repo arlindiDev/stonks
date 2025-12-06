@@ -1,13 +1,14 @@
+// This is a generated file - do not edit.
 //
-//  Generated code. Do not modify.
-//  source: portfolio.proto
-//
-// @dart = 2.12
+// Generated from portfolio.proto.
+
+// @dart = 3.3
 
 // ignore_for_file: annotate_overrides, camel_case_types, comment_references
-// ignore_for_file: constant_identifier_names, library_prefixes
-// ignore_for_file: non_constant_identifier_names, prefer_final_fields
-// ignore_for_file: unnecessary_import, unnecessary_this, unused_import
+// ignore_for_file: constant_identifier_names
+// ignore_for_file: curly_braces_in_flow_control_structures
+// ignore_for_file: deprecated_member_use_from_same_package, library_prefixes
+// ignore_for_file: non_constant_identifier_names, unused_import
 
 import 'dart:convert' as $convert;
 import 'dart:core' as $core;
@@ -22,15 +23,30 @@ const GetPortfolioRequest$json = {
 };
 
 /// Descriptor for `GetPortfolioRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List getPortfolioRequestDescriptor = $convert.base64Decode(
-    'ChNHZXRQb3J0Zm9saW9SZXF1ZXN0EhcKB3VzZXJfaWQYASABKAlSBnVzZXJJZA==');
+final $typed_data.Uint8List getPortfolioRequestDescriptor =
+    $convert.base64Decode(
+        'ChNHZXRQb3J0Zm9saW9SZXF1ZXN0EhcKB3VzZXJfaWQYASABKAlSBnVzZXJJZA==');
 
 @$core.Deprecated('Use getPortfolioResponseDescriptor instead')
 const GetPortfolioResponse$json = {
   '1': 'GetPortfolioResponse',
   '2': [
-    {'1': 'chart', '3': 1, '4': 1, '5': 11, '6': '.portfolio.PortfolioChart', '10': 'chart'},
-    {'1': 'items', '3': 2, '4': 3, '5': 11, '6': '.portfolio.PortfolioItem', '10': 'items'},
+    {
+      '1': 'chart',
+      '3': 1,
+      '4': 1,
+      '5': 11,
+      '6': '.portfolio.PortfolioChart',
+      '10': 'chart'
+    },
+    {
+      '1': 'items',
+      '3': 2,
+      '4': 3,
+      '5': 11,
+      '6': '.portfolio.PortfolioItem',
+      '10': 'items'
+    },
   ],
 };
 
@@ -44,7 +60,14 @@ final $typed_data.Uint8List getPortfolioResponseDescriptor = $convert.base64Deco
 const PortfolioChart$json = {
   '1': 'PortfolioChart',
   '2': [
-    {'1': 'periods', '3': 1, '4': 3, '5': 11, '6': '.portfolio.PortfolioChart.PeriodsEntry', '10': 'periods'},
+    {
+      '1': 'periods',
+      '3': 1,
+      '4': 3,
+      '5': 11,
+      '6': '.portfolio.PortfolioChart.PeriodsEntry',
+      '10': 'periods'
+    },
   ],
   '3': [PortfolioChart_PeriodsEntry$json],
 };
@@ -54,7 +77,14 @@ const PortfolioChart_PeriodsEntry$json = {
   '1': 'PeriodsEntry',
   '2': [
     {'1': 'key', '3': 1, '4': 1, '5': 9, '10': 'key'},
-    {'1': 'value', '3': 2, '4': 1, '5': 11, '6': '.portfolio.ChartPeriodData', '10': 'value'},
+    {
+      '1': 'value',
+      '3': 2,
+      '4': 1,
+      '5': 11,
+      '6': '.portfolio.ChartPeriodData',
+      '10': 'value'
+    },
   ],
   '7': {'7': true},
 };
@@ -70,10 +100,23 @@ final $typed_data.Uint8List portfolioChartDescriptor = $convert.base64Decode(
 const ChartPeriodData$json = {
   '1': 'ChartPeriodData',
   '2': [
-    {'1': 'data_points', '3': 1, '4': 3, '5': 11, '6': '.portfolio.ChartDataPoint', '10': 'dataPoints'},
+    {
+      '1': 'data_points',
+      '3': 1,
+      '4': 3,
+      '5': 11,
+      '6': '.portfolio.ChartDataPoint',
+      '10': 'dataPoints'
+    },
     {'1': 'latest_price', '3': 2, '4': 1, '5': 1, '10': 'latestPrice'},
     {'1': 'unrealized_pl', '3': 3, '4': 1, '5': 1, '10': 'unrealizedPl'},
-    {'1': 'unrealized_pl_percent', '3': 4, '4': 1, '5': 1, '10': 'unrealizedPlPercent'},
+    {
+      '1': 'unrealized_pl_percent',
+      '3': 4,
+      '4': 1,
+      '5': 1,
+      '10': 'unrealizedPlPercent'
+    },
   ],
 };
 
@@ -109,9 +152,21 @@ const PortfolioItem$json = {
     {'1': 'avg_price', '3': 3, '4': 1, '5': 1, '10': 'avgPrice'},
     {'1': 'current_price', '3': 4, '4': 1, '5': 1, '10': 'currentPrice'},
     {'1': 'market_value', '3': 5, '4': 1, '5': 1, '10': 'marketValue'},
-    {'1': 'portfolio_percent', '3': 6, '4': 1, '5': 1, '10': 'portfolioPercent'},
+    {
+      '1': 'portfolio_percent',
+      '3': 6,
+      '4': 1,
+      '5': 1,
+      '10': 'portfolioPercent'
+    },
     {'1': 'unrealized_pl', '3': 7, '4': 1, '5': 1, '10': 'unrealizedPl'},
-    {'1': 'unrealized_pl_percent', '3': 8, '4': 1, '5': 1, '10': 'unrealizedPlPercent'},
+    {
+      '1': 'unrealized_pl_percent',
+      '3': 8,
+      '4': 1,
+      '5': 1,
+      '10': 'unrealizedPlPercent'
+    },
   ],
 };
 
@@ -123,4 +178,3 @@ final $typed_data.Uint8List portfolioItemDescriptor = $convert.base64Decode(
     'VlEisKEXBvcnRmb2xpb19wZXJjZW50GAYgASgBUhBwb3J0Zm9saW9QZXJjZW50EiMKDXVucmVh'
     'bGl6ZWRfcGwYByABKAFSDHVucmVhbGl6ZWRQbBIyChV1bnJlYWxpemVkX3BsX3BlcmNlbnQYCC'
     'ABKAFSE3VucmVhbGl6ZWRQbFBlcmNlbnQ=');
-

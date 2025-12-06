@@ -18,7 +18,7 @@ fi
 # Check if Dart protoc plugin is activated
 if ! command -v protoc-gen-dart &> /dev/null; then
     echo "Activating Dart protoc plugin..."
-    dart pub global activate protoc_plugin 21.1.2
+    dart pub global activate protoc_plugin 24.0.0
     export PATH="$PATH:$HOME/.pub-cache/bin"
 fi
 
