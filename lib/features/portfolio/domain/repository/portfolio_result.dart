@@ -19,10 +19,6 @@ class PortfolioResult {
 
   bool get isFailure => failure != null;
 
-  List<PortfolioUIItem>? getDataOrNull() => data;
-
-  Failure? getFailureOrNull() => failure;
-
   T when<T>({
     required T Function(List<PortfolioUIItem> data) onSuccess,
     required T Function(Failure failure) onFailure,
