@@ -70,21 +70,22 @@ class _PortfolioScreenState extends State<PortfolioScreen> {
                   child: CircularProgressIndicator(),
                 );
               } else if (portfolioState is PortfolioError) {
+                final errorColor = themeState.negativeColor;
                 return Center(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 24.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Icon(
+                        Icon(
                           Icons.error_outline,
                           size: 48,
-                          color: Colors.red,
+                          color: errorColor,
                         ),
                         const SizedBox(height: 16),
                         Text(
                           'Error: ${portfolioState.message}',
-                          style: const TextStyle(color: Colors.red),
+                          style: TextStyle(color: errorColor),
                           textAlign: TextAlign.center,
                         ),
                         const SizedBox(height: 16),
