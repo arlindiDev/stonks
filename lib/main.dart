@@ -26,9 +26,7 @@ class MyApp extends StatelessWidget {
           create: (context) => getIt<ThemeBloc>(),
         ),
         BlocProvider(
-          create: (context) => PortfolioBloc(
-            repository: getIt(),
-          ),
+          create: (context) => getIt<PortfolioBloc>(),
         ),
       ],
       child: BlocBuilder<ThemeBloc, ThemeState>(

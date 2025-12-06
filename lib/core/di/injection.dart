@@ -3,6 +3,7 @@ import '../../features/portfolio/data/datasource/portfolio_remote_datasource.dar
 import '../../features/portfolio/data/grpc/portfolio_grpc_client.dart';
 import '../../features/portfolio/domain/repository/portfolio_repository.dart';
 import '../../features/portfolio/domain/repository/portfolio_repository_impl.dart';
+import '../../features/portfolio/presentation/state/portfolio_bloc.dart';
 import '../../features/theme/presentation/state/theme_bloc.dart';
 
 final getIt = GetIt.instance;
@@ -11,7 +12,7 @@ Future<void> setupDependencies() async {
   // Theme
   getIt.registerLazySingleton<ThemeBloc>(() => ThemeBloc());
 
-  // Portfolio
+  // Portfolio - Data Layer
   getIt.registerSingletonAsync<PortfolioGrpcClient>(
     () async => await PortfolioGrpcClient.createMockClient(),
   );
@@ -25,12 +26,21 @@ Future<void> setupDependencies() async {
   getIt.registerLazySingleton<PortfolioRepository>(
     () => PortfolioRepositoryImpl(getIt<PortfolioRemoteDataSource>()),
   );
+
+  // Portfolio - Presentation Layer
+  getIt.registerLazySingleton<PortfolioBloc>(
+    () => PortfolioBloc(repository: getIt<PortfolioRepository>()),
+  );
 }
 
 Future<void> disposeDependencies() async {
   // Close BLoCs
   if (getIt.isRegistered<ThemeBloc>()) {
     await getIt<ThemeBloc>().close();
+  }
+  
+  if (getIt.isRegistered<PortfolioBloc>()) {
+    await getIt<PortfolioBloc>().close();
   }
   
   // Close gRPC client
