@@ -5,6 +5,7 @@ import '../../../../theme/presentation/state/theme_bloc.dart';
 import '../../../../theme/presentation/state/theme_state.dart';
 import '../../../domain/entities/portfolio_chart.dart';
 import '../../../domain/entities/chart_period_data.dart';
+import '../../../domain/entities/chart_period.dart';
 import '../../../../utils/formatters.dart';
 
 class PortfolioChartCard extends StatefulWidget {
@@ -20,7 +21,7 @@ class PortfolioChartCard extends StatefulWidget {
 }
 
 class _PortfolioChartCardState extends State<PortfolioChartCard> {
-  String selectedPeriod = '1D';
+  ChartPeriod selectedPeriod = ChartPeriod.oneDay;
   int? touchedIndex;
 
   @override
@@ -82,7 +83,7 @@ class _PortfolioChartCardState extends State<PortfolioChartCard> {
                         if (displayDate != null) ...[
                           const SizedBox(width: 8),
                           Text(
-                            Formatters.formatDate(displayDate, selectedPeriod),
+                            Formatters.formatDate(displayDate, selectedPeriod.value),
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.normal,
@@ -211,7 +212,7 @@ class _PortfolioChartCardState extends State<PortfolioChartCard> {
                       ),
                       child: Center(
                         child: Text(
-                          period,
+                          period.value,
                           style: TextStyle(
                             color: isSelected ? themeState.selectedTabTextColor : themeState.unselectedTabTextColor,
                             fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,

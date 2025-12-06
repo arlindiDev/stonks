@@ -5,6 +5,7 @@ import '../../domain/entities/portfolio_chart.dart';
 import '../../domain/entities/portfolio_item.dart';
 import '../../domain/entities/chart_period_data.dart';
 import '../../domain/entities/chart_data_point.dart';
+import '../../domain/entities/chart_period.dart';
 
 class PortfolioMapper {
   static List<PortfolioUIItem> fromProtoResponse(
@@ -24,10 +25,12 @@ class PortfolioMapper {
   }
 
   static PortfolioChart _fromProtoChart(proto.PortfolioChart protoChart) {
-    final Map<String, ChartPeriodData> periods = {};
+    final Map<ChartPeriod, ChartPeriodData> periods = {};
 
     protoChart.periods.forEach((key, value) {
-      periods[key] = ChartPeriodData(
+      final period = ChartPeriod.fromValue(key);
+
+      periods[period] = ChartPeriodData(
         dataPoints: value.dataPoints.map(_fromProtoDataPoint).toList(),
         latestPrice: value.latestPrice,
         unrealizedPL: value.unrealizedPl,
