@@ -32,7 +32,6 @@ void main() {
 
     group('PortfolioLoaded', () {
       final testData1 = TestData.createFullPortfolioData();
-      final testData2 = TestData.createFullPortfolioData();
 
       test('supports value equality when portfolioData is the same', () {
         final state1 = PortfolioLoaded(portfolioData: testData1);
