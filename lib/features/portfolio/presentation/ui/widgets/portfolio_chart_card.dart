@@ -111,6 +111,7 @@ class _PortfolioChartCardState extends State<PortfolioChartCard> {
             SizedBox(
               height: 200,
               child: LineChart(
+                duration: Duration.zero, // Disable animation
                 LineChartData(
                   gridData: FlGridData(show: false),
                   titlesData: FlTitlesData(show: false),
