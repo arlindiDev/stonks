@@ -62,7 +62,6 @@ class _PortfolioChartCardState extends State<PortfolioChartCard> with AutomaticK
     double displayPL,
     DateTime? displayDate,
   ) {
-
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       child: Padding(
@@ -70,212 +69,236 @@ class _PortfolioChartCardState extends State<PortfolioChartCard> with AutomaticK
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          Formatters.currency(displayValue),
-                          style: const TextStyle(
-                            fontSize: 28,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        if (displayDate != null) ...[
-                          const SizedBox(width: 8),
-                          Text(
-                            Formatters.formatDate(displayDate, selectedPeriod.value),
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.normal,
-                              color: themeState.textSecondaryColor,
-                            ),
-                          ),
-                        ],
-                      ],
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      '${Formatters.currencyWithSign(displayPL)} (${Formatters.percentWithSign(displayPercent)})',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                        color: displayPL >= 0 ? themeState.positiveColor : themeState.negativeColor,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+            _buildHeader(themeState, displayValue, displayPercent, displayPL, displayDate),
             const SizedBox(height: 20),
+            _buildChart(context, themeState, periodData, isPositive),
+            const SizedBox(height: 20),
+            _buildPeriodTabs(themeState),
+          ],
+        ),
+      ),
+    );
+  }
 
-            SizedBox(
-              height: 200,
-              child: LineChart(
-                duration: Duration.zero, // Disable animation
-                LineChartData(
-                  gridData: FlGridData(show: false),
-                  titlesData: FlTitlesData(
-                    show: false,
-                    leftTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                    topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                    bottomTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                    rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                  ),
-                  borderData: FlBorderData(show: false),
-                  minX: 0,
-                  maxX: (periodData.dataPoints.length - 1).toDouble(),
-                  minY: periodData.minValue * 0.98, // 2% padding
-                  maxY: periodData.maxValue * 1.02, // 2% padding
-                  extraLinesData: ExtraLinesData(
-                    horizontalLines: [
-                      HorizontalLine(
-                        y: periodData.maxValue,
-                        color: Colors.transparent,
-                        strokeWidth: 0,
-                        label: HorizontalLineLabel(
-                          show: true,
-                          alignment: Alignment.topRight,
-                          padding: const EdgeInsets.only(left: 4, bottom: 2),
-                                style: TextStyle(
-                                  color: themeState.textSecondaryColor,
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                          labelResolver: (line) => Formatters.abbreviatedNumber(line.y),
-                      ),
-                    ),
-                      HorizontalLine(
-                        y: periodData.minValue,
-                        color: Colors.transparent,
-                        strokeWidth: 0,
-                        label: HorizontalLineLabel(
-                          show: true,
-                          alignment: Alignment.bottomRight,
-                          padding: const EdgeInsets.only(left: 4, top: 2),
-                          style: TextStyle(
-                            color: themeState.textSecondaryColor,
-                            fontSize: 10,
-                            fontWeight: FontWeight.w500,
-                          ),
-                          labelResolver: (line) => Formatters.abbreviatedNumber(line.y),
-                        ),
-                      ),
-                    ],
-                  ),
-                  lineBarsData: [
-                    LineChartBarData(
-                      spots: periodData.dataPoints.asMap().entries.map((entry) {
-                        return FlSpot(entry.key.toDouble(), entry.value.value);
-                      }).toList(),
-                      isCurved: true,
-                      color: isPositive ? themeState.positiveColor : themeState.negativeColor,
-                      barWidth: 2,
-                      isStrokeCapRound: true,
-                      dotData: FlDotData(
-                        show: true,
-                        getDotPainter: (spot, percent, barData, index) {
-                          if (index == touchedIndex) {
-                            return FlDotCirclePainter(
-                              radius: 6,
-                              color: Theme.of(context).colorScheme.surface,
-                              strokeWidth: 3,
-                              strokeColor: isPositive ? themeState.positiveColor : themeState.negativeColor,
-                            );
-                          }
-                          return FlDotCirclePainter(
-                            radius: 0,
-                            color: Colors.transparent,
-                          );
-                        },
-                      ),
-                      belowBarData: BarAreaData(
-                        show: true,
-                        color: (isPositive ? themeState.positiveColor : themeState.negativeColor).withValues(alpha: 0.1),
-                      ),
-                    ),
-                  ],
-                  lineTouchData: LineTouchData(
-                    enabled: true,
-                    touchCallback: (FlTouchEvent event, LineTouchResponse? touchResponse) {
-                      if (!event.isInterestedForInteractions ||
-                          touchResponse == null ||
-                          touchResponse.lineBarSpots == null) {
-                        setState(() {
-                          touchedIndex = null;
-                        });
-                        return;
-                      }
-                      setState(() {
-                        touchedIndex = touchResponse.lineBarSpots!.first.spotIndex;
-                      });
-                    },
-                    getTouchedSpotIndicator: (LineChartBarData barData, List<int> spotIndexes) {
-                      return spotIndexes.map((index) {
-                        return TouchedSpotIndicatorData(
-                          FlLine(
-                            color: (isPositive ? themeState.positiveColor : themeState.negativeColor).withValues(alpha: 0.5),
-                            strokeWidth: 2,
-                            dashArray: [5, 5],
-                          ),
-                          FlDotData(show: false),
-                        );
-                      }).toList();
-                    },
-                    touchTooltipData: LineTouchTooltipData(
-                      getTooltipColor: (touchedSpot) => Colors.transparent,
-                      tooltipPadding: EdgeInsets.zero,
-                      getTooltipItems: (List<LineBarSpot> touchedBarSpots) {
-                        return [null];
-                      },
-                    ),
+  Widget _buildHeader(
+    ThemeState themeState,
+    double displayValue,
+    double displayPercent,
+    double displayPL,
+    DateTime? displayDate,
+  ) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Text(
+              Formatters.currency(displayValue),
+              style: const TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            if (displayDate != null) ...[
+              const SizedBox(width: 8),
+              Text(
+                Formatters.formatDate(displayDate, selectedPeriod.value),
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.normal,
+                  color: themeState.textSecondaryColor,
+                ),
+              ),
+            ],
+          ],
+        ),
+        const SizedBox(height: 4),
+        Text(
+          '${Formatters.currencyWithSign(displayPL)} (${Formatters.percentWithSign(displayPercent)})',
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+            color: displayPL >= 0 ? themeState.positiveColor : themeState.negativeColor,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildChart(
+    BuildContext context,
+    ThemeState themeState,
+    ChartPeriodData periodData,
+    bool isPositive,
+  ) {
+    return SizedBox(
+      height: 200,
+      child: LineChart(
+        duration: Duration.zero,
+        LineChartData(
+          gridData: FlGridData(show: false),
+          titlesData: FlTitlesData(show: false),
+          borderData: FlBorderData(show: false),
+          minX: 0,
+          maxX: (periodData.dataPoints.length - 1).toDouble(),
+          minY: periodData.minValue * 0.98,
+          maxY: periodData.maxValue * 1.02,
+          extraLinesData: _buildExtraLines(themeState, periodData),
+          lineBarsData: [_buildLineBarData(context, themeState, periodData, isPositive)],
+          lineTouchData: _buildTouchData(themeState, isPositive),
+        ),
+      ),
+    );
+  }
+
+  ExtraLinesData _buildExtraLines(ThemeState themeState, ChartPeriodData periodData) {
+    return ExtraLinesData(
+      horizontalLines: [
+        HorizontalLine(
+          y: periodData.maxValue,
+          color: Colors.transparent,
+          strokeWidth: 0,
+          label: HorizontalLineLabel(
+            show: true,
+            alignment: Alignment.topRight,
+            padding: const EdgeInsets.only(left: 4, bottom: 2),
+            style: TextStyle(
+              color: themeState.textSecondaryColor,
+              fontSize: 10,
+              fontWeight: FontWeight.w500,
+            ),
+            labelResolver: (line) => Formatters.abbreviatedNumber(line.y),
+          ),
+        ),
+        HorizontalLine(
+          y: periodData.minValue,
+          color: Colors.transparent,
+          strokeWidth: 0,
+          label: HorizontalLineLabel(
+            show: true,
+            alignment: Alignment.bottomRight,
+            padding: const EdgeInsets.only(left: 4, top: 2),
+            style: TextStyle(
+              color: themeState.textSecondaryColor,
+              fontSize: 10,
+              fontWeight: FontWeight.w500,
+            ),
+            labelResolver: (line) => Formatters.abbreviatedNumber(line.y),
+          ),
+        ),
+      ],
+    );
+  }
+
+  LineChartBarData _buildLineBarData(
+    BuildContext context,
+    ThemeState themeState,
+    ChartPeriodData periodData,
+    bool isPositive,
+  ) {
+    return LineChartBarData(
+      spots: periodData.dataPoints.asMap().entries.map((entry) {
+        return FlSpot(entry.key.toDouble(), entry.value.value);
+      }).toList(),
+      isCurved: true,
+      color: isPositive ? themeState.positiveColor : themeState.negativeColor,
+      barWidth: 2,
+      isStrokeCapRound: true,
+      dotData: FlDotData(
+        show: true,
+        getDotPainter: (spot, percent, barData, index) {
+          if (index == touchedIndex) {
+            return FlDotCirclePainter(
+              radius: 6,
+              color: Theme.of(context).colorScheme.surface,
+              strokeWidth: 3,
+              strokeColor: isPositive ? themeState.positiveColor : themeState.negativeColor,
+            );
+          }
+          return FlDotCirclePainter(
+            radius: 0,
+            color: Colors.transparent,
+          );
+        },
+      ),
+      belowBarData: BarAreaData(
+        show: true,
+        color: (isPositive ? themeState.positiveColor : themeState.negativeColor).withValues(alpha: 0.1),
+      ),
+    );
+  }
+
+  LineTouchData _buildTouchData(ThemeState themeState, bool isPositive) {
+    return LineTouchData(
+      enabled: true,
+      touchCallback: (FlTouchEvent event, LineTouchResponse? touchResponse) {
+        if (!event.isInterestedForInteractions ||
+            touchResponse == null ||
+            touchResponse.lineBarSpots == null) {
+          setState(() {
+            touchedIndex = null;
+          });
+          return;
+        }
+        setState(() {
+          touchedIndex = touchResponse.lineBarSpots!.first.spotIndex;
+        });
+      },
+      getTouchedSpotIndicator: (LineChartBarData barData, List<int> spotIndexes) {
+        return spotIndexes.map((index) {
+          return TouchedSpotIndicatorData(
+            FlLine(
+              color: (isPositive ? themeState.positiveColor : themeState.negativeColor).withValues(alpha: 0.5),
+              strokeWidth: 2,
+              dashArray: [5, 5],
+            ),
+            FlDotData(show: false),
+          );
+        }).toList();
+      },
+      touchTooltipData: LineTouchTooltipData(
+        getTooltipColor: (touchedSpot) => Colors.transparent,
+        tooltipPadding: EdgeInsets.zero,
+        getTooltipItems: (List<LineBarSpot> touchedBarSpots) {
+          return [null];
+        },
+      ),
+    );
+  }
+
+  Widget _buildPeriodTabs(ThemeState themeState) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: widget.chart.periods.keys.map((period) {
+        final isSelected = period == selectedPeriod;
+        return Expanded(
+          child: GestureDetector(
+            onTap: () {
+              setState(() {
+                selectedPeriod = period;
+                touchedIndex = null;
+              });
+            },
+            child: Container(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              decoration: BoxDecoration(
+                color: isSelected ? themeState.selectedTabColor : themeState.unselectedTabColor,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Center(
+                child: Text(
+                  period.value,
+                  style: TextStyle(
+                    color: isSelected ? themeState.selectedTabTextColor : themeState.unselectedTabTextColor,
+                    fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                    fontSize: 13,
                   ),
                 ),
               ),
             ),
-            const SizedBox(height: 20),
-
-            // Period tabs
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: widget.chart.periods.keys.map((period) {
-                final isSelected = period == selectedPeriod;
-                return Expanded(
-                  child: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        selectedPeriod = period;
-                        touchedIndex = null;
-                      });
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: 8),
-                      decoration: BoxDecoration(
-                        color: isSelected ? themeState.selectedTabColor : themeState.unselectedTabColor,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Center(
-                        child: Text(
-                          period.value,
-                          style: TextStyle(
-                            color: isSelected ? themeState.selectedTabTextColor : themeState.unselectedTabTextColor,
-                            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                            fontSize: 13,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                );
-              }).toList(),
-            ),
-          ],
-        ),
-      ),
+          ),
+        );
+      }).toList(),
     );
   }
 }
