@@ -16,38 +16,22 @@ class PortfolioBloc extends Bloc<PortfolioEvent, PortfolioState> {
     Emitter<PortfolioState> emit,
   ) async {
     emit(const PortfolioLoading());
-    
-    final result = await repository.getPortfolioData();
-    
-    if (result.isSuccess) {
-      final data = result.getDataOrNull();
-      if (data != null) {
-        emit(PortfolioLoaded(portfolioData: data));
-      }
-    } else if (result.isFailure) {
-      final failure = result.getFailureOrNull();
-      if (failure != null) {
-        emit(PortfolioError(message: failure.message));
-      }
-    }
+    await _fetchAndEmitPortfolioData(emit);
   }
 
   Future<void> _onRefreshPortfolio(
     RefreshPortfolioEvent event,
     Emitter<PortfolioState> emit,
   ) async {
+    await _fetchAndEmitPortfolioData(emit);
+  }
+
+  Future<void> _fetchAndEmitPortfolioData(Emitter<PortfolioState> emit) async {
     final result = await repository.getPortfolioData();
     
-    if (result.isSuccess) {
-      final data = result.getDataOrNull();
-      if (data != null) {
-        emit(PortfolioLoaded(portfolioData: data));
-      }
-    } else if (result.isFailure) {
-      final failure = result.getFailureOrNull();
-      if (failure != null) {
-        emit(PortfolioError(message: failure.message));
-      }
-    }
+    result.when(
+      onSuccess: (data) => emit(PortfolioLoaded(portfolioData: data)),
+      onFailure: (failure) => emit(PortfolioError(message: failure.message)),
+    );
   }
 }
