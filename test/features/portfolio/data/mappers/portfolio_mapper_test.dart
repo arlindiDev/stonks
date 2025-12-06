@@ -36,9 +36,11 @@ void main() {
           items: [
             proto.PortfolioItem(
               ticker: 'AAPL',
+              companyName: 'Apple Inc.',
               position: 100.0,
               avgPrice: 150.0,
               currentPrice: 175.0,
+              dayChangePercent: 1.25,
               marketValue: 17500.0,
               portfolioPercent: 14.0,
               unrealizedPl: 2500.0,
@@ -101,9 +103,11 @@ void main() {
           items: [
             proto.PortfolioItem(
               ticker: 'AAPL',
+              companyName: 'Apple Inc.',
               position: 100.0,
               avgPrice: 150.0,
               currentPrice: 175.0,
+              dayChangePercent: 1.25,
               marketValue: 17500.0,
               portfolioPercent: 17.5,
               unrealizedPl: 2500.0,
@@ -111,9 +115,11 @@ void main() {
             ),
             proto.PortfolioItem(
               ticker: 'GOOGL',
+              companyName: 'Alphabet Inc.',
               position: 50.0,
               avgPrice: 140.0,
               currentPrice: 155.0,
+              dayChangePercent: -0.42,
               marketValue: 7750.0,
               portfolioPercent: 7.75,
               unrealizedPl: 750.0,
@@ -274,9 +280,11 @@ void main() {
           items: [
             proto.PortfolioItem(
               ticker: 'TSLA',
+              companyName: 'Tesla Inc.',
               position: 25.5,
               avgPrice: 200.75,
               currentPrice: 250.25,
+              dayChangePercent: 2.5,
               marketValue: 6381.375,
               portfolioPercent: 6.38,
               unrealizedPl: 1262.25,
@@ -289,9 +297,11 @@ void main() {
         final item = result[1] as PortfolioItem;
 
         expect(item.ticker, 'TSLA');
+        expect(item.companyName, 'Tesla Inc.');
         expect(item.position, 25.5);
         expect(item.avgPrice, 200.75);
         expect(item.currentPrice, 250.25);
+        expect(item.dayChangePercent, 2.5);
         expect(item.marketValue, 6381.375);
         expect(item.portfolioPercent, 6.38);
         expect(item.unrealizedPL, 1262.25);
@@ -304,9 +314,11 @@ void main() {
           items: [
             proto.PortfolioItem(
               ticker: 'LOSS',
+              companyName: 'Loss Corp',
               position: 100.0,
               avgPrice: 100.0,
               currentPrice: 80.0,
+              dayChangePercent: -3.5,
               marketValue: 8000.0,
               portfolioPercent: 8.0,
               unrealizedPl: -2000.0,
@@ -354,9 +366,11 @@ void main() {
           items: [
             proto.PortfolioItem(
               ticker: 'ZERO',
+              companyName: 'Zero Corp',
               position: 0.0,
               avgPrice: 0.0,
               currentPrice: 0.0,
+              dayChangePercent: 0.0,
               marketValue: 0.0,
               portfolioPercent: 0.0,
               unrealizedPl: 0.0,

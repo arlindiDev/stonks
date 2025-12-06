@@ -8,9 +8,11 @@ import 'package:stocks/features/portfolio/domain/entities/portfolio_ui_item.dart
 class TestData {
   static PortfolioItem createPortfolioItem({
     String ticker = 'AAPL',
+    String companyName = 'Apple Inc.',
     double position = 100.0,
     double avgPrice = 150.0,
     double currentPrice = 175.0,
+    double dayChangePercent = 1.25,
     double marketValue = 17500.0,
     double portfolioPercent = 14.0,
     double unrealizedPL = 2500.0,
@@ -18,9 +20,11 @@ class TestData {
   }) {
     return PortfolioItem(
       ticker: ticker,
+      companyName: companyName,
       position: position,
       avgPrice: avgPrice,
       currentPrice: currentPrice,
+      dayChangePercent: dayChangePercent,
       marketValue: marketValue,
       portfolioPercent: portfolioPercent,
       unrealizedPL: unrealizedPL,
@@ -83,12 +87,14 @@ class TestData {
   static List<PortfolioUIItem> createFullPortfolioData() {
     return [
       createPortfolioChart(),
-      createPortfolioItem(ticker: 'AAPL'),
+      createPortfolioItem(ticker: 'AAPL', companyName: 'Apple Inc.'),
       createPortfolioItem(
         ticker: 'GOOGL',
+        companyName: 'Alphabet Inc.',
         position: 50.0,
         avgPrice: 140.0,
         currentPrice: 155.0,
+        dayChangePercent: -0.42,
         marketValue: 7750.0,
         portfolioPercent: 6.2,
         unrealizedPL: 750.0,
@@ -96,9 +102,11 @@ class TestData {
       ),
       createPortfolioItem(
         ticker: 'MSFT',
+        companyName: 'Microsoft Corporation',
         position: 75.0,
         avgPrice: 380.0,
         currentPrice: 375.0,
+        dayChangePercent: -0.53,
         marketValue: 28125.0,
         portfolioPercent: 22.5,
         unrealizedPL: -375.0,

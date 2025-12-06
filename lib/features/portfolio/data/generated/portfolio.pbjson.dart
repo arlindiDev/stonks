@@ -151,21 +151,29 @@ const PortfolioItem$json = {
   '1': 'PortfolioItem',
   '2': [
     {'1': 'ticker', '3': 1, '4': 1, '5': 9, '10': 'ticker'},
-    {'1': 'position', '3': 2, '4': 1, '5': 1, '10': 'position'},
-    {'1': 'avg_price', '3': 3, '4': 1, '5': 1, '10': 'avgPrice'},
-    {'1': 'current_price', '3': 4, '4': 1, '5': 1, '10': 'currentPrice'},
-    {'1': 'market_value', '3': 5, '4': 1, '5': 1, '10': 'marketValue'},
+    {'1': 'company_name', '3': 2, '4': 1, '5': 9, '10': 'companyName'},
+    {'1': 'position', '3': 3, '4': 1, '5': 1, '10': 'position'},
+    {'1': 'avg_price', '3': 4, '4': 1, '5': 1, '10': 'avgPrice'},
+    {'1': 'current_price', '3': 5, '4': 1, '5': 1, '10': 'currentPrice'},
+    {
+      '1': 'day_change_percent',
+      '3': 6,
+      '4': 1,
+      '5': 1,
+      '10': 'dayChangePercent'
+    },
+    {'1': 'market_value', '3': 7, '4': 1, '5': 1, '10': 'marketValue'},
     {
       '1': 'portfolio_percent',
-      '3': 6,
+      '3': 8,
       '4': 1,
       '5': 1,
       '10': 'portfolioPercent'
     },
-    {'1': 'unrealized_pl', '3': 7, '4': 1, '5': 1, '10': 'unrealizedPl'},
+    {'1': 'unrealized_pl', '3': 9, '4': 1, '5': 1, '10': 'unrealizedPl'},
     {
       '1': 'unrealized_pl_percent',
-      '3': 8,
+      '3': 10,
       '4': 1,
       '5': 1,
       '10': 'unrealizedPlPercent'
@@ -175,9 +183,10 @@ const PortfolioItem$json = {
 
 /// Descriptor for `PortfolioItem`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List portfolioItemDescriptor = $convert.base64Decode(
-    'Cg1Qb3J0Zm9saW9JdGVtEhYKBnRpY2tlchgBIAEoCVIGdGlja2VyEhoKCHBvc2l0aW9uGAIgAS'
-    'gBUghwb3NpdGlvbhIbCglhdmdfcHJpY2UYAyABKAFSCGF2Z1ByaWNlEiMKDWN1cnJlbnRfcHJp'
-    'Y2UYBCABKAFSDGN1cnJlbnRQcmljZRIhCgxtYXJrZXRfdmFsdWUYBSABKAFSC21hcmtldFZhbH'
-    'VlEisKEXBvcnRmb2xpb19wZXJjZW50GAYgASgBUhBwb3J0Zm9saW9QZXJjZW50EiMKDXVucmVh'
-    'bGl6ZWRfcGwYByABKAFSDHVucmVhbGl6ZWRQbBIyChV1bnJlYWxpemVkX3BsX3BlcmNlbnQYCC'
-    'ABKAFSE3VucmVhbGl6ZWRQbFBlcmNlbnQ=');
+    'Cg1Qb3J0Zm9saW9JdGVtEhYKBnRpY2tlchgBIAEoCVIGdGlja2VyEiEKDGNvbXBhbnlfbmFtZR'
+    'gCIAEoCVILY29tcGFueU5hbWUSGgoIcG9zaXRpb24YAyABKAFSCHBvc2l0aW9uEhsKCWF2Z19w'
+    'cmljZRgEIAEoAVIIYXZnUHJpY2USIwoNY3VycmVudF9wcmljZRgFIAEoAVIMY3VycmVudFByaW'
+    'NlEiwKEmRheV9jaGFuZ2VfcGVyY2VudBgGIAEoAVIQZGF5Q2hhbmdlUGVyY2VudBIhCgxtYXJr'
+    'ZXRfdmFsdWUYByABKAFSC21hcmtldFZhbHVlEisKEXBvcnRmb2xpb19wZXJjZW50GAggASgBUh'
+    'Bwb3J0Zm9saW9QZXJjZW50EiMKDXVucmVhbGl6ZWRfcGwYCSABKAFSDHVucmVhbGl6ZWRQbBIy'
+    'ChV1bnJlYWxpemVkX3BsX3BlcmNlbnQYCiABKAFSE3VucmVhbGl6ZWRQbFBlcmNlbnQ=');

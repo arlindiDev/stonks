@@ -382,9 +382,11 @@ class ChartDataPoint extends $pb.GeneratedMessage {
 class PortfolioItem extends $pb.GeneratedMessage {
   factory PortfolioItem({
     $core.String? ticker,
+    $core.String? companyName,
     $core.double? position,
     $core.double? avgPrice,
     $core.double? currentPrice,
+    $core.double? dayChangePercent,
     $core.double? marketValue,
     $core.double? portfolioPercent,
     $core.double? unrealizedPl,
@@ -392,9 +394,11 @@ class PortfolioItem extends $pb.GeneratedMessage {
   }) {
     final result = create();
     if (ticker != null) result.ticker = ticker;
+    if (companyName != null) result.companyName = companyName;
     if (position != null) result.position = position;
     if (avgPrice != null) result.avgPrice = avgPrice;
     if (currentPrice != null) result.currentPrice = currentPrice;
+    if (dayChangePercent != null) result.dayChangePercent = dayChangePercent;
     if (marketValue != null) result.marketValue = marketValue;
     if (portfolioPercent != null) result.portfolioPercent = portfolioPercent;
     if (unrealizedPl != null) result.unrealizedPl = unrealizedPl;
@@ -417,13 +421,15 @@ class PortfolioItem extends $pb.GeneratedMessage {
       package: const $pb.PackageName(_omitMessageNames ? '' : 'portfolio'),
       createEmptyInstance: create)
     ..aOS(1, _omitFieldNames ? '' : 'ticker')
-    ..aD(2, _omitFieldNames ? '' : 'position')
-    ..aD(3, _omitFieldNames ? '' : 'avgPrice')
-    ..aD(4, _omitFieldNames ? '' : 'currentPrice')
-    ..aD(5, _omitFieldNames ? '' : 'marketValue')
-    ..aD(6, _omitFieldNames ? '' : 'portfolioPercent')
-    ..aD(7, _omitFieldNames ? '' : 'unrealizedPl')
-    ..aD(8, _omitFieldNames ? '' : 'unrealizedPlPercent')
+    ..aOS(2, _omitFieldNames ? '' : 'companyName')
+    ..aD(3, _omitFieldNames ? '' : 'position')
+    ..aD(4, _omitFieldNames ? '' : 'avgPrice')
+    ..aD(5, _omitFieldNames ? '' : 'currentPrice')
+    ..aD(6, _omitFieldNames ? '' : 'dayChangePercent')
+    ..aD(7, _omitFieldNames ? '' : 'marketValue')
+    ..aD(8, _omitFieldNames ? '' : 'portfolioPercent')
+    ..aD(9, _omitFieldNames ? '' : 'unrealizedPl')
+    ..aD(10, _omitFieldNames ? '' : 'unrealizedPlPercent')
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -455,67 +461,85 @@ class PortfolioItem extends $pb.GeneratedMessage {
   void clearTicker() => $_clearField(1);
 
   @$pb.TagNumber(2)
-  $core.double get position => $_getN(1);
+  $core.String get companyName => $_getSZ(1);
   @$pb.TagNumber(2)
-  set position($core.double value) => $_setDouble(1, value);
+  set companyName($core.String value) => $_setString(1, value);
   @$pb.TagNumber(2)
-  $core.bool hasPosition() => $_has(1);
+  $core.bool hasCompanyName() => $_has(1);
   @$pb.TagNumber(2)
-  void clearPosition() => $_clearField(2);
+  void clearCompanyName() => $_clearField(2);
 
   @$pb.TagNumber(3)
-  $core.double get avgPrice => $_getN(2);
+  $core.double get position => $_getN(2);
   @$pb.TagNumber(3)
-  set avgPrice($core.double value) => $_setDouble(2, value);
+  set position($core.double value) => $_setDouble(2, value);
   @$pb.TagNumber(3)
-  $core.bool hasAvgPrice() => $_has(2);
+  $core.bool hasPosition() => $_has(2);
   @$pb.TagNumber(3)
-  void clearAvgPrice() => $_clearField(3);
+  void clearPosition() => $_clearField(3);
 
   @$pb.TagNumber(4)
-  $core.double get currentPrice => $_getN(3);
+  $core.double get avgPrice => $_getN(3);
   @$pb.TagNumber(4)
-  set currentPrice($core.double value) => $_setDouble(3, value);
+  set avgPrice($core.double value) => $_setDouble(3, value);
   @$pb.TagNumber(4)
-  $core.bool hasCurrentPrice() => $_has(3);
+  $core.bool hasAvgPrice() => $_has(3);
   @$pb.TagNumber(4)
-  void clearCurrentPrice() => $_clearField(4);
+  void clearAvgPrice() => $_clearField(4);
 
   @$pb.TagNumber(5)
-  $core.double get marketValue => $_getN(4);
+  $core.double get currentPrice => $_getN(4);
   @$pb.TagNumber(5)
-  set marketValue($core.double value) => $_setDouble(4, value);
+  set currentPrice($core.double value) => $_setDouble(4, value);
   @$pb.TagNumber(5)
-  $core.bool hasMarketValue() => $_has(4);
+  $core.bool hasCurrentPrice() => $_has(4);
   @$pb.TagNumber(5)
-  void clearMarketValue() => $_clearField(5);
+  void clearCurrentPrice() => $_clearField(5);
 
   @$pb.TagNumber(6)
-  $core.double get portfolioPercent => $_getN(5);
+  $core.double get dayChangePercent => $_getN(5);
   @$pb.TagNumber(6)
-  set portfolioPercent($core.double value) => $_setDouble(5, value);
+  set dayChangePercent($core.double value) => $_setDouble(5, value);
   @$pb.TagNumber(6)
-  $core.bool hasPortfolioPercent() => $_has(5);
+  $core.bool hasDayChangePercent() => $_has(5);
   @$pb.TagNumber(6)
-  void clearPortfolioPercent() => $_clearField(6);
+  void clearDayChangePercent() => $_clearField(6);
 
   @$pb.TagNumber(7)
-  $core.double get unrealizedPl => $_getN(6);
+  $core.double get marketValue => $_getN(6);
   @$pb.TagNumber(7)
-  set unrealizedPl($core.double value) => $_setDouble(6, value);
+  set marketValue($core.double value) => $_setDouble(6, value);
   @$pb.TagNumber(7)
-  $core.bool hasUnrealizedPl() => $_has(6);
+  $core.bool hasMarketValue() => $_has(6);
   @$pb.TagNumber(7)
-  void clearUnrealizedPl() => $_clearField(7);
+  void clearMarketValue() => $_clearField(7);
 
   @$pb.TagNumber(8)
-  $core.double get unrealizedPlPercent => $_getN(7);
+  $core.double get portfolioPercent => $_getN(7);
   @$pb.TagNumber(8)
-  set unrealizedPlPercent($core.double value) => $_setDouble(7, value);
+  set portfolioPercent($core.double value) => $_setDouble(7, value);
   @$pb.TagNumber(8)
-  $core.bool hasUnrealizedPlPercent() => $_has(7);
+  $core.bool hasPortfolioPercent() => $_has(7);
   @$pb.TagNumber(8)
-  void clearUnrealizedPlPercent() => $_clearField(8);
+  void clearPortfolioPercent() => $_clearField(8);
+
+  @$pb.TagNumber(9)
+  $core.double get unrealizedPl => $_getN(8);
+  @$pb.TagNumber(9)
+  set unrealizedPl($core.double value) => $_setDouble(8, value);
+  @$pb.TagNumber(9)
+  $core.bool hasUnrealizedPl() => $_has(8);
+  @$pb.TagNumber(9)
+  void clearUnrealizedPl() => $_clearField(9);
+
+  @$pb.TagNumber(10)
+  $core.double get unrealizedPlPercent => $_getN(9);
+  @$pb.TagNumber(10)
+  set unrealizedPlPercent($core.double value) => $_setDouble(9, value);
+  @$pb.TagNumber(10)
+  $core.bool hasUnrealizedPlPercent() => $_has(9);
+  @$pb.TagNumber(10)
+  void clearUnrealizedPlPercent() => $_clearField(10);
 }
 
 const $core.bool _omitFieldNames =

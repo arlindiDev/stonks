@@ -183,21 +183,23 @@ class MockDataHelper {
 
   static List<proto.PortfolioItem> _getMockItems() {
     return [
-      _item('AAPL', 150, 145.50, 180.25, 27037.50, 42.18, 5212.50, 23.88),
-      _item('MSFT', 75, 310.00, 370.15, 27761.25, 43.31, 4511.25, 19.40),
-      _item('GOOGL', 50, 125.75, 142.30, 7115.00, 11.10, 827.50, 13.15),
-      _item('AMZN', 25, 340.50, 385.75, 9643.75, 15.04, 1131.25, 13.29),
-      _item('NVDA', 100, 420.00, 495.20, 49520.00, 77.23, 7520.00, 17.90),
-      _item('VOO', 75, 380.25, 425.80, 31935.00, 49.81, 3416.25, 11.98),
-      _item('DXYZ', 200, 12.75, 9.50, 1900.00, 2.96, -650.00, -25.49),
+      _item('AAPL', 'Apple Inc.', 150, 145.50, 180.25, 1.25, 27037.50, 42.18, 5212.50, 23.88),
+      _item('MSFT', 'Microsoft Corporation', 75, 310.00, 370.15, 0.85, 27761.25, 43.31, 4511.25, 19.40),
+      _item('GOOGL', 'Alphabet Inc.', 50, 125.75, 142.30, -0.42, 7115.00, 11.10, 827.50, 13.15),
+      _item('AMZN', 'Amazon.com Inc.', 25, 340.50, 385.75, 2.10, 9643.75, 15.04, 1131.25, 13.29),
+      _item('NVDA', 'NVIDIA Corporation', 100, 420.00, 495.20, 3.15, 49520.00, 77.23, 7520.00, 17.90),
+      _item('VOO', 'Vanguard S&P 500 ETF', 75, 380.25, 425.80, 0.65, 31935.00, 49.81, 3416.25, 11.98),
+      _item('DXYZ', 'Destiny Tech100', 200, 12.75, 9.50, -4.73, 1900.00, 2.96, -650.00, -25.49),
     ];
   }
 
   static proto.PortfolioItem _item(
     String ticker,
+    String companyName,
     double position,
     double avgPrice,
     double currentPrice,
+    double dayChangePercent,
     double marketValue,
     double portfolioPercent,
     double unrealizedPl,
@@ -205,9 +207,11 @@ class MockDataHelper {
   ) {
     return proto.PortfolioItem()
       ..ticker = ticker
+      ..companyName = companyName
       ..position = position
       ..avgPrice = avgPrice
       ..currentPrice = currentPrice
+      ..dayChangePercent = dayChangePercent
       ..marketValue = marketValue
       ..portfolioPercent = portfolioPercent
       ..unrealizedPl = unrealizedPl

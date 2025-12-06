@@ -51,9 +51,11 @@ class PortfolioMapper {
   static PortfolioItem _fromProtoItem(proto.PortfolioItem protoItem) {
     return PortfolioItem(
       ticker: protoItem.ticker,
+      companyName: protoItem.companyName,
       position: protoItem.position,
       avgPrice: protoItem.avgPrice,
       currentPrice: protoItem.currentPrice,
+      dayChangePercent: protoItem.dayChangePercent,
       marketValue: protoItem.marketValue,
       portfolioPercent: protoItem.portfolioPercent,
       unrealizedPL: protoItem.unrealizedPl,

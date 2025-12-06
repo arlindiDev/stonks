@@ -25,6 +25,7 @@ class PortfolioItemCard extends StatelessWidget {
   }
 
   Widget _buildCard(BuildContext context, ThemeState themeState, bool isPositive) {
+    final isDayChangePositive = item.dayChangePercent >= 0;
 
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
@@ -33,7 +34,7 @@ class PortfolioItemCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Ticker
+            // Ticker and Company Name
             Text(
               item.ticker,
               style: const TextStyle(
@@ -41,7 +42,28 @@ class PortfolioItemCard extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
+            const SizedBox(height: 4),
+            Text(
+              item.companyName,
+              style: TextStyle(
+                fontSize: 14,
+                color: themeState.textSecondaryColor,
+              ),
+            ),
             const SizedBox(height: 12),
+            
+            // Current Price
+            _buildRow(themeState, 'Current Price', Formatters.currency(item.currentPrice)),
+            const SizedBox(height: 6),
+            
+            // % Day Change
+            _buildRow(
+              themeState,
+              '% Day Change',
+              Formatters.percentWithSign(item.dayChangePercent),
+              color: isDayChangePositive ? themeState.positiveColor : themeState.negativeColor,
+            ),
+            const SizedBox(height: 6),
             
             // Position
             _buildRow(themeState, 'Position', Formatters.shares(item.position)),
@@ -49,10 +71,6 @@ class PortfolioItemCard extends StatelessWidget {
             
             // Average Price
             _buildRow(themeState, 'AVG Price', Formatters.currency(item.avgPrice)),
-            const SizedBox(height: 6),
-            
-            // Current Price
-            _buildRow(themeState, 'Current Price', Formatters.currency(item.currentPrice)),
             const SizedBox(height: 6),
             
             // Market Value
