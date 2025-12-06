@@ -32,24 +32,19 @@ class Formatters {
   static String formatDate(DateTime date, String period) {
     switch (period) {
       case '1D':
-        return '${date.hour.toString().padLeft(2, '0')}:${date.minute.toString().padLeft(2, '0')}';
+        return DateFormat('HH:mm').format(date);
       case '1W':
-        final days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-        return '${days[date.weekday - 1]} ${date.hour.toString().padLeft(2, '0')}:${date.minute.toString().padLeft(2, '0')}';
+        return DateFormat('E HH:mm').format(date);
       case '1M':
-        final months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-        return '${months[date.month - 1]} ${date.day}';
       case '6M':
       case 'YTD':
       case '1Y':
-        final months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-        return '${months[date.month - 1]} ${date.day}';
+        return DateFormat('MMM d').format(date);
       case '5Y':
       case 'ALL':
-        final months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-        return '${months[date.month - 1]} ${date.year}';
+        return DateFormat('MMM yyyy').format(date);
       default:
-        return '${date.month}/${date.day}';
+        return DateFormat('M/d').format(date);
     }
   }
 
