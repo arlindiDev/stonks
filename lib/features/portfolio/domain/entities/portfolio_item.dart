@@ -1,6 +1,5 @@
 import 'portfolio_ui_item.dart';
 
-/// Represents a single stock position in the portfolio
 class PortfolioItem extends PortfolioUIItem {
   final String ticker;
   final String companyName;

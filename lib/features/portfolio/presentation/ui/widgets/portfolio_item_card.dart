@@ -34,7 +34,6 @@ class PortfolioItemCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Ticker and Company Name
             Text(
               item.ticker,
               style: const TextStyle(
@@ -52,11 +51,9 @@ class PortfolioItemCard extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             
-            // Current Price
             _buildRow(themeState, 'Current Price', Formatters.currency(item.currentPrice)),
             const SizedBox(height: 6),
             
-            // % Day Change
             _buildRow(
               themeState,
               '% Day Change',
@@ -65,23 +62,18 @@ class PortfolioItemCard extends StatelessWidget {
             ),
             const SizedBox(height: 6),
             
-            // Position
             _buildRow(themeState, 'Position', Formatters.shares(item.position)),
             const SizedBox(height: 6),
             
-            // Average Price
             _buildRow(themeState, 'AVG Price', Formatters.currency(item.avgPrice)),
             const SizedBox(height: 6),
             
-            // Market Value
             _buildRow(themeState, 'Market Value', Formatters.currency(item.marketValue)),
             const SizedBox(height: 6),
             
-            // % of Portfolio
             _buildRow(themeState, '% of Portfolio', Formatters.percent(item.portfolioPercent)),
             const SizedBox(height: 6),
             
-            // Unrealized P&L
             _buildRow(
               themeState,
               'Unrealized P&L',
@@ -90,7 +82,6 @@ class PortfolioItemCard extends StatelessWidget {
             ),
             const SizedBox(height: 6),
             
-            // Unrealized P&L %
             _buildRow(
               themeState,
               'Unrealized P&L %',

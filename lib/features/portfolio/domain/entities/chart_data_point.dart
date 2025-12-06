@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 
-/// Represents a single data point on the portfolio chart
 class ChartDataPoint extends Equatable {
   final double value;
   final DateTime timestamp;

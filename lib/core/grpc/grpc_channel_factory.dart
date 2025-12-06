@@ -3,7 +3,6 @@ import 'package:grpc/grpc.dart';
 /// Factory for creating gRPC channels
 /// Shared utility used by all feature gRPC clients
 class GrpcChannelFactory {
-  /// Create a channel to connect to a gRPC server
   static ClientChannel createChannel({
     required String host,
     required int port,
@@ -18,7 +17,6 @@ class GrpcChannelFactory {
     );
   }
 
-  /// Create a channel to localhost (for mock servers)
   static ClientChannel createLocalChannel(int port) {
     return createChannel(
       host: 'localhost',

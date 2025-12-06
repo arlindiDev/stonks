@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'chart_data_point.dart';
 
-/// Represents chart data for a specific time period (1D, 1W, 1M, etc.)
 class ChartPeriodData extends Equatable {
   final List<ChartDataPoint> dataPoints;
   final double latestPrice;

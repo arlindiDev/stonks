@@ -3,3 +3,4 @@ import 'package:stocks/features/portfolio/domain/repository/portfolio_repository
 
 class MockPortfolioRepository extends Mock implements PortfolioRepository {}
 
+

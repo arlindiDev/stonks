@@ -72,7 +72,6 @@ class AppThemes {
     );
   }
   
-  // Neobank Theme (Dark/Neon)
   static ThemeData get neobankTheme {
     return ThemeData(
       useMaterial3: true,
