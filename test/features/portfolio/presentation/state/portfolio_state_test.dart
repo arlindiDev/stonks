@@ -42,7 +42,7 @@ void main() {
 
       test('two states with different data are not equal', () {
         final state1 = PortfolioLoaded(portfolioData: testData1);
-        final differentData = [TestData.createPortfolioTotal(totalValue: 999999.0)];
+        final differentData = [TestData.createPortfolioChart()];
         final state2 = PortfolioLoaded(portfolioData: differentData);
         expect(state1, isNot(equals(state2)));
       });
@@ -55,7 +55,7 @@ void main() {
       test('can access portfolioData', () {
         final state = PortfolioLoaded(portfolioData: testData1);
         expect(state.portfolioData, testData1);
-        expect(state.portfolioData.length, 5); // total + chart + 3 items
+        expect(state.portfolioData.length, 4); // chart + 3 items
       });
     });
 

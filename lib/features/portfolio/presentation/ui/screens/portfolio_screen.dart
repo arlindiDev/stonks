@@ -4,13 +4,11 @@ import '../../../../theme/presentation/state/theme_bloc.dart';
 import '../../../../theme/presentation/state/theme_event.dart';
 import '../../../../theme/presentation/state/theme_state.dart';
 import '../../../domain/entities/portfolio_chart.dart';
-import '../../../domain/entities/portfolio_total.dart';
 import '../../../domain/entities/portfolio_item.dart';
 import '../../state/portfolio_bloc.dart';
 import '../../state/portfolio_event.dart';
 import '../../state/portfolio_state.dart';
 import '../widgets/portfolio_chart_card.dart';
-import '../widgets/portfolio_total_card.dart';
 import '../widgets/portfolio_item_card.dart';
 
 class PortfolioScreen extends StatefulWidget {
@@ -116,8 +114,6 @@ class _PortfolioScreenState extends State<PortfolioScreen> {
                       
                       if (item is PortfolioChart) {
                         return PortfolioChartCard(chart: item);
-                      } else if (item is PortfolioTotal) {
-                        return PortfolioTotalCard(total: item);
                       } else if (item is PortfolioItem) {
                         return PortfolioItemCard(item: item);
                       }

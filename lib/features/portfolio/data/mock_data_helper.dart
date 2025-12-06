@@ -4,13 +4,8 @@ import 'generated/portfolio.pb.dart' as proto;
 class MockDataHelper {
   static proto.GetPortfolioResponse getMockPortfolioResponse() {
     return proto.GetPortfolioResponse()
-      ..total = _getMockTotal()
       ..chart = _getMockChart()
       ..items.addAll(_getMockItems());
-  }
-
-  static proto.PortfolioTotal _getMockTotal() {
-    return proto.PortfolioTotal()..totalValue = 127439.25;
   }
 
   static proto.PortfolioChart _getMockChart() {

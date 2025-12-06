@@ -4,7 +4,6 @@ package portfolio;
 
 // Portfolio Service Definition
 service PortfolioService {
-  // - Total portfolio value
   // - Chart with ALL periods (1D, 1W, 1M, 6M, YTD, 1Y, ALL)
   // - All portfolio items
   rpc GetPortfolio(GetPortfolioRequest) returns (GetPortfolioResponse);
@@ -18,16 +17,11 @@ message GetPortfolioRequest {
 }
 
 message GetPortfolioResponse {
-  PortfolioTotal total = 1;
-  PortfolioChart chart = 2;  // Chart contains all periods
-  repeated PortfolioItem items = 3;
+  PortfolioChart chart = 1;  // Chart contains all periods
+  repeated PortfolioItem items = 2;
 }
 
 // Data Models
-
-message PortfolioTotal {
-  double total_value = 1;
-}
 
 message PortfolioChart {
   // Map of period name to chart data (e.g., "1D", "1W", "1M", "6M", "YTD", "1Y", "ALL")

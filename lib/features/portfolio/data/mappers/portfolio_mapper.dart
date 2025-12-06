@@ -1,6 +1,5 @@
 import '../generated/portfolio.pb.dart' as proto;
 import '../../domain/entities/portfolio_ui_item.dart';
-import '../../domain/entities/portfolio_total.dart';
 import '../../domain/entities/portfolio_chart.dart';
 import '../../domain/entities/portfolio_item.dart';
 import '../../domain/entities/chart_period_data.dart';
@@ -12,10 +11,6 @@ class PortfolioMapper {
     proto.GetPortfolioResponse response,
   ) {
     final List<PortfolioUIItem> result = [];
-
-    result.add(PortfolioTotal(
-      totalValue: response.total.totalValue,
-    ));
 
     result.add(_fromProtoChart(response.chart));
 

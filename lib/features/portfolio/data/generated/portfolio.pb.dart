@@ -67,14 +67,10 @@ class GetPortfolioRequest extends $pb.GeneratedMessage {
 
 class GetPortfolioResponse extends $pb.GeneratedMessage {
   factory GetPortfolioResponse({
-    PortfolioTotal? total,
     PortfolioChart? chart,
     $core.Iterable<PortfolioItem>? items,
   }) {
     final $result = create();
-    if (total != null) {
-      $result.total = total;
-    }
     if (chart != null) {
       $result.chart = chart;
     }
@@ -88,9 +84,8 @@ class GetPortfolioResponse extends $pb.GeneratedMessage {
   factory GetPortfolioResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetPortfolioResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'portfolio'), createEmptyInstance: create)
-    ..aOM<PortfolioTotal>(1, _omitFieldNames ? '' : 'total', subBuilder: PortfolioTotal.create)
-    ..aOM<PortfolioChart>(2, _omitFieldNames ? '' : 'chart', subBuilder: PortfolioChart.create)
-    ..pc<PortfolioItem>(3, _omitFieldNames ? '' : 'items', $pb.PbFieldType.PM, subBuilder: PortfolioItem.create)
+    ..aOM<PortfolioChart>(1, _omitFieldNames ? '' : 'chart', subBuilder: PortfolioChart.create)
+    ..pc<PortfolioItem>(2, _omitFieldNames ? '' : 'items', $pb.PbFieldType.PM, subBuilder: PortfolioItem.create)
     ..hasRequiredFields = false
   ;
 
@@ -116,79 +111,18 @@ class GetPortfolioResponse extends $pb.GeneratedMessage {
   static GetPortfolioResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
-  PortfolioTotal get total => $_getN(0);
+  PortfolioChart get chart => $_getN(0);
   @$pb.TagNumber(1)
-  set total(PortfolioTotal v) { setField(1, v); }
+  set chart(PortfolioChart v) { setField(1, v); }
   @$pb.TagNumber(1)
-  $core.bool hasTotal() => $_has(0);
+  $core.bool hasChart() => $_has(0);
   @$pb.TagNumber(1)
-  void clearTotal() => clearField(1);
+  void clearChart() => clearField(1);
   @$pb.TagNumber(1)
-  PortfolioTotal ensureTotal() => $_ensure(0);
+  PortfolioChart ensureChart() => $_ensure(0);
 
   @$pb.TagNumber(2)
-  PortfolioChart get chart => $_getN(1);
-  @$pb.TagNumber(2)
-  set chart(PortfolioChart v) { setField(2, v); }
-  @$pb.TagNumber(2)
-  $core.bool hasChart() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearChart() => clearField(2);
-  @$pb.TagNumber(2)
-  PortfolioChart ensureChart() => $_ensure(1);
-
-  @$pb.TagNumber(3)
-  $core.List<PortfolioItem> get items => $_getList(2);
-}
-
-class PortfolioTotal extends $pb.GeneratedMessage {
-  factory PortfolioTotal({
-    $core.double? totalValue,
-  }) {
-    final $result = create();
-    if (totalValue != null) {
-      $result.totalValue = totalValue;
-    }
-    return $result;
-  }
-  PortfolioTotal._() : super();
-  factory PortfolioTotal.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory PortfolioTotal.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'PortfolioTotal', package: const $pb.PackageName(_omitMessageNames ? '' : 'portfolio'), createEmptyInstance: create)
-    ..a<$core.double>(1, _omitFieldNames ? '' : 'totalValue', $pb.PbFieldType.OD)
-    ..hasRequiredFields = false
-  ;
-
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
-  PortfolioTotal clone() => PortfolioTotal()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  PortfolioTotal copyWith(void Function(PortfolioTotal) updates) => super.copyWith((message) => updates(message as PortfolioTotal)) as PortfolioTotal;
-
-  $pb.BuilderInfo get info_ => _i;
-
-  @$core.pragma('dart2js:noInline')
-  static PortfolioTotal create() => PortfolioTotal._();
-  PortfolioTotal createEmptyInstance() => create();
-  static $pb.PbList<PortfolioTotal> createRepeated() => $pb.PbList<PortfolioTotal>();
-  @$core.pragma('dart2js:noInline')
-  static PortfolioTotal getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<PortfolioTotal>(create);
-  static PortfolioTotal? _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.double get totalValue => $_getN(0);
-  @$pb.TagNumber(1)
-  set totalValue($core.double v) { $_setDouble(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasTotalValue() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearTotalValue() => clearField(1);
+  $core.List<PortfolioItem> get items => $_getList(1);
 }
 
 class PortfolioChart extends $pb.GeneratedMessage {
@@ -231,6 +165,7 @@ class PortfolioChart extends $pb.GeneratedMessage {
   static PortfolioChart getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<PortfolioChart>(create);
   static PortfolioChart? _defaultInstance;
 
+  /// Map of period name to chart data (e.g., "1D", "1W", "1M", "6M", "YTD", "1Y", "ALL")
   @$pb.TagNumber(1)
   $core.Map<$core.String, ChartPeriodData> get periods => $_getMap(0);
 }

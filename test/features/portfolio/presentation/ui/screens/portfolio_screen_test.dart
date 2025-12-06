@@ -5,10 +5,8 @@ import 'package:mocktail/mocktail.dart';
 import 'package:stocks/features/portfolio/domain/repository/portfolio_repository.dart';
 import 'package:stocks/features/portfolio/domain/repository/portfolio_result.dart';
 import 'package:stocks/features/portfolio/presentation/state/portfolio_bloc.dart';
-import 'package:stocks/features/portfolio/presentation/state/portfolio_event.dart';
 import 'package:stocks/features/portfolio/presentation/ui/screens/portfolio_screen.dart';
 import 'package:stocks/features/portfolio/presentation/ui/widgets/portfolio_chart_card.dart';
-import 'package:stocks/features/portfolio/presentation/ui/widgets/portfolio_total_card.dart';
 import 'package:stocks/features/portfolio/presentation/ui/widgets/portfolio_item_card.dart';
 import 'package:stocks/features/theme/presentation/state/theme_bloc.dart';
 import 'package:stocks/features/theme/themes.dart';
@@ -130,7 +128,6 @@ void main() {
       await tester.tap(find.text('Retry'));
       await tester.pumpAndSettle();
 
-      expect(find.byType(PortfolioTotalCard), findsOneWidget);
       expect(find.byType(PortfolioChartCard), findsOneWidget);
       
       portfolioBloc.close();
@@ -138,21 +135,6 @@ void main() {
   });
 
   group('PortfolioScreen - Loaded State', () {
-    testWidgets('displays portfolio total card', (tester) async {
-      when(() => mockRepository.getPortfolioData()).thenAnswer(
-        (_) async => PortfolioResult.success(TestData.createFullPortfolioData()),
-      );
-
-      portfolioBloc = PortfolioBloc(repository: mockRepository);
-      
-      await tester.pumpWidget(createWidgetUnderTest(portfolioBloc));
-      await tester.pumpAndSettle();
-
-      expect(find.byType(PortfolioTotalCard), findsOneWidget);
-      
-      portfolioBloc.close();
-    });
-
     testWidgets('displays portfolio chart card', (tester) async {
       when(() => mockRepository.getPortfolioData()).thenAnswer(
         (_) async => PortfolioResult.success(TestData.createFullPortfolioData()),
@@ -182,23 +164,6 @@ void main() {
       expect(find.byType(PortfolioItemCard), findsAtLeastNWidgets(1));
       
       expect(find.text('AAPL'), findsOneWidget);
-      
-      portfolioBloc.close();
-    });
-
-    testWidgets('displays total value correctly', (tester) async {
-      when(() => mockRepository.getPortfolioData()).thenAnswer(
-        (_) async => PortfolioResult.success(TestData.createFullPortfolioData()),
-      );
-
-      portfolioBloc = PortfolioBloc(repository: mockRepository);
-      
-      await tester.pumpWidget(createWidgetUnderTest(portfolioBloc));
-      await tester.pumpAndSettle();
-
-      expect(find.text('\$125,000.00'), findsAtLeastNWidgets(1));
-      
-      expect(find.byType(PortfolioTotalCard), findsOneWidget);
       
       portfolioBloc.close();
     });
@@ -300,7 +265,6 @@ void main() {
       await tester.pumpWidget(createWidgetUnderTest(portfolioBloc));
       await tester.pumpAndSettle();
 
-      expect(find.byType(PortfolioTotalCard), findsNothing);
       expect(find.byType(PortfolioItemCard), findsNothing);
       
       portfolioBloc.close();

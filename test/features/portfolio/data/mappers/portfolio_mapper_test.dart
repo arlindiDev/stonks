@@ -2,7 +2,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:fixnum/fixnum.dart';
 import 'package:stocks/features/portfolio/data/generated/portfolio.pb.dart' as proto;
 import 'package:stocks/features/portfolio/data/mappers/portfolio_mapper.dart';
-import 'package:stocks/features/portfolio/domain/entities/portfolio_total.dart';
 import 'package:stocks/features/portfolio/domain/entities/portfolio_chart.dart';
 import 'package:stocks/features/portfolio/domain/entities/portfolio_item.dart';
 import 'package:stocks/features/portfolio/domain/entities/chart_period.dart';
@@ -12,7 +11,6 @@ void main() {
     group('fromProtoResponse', () {
       test('maps complete proto response correctly', () {
         final protoResponse = proto.GetPortfolioResponse(
-          total: proto.PortfolioTotal(totalValue: 125000.0),
           chart: proto.PortfolioChart(
             periods: {
               '1D': proto.ChartPeriodData(
@@ -50,28 +48,13 @@ void main() {
 
         final result = PortfolioMapper.fromProtoResponse(protoResponse);
 
-        expect(result.length, 3);
-        expect(result[0], isA<PortfolioTotal>());
-        expect(result[1], isA<PortfolioChart>());
-        expect(result[2], isA<PortfolioItem>());
-      });
-
-      test('maps PortfolioTotal correctly', () {
-        final protoResponse = proto.GetPortfolioResponse(
-          total: proto.PortfolioTotal(totalValue: 250000.50),
-          chart: proto.PortfolioChart(),
-          items: [],
-        );
-
-        final result = PortfolioMapper.fromProtoResponse(protoResponse);
-        final total = result[0] as PortfolioTotal;
-
-        expect(total.totalValue, 250000.50);
+        expect(result.length, 2);
+        expect(result[0], isA<PortfolioChart>());
+        expect(result[1], isA<PortfolioItem>());
       });
 
       test('maps PortfolioChart with multiple periods', () {
         final protoResponse = proto.GetPortfolioResponse(
-          total: proto.PortfolioTotal(totalValue: 100000.0),
           chart: proto.PortfolioChart(
             periods: {
               '1D': proto.ChartPeriodData(
@@ -98,7 +81,7 @@ void main() {
         );
 
         final result = PortfolioMapper.fromProtoResponse(protoResponse);
-        final chart = result[1] as PortfolioChart;
+        final chart = result[0] as PortfolioChart;
 
         expect(chart.periods.length, 3);
         expect(chart.periods.containsKey(ChartPeriod.oneDay), true);
@@ -108,7 +91,6 @@ void main() {
 
       test('maps multiple portfolio items correctly', () {
         final protoResponse = proto.GetPortfolioResponse(
-          total: proto.PortfolioTotal(totalValue: 100000.0),
           chart: proto.PortfolioChart(),
           items: [
             proto.PortfolioItem(
@@ -136,12 +118,12 @@ void main() {
 
         final result = PortfolioMapper.fromProtoResponse(protoResponse);
 
-        expect(result.length, 4); // total + chart + 2 items
+        expect(result.length, 3); // chart + 2 items
+        expect(result[1], isA<PortfolioItem>());
         expect(result[2], isA<PortfolioItem>());
-        expect(result[3], isA<PortfolioItem>());
 
-        final item1 = result[2] as PortfolioItem;
-        final item2 = result[3] as PortfolioItem;
+        final item1 = result[1] as PortfolioItem;
+        final item2 = result[2] as PortfolioItem;
 
         expect(item1.ticker, 'AAPL');
         expect(item2.ticker, 'GOOGL');
@@ -151,7 +133,6 @@ void main() {
     group('_fromProtoChart', () {
       test('maps chart period data correctly', () {
         final protoResponse = proto.GetPortfolioResponse(
-          total: proto.PortfolioTotal(totalValue: 100000.0),
           chart: proto.PortfolioChart(
             periods: {
               '1D': proto.ChartPeriodData(
@@ -177,7 +158,7 @@ void main() {
         );
 
         final result = PortfolioMapper.fromProtoResponse(protoResponse);
-        final chart = result[1] as PortfolioChart;
+        final chart = result[0] as PortfolioChart;
         final periodData = chart.periods[ChartPeriod.oneDay]!;
 
         expect(periodData.dataPoints.length, 2);
@@ -188,7 +169,6 @@ void main() {
 
       test('maps all chart periods', () {
         final protoResponse = proto.GetPortfolioResponse(
-          total: proto.PortfolioTotal(totalValue: 100000.0),
           chart: proto.PortfolioChart(
             periods: {
               '1D': proto.ChartPeriodData(latestPrice: 100000, unrealizedPl: 1000, unrealizedPlPercent: 1.0),
@@ -204,7 +184,7 @@ void main() {
         );
 
         final result = PortfolioMapper.fromProtoResponse(protoResponse);
-        final chart = result[1] as PortfolioChart;
+        final chart = result[0] as PortfolioChart;
 
         expect(chart.periods.length, 7);
         expect(chart.periods[ChartPeriod.oneDay]!.unrealizedPL, 1000);
@@ -221,7 +201,6 @@ void main() {
       test('converts timestamp correctly', () {
         final timestamp = Int64(1704103800000); // 2024-01-01 09:30:00 UTC
         final protoResponse = proto.GetPortfolioResponse(
-          total: proto.PortfolioTotal(totalValue: 100000.0),
           chart: proto.PortfolioChart(
             periods: {
               '1D': proto.ChartPeriodData(
@@ -242,7 +221,7 @@ void main() {
         );
 
         final result = PortfolioMapper.fromProtoResponse(protoResponse);
-        final chart = result[1] as PortfolioChart;
+        final chart = result[0] as PortfolioChart;
         final dataPoint = chart.periods[ChartPeriod.oneDay]!.dataPoints[0];
 
         expect(dataPoint.timestamp.millisecondsSinceEpoch, 1704103800000);
@@ -252,7 +231,6 @@ void main() {
 
       test('maps all data point fields correctly', () {
         final protoResponse = proto.GetPortfolioResponse(
-          total: proto.PortfolioTotal(totalValue: 100000.0),
           chart: proto.PortfolioChart(
             periods: {
               '1D': proto.ChartPeriodData(
@@ -273,7 +251,7 @@ void main() {
         );
 
         final result = PortfolioMapper.fromProtoResponse(protoResponse);
-        final chart = result[1] as PortfolioChart;
+        final chart = result[0] as PortfolioChart;
         final dataPoint = chart.periods[ChartPeriod.oneDay]!.dataPoints[0];
 
         expect(dataPoint.value, 98500.50);
@@ -284,7 +262,6 @@ void main() {
     group('_fromProtoItem', () {
       test('maps all portfolio item fields correctly', () {
         final protoResponse = proto.GetPortfolioResponse(
-          total: proto.PortfolioTotal(totalValue: 100000.0),
           chart: proto.PortfolioChart(),
           items: [
             proto.PortfolioItem(
@@ -301,7 +278,7 @@ void main() {
         );
 
         final result = PortfolioMapper.fromProtoResponse(protoResponse);
-        final item = result[2] as PortfolioItem;
+        final item = result[1] as PortfolioItem;
 
         expect(item.ticker, 'TSLA');
         expect(item.position, 25.5);
@@ -315,7 +292,6 @@ void main() {
 
       test('handles negative unrealized P/L', () {
         final protoResponse = proto.GetPortfolioResponse(
-          total: proto.PortfolioTotal(totalValue: 100000.0),
           chart: proto.PortfolioChart(),
           items: [
             proto.PortfolioItem(
@@ -332,7 +308,7 @@ void main() {
         );
 
         final result = PortfolioMapper.fromProtoResponse(protoResponse);
-        final item = result[2] as PortfolioItem;
+        final item = result[1] as PortfolioItem;
 
         expect(item.unrealizedPL, -2000.0);
         expect(item.unrealizedPLPercent, -20.0);
@@ -342,34 +318,30 @@ void main() {
     group('edge cases', () {
       test('handles empty items list', () {
         final protoResponse = proto.GetPortfolioResponse(
-          total: proto.PortfolioTotal(totalValue: 100000.0),
           chart: proto.PortfolioChart(),
           items: [],
         );
 
         final result = PortfolioMapper.fromProtoResponse(protoResponse);
 
-        expect(result.length, 2);
-        expect(result[0], isA<PortfolioTotal>());
-        expect(result[1], isA<PortfolioChart>());
+        expect(result.length, 1);
+        expect(result[0], isA<PortfolioChart>());
       });
 
       test('handles chart with empty periods', () {
         final protoResponse = proto.GetPortfolioResponse(
-          total: proto.PortfolioTotal(totalValue: 100000.0),
           chart: proto.PortfolioChart(periods: {}),
           items: [],
         );
 
         final result = PortfolioMapper.fromProtoResponse(protoResponse);
-        final chart = result[1] as PortfolioChart;
+        final chart = result[0] as PortfolioChart;
 
         expect(chart.periods.isEmpty, true);
       });
 
       test('handles zero values', () {
         final protoResponse = proto.GetPortfolioResponse(
-          total: proto.PortfolioTotal(totalValue: 0.0),
           chart: proto.PortfolioChart(),
           items: [
             proto.PortfolioItem(
@@ -386,10 +358,8 @@ void main() {
         );
 
         final result = PortfolioMapper.fromProtoResponse(protoResponse);
-        final total = result[0] as PortfolioTotal;
-        final item = result[2] as PortfolioItem;
+        final item = result[1] as PortfolioItem;
 
-        expect(total.totalValue, 0.0);
         expect(item.position, 0.0);
         expect(item.marketValue, 0.0);
       });

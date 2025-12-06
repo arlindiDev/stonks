@@ -3,16 +3,9 @@ import 'package:stocks/features/portfolio/domain/entities/chart_period.dart';
 import 'package:stocks/features/portfolio/domain/entities/chart_period_data.dart';
 import 'package:stocks/features/portfolio/domain/entities/portfolio_chart.dart';
 import 'package:stocks/features/portfolio/domain/entities/portfolio_item.dart';
-import 'package:stocks/features/portfolio/domain/entities/portfolio_total.dart';
 import 'package:stocks/features/portfolio/domain/entities/portfolio_ui_item.dart';
 
 class TestData {
-  static PortfolioTotal createPortfolioTotal({
-    double totalValue = 125000.00,
-  }) {
-    return PortfolioTotal(totalValue: totalValue);
-  }
-
   static PortfolioItem createPortfolioItem({
     String ticker = 'AAPL',
     double position = 100.0,
@@ -79,7 +72,6 @@ class TestData {
 
   static List<PortfolioUIItem> createFullPortfolioData() {
     return [
-      createPortfolioTotal(),
       createPortfolioChart(),
       createPortfolioItem(ticker: 'AAPL'),
       createPortfolioItem(

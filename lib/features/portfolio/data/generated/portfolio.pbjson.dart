@@ -29,30 +29,16 @@ final $typed_data.Uint8List getPortfolioRequestDescriptor = $convert.base64Decod
 const GetPortfolioResponse$json = {
   '1': 'GetPortfolioResponse',
   '2': [
-    {'1': 'total', '3': 1, '4': 1, '5': 11, '6': '.portfolio.PortfolioTotal', '10': 'total'},
-    {'1': 'chart', '3': 2, '4': 1, '5': 11, '6': '.portfolio.PortfolioChart', '10': 'chart'},
-    {'1': 'items', '3': 3, '4': 3, '5': 11, '6': '.portfolio.PortfolioItem', '10': 'items'},
+    {'1': 'chart', '3': 1, '4': 1, '5': 11, '6': '.portfolio.PortfolioChart', '10': 'chart'},
+    {'1': 'items', '3': 2, '4': 3, '5': 11, '6': '.portfolio.PortfolioItem', '10': 'items'},
   ],
 };
 
 /// Descriptor for `GetPortfolioResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List getPortfolioResponseDescriptor = $convert.base64Decode(
-    'ChRHZXRQb3J0Zm9saW9SZXNwb25zZRIvCgV0b3RhbBgBIAEoCzIZLnBvcnRmb2xpby5Qb3J0Zm'
-    '9saW9Ub3RhbFIFdG90YWwSLwoFY2hhcnQYAiABKAsyGS5wb3J0Zm9saW8uUG9ydGZvbGlvQ2hh'
-    'cnRSBWNoYXJ0Ei4KBWl0ZW1zGAMgAygLMhgucG9ydGZvbGlvLlBvcnRmb2xpb0l0ZW1SBWl0ZW'
-    '1z');
-
-@$core.Deprecated('Use portfolioTotalDescriptor instead')
-const PortfolioTotal$json = {
-  '1': 'PortfolioTotal',
-  '2': [
-    {'1': 'total_value', '3': 1, '4': 1, '5': 1, '10': 'totalValue'},
-  ],
-};
-
-/// Descriptor for `PortfolioTotal`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List portfolioTotalDescriptor = $convert.base64Decode(
-    'Cg5Qb3J0Zm9saW9Ub3RhbBIfCgt0b3RhbF92YWx1ZRgBIAEoAVIKdG90YWxWYWx1ZQ==');
+    'ChRHZXRQb3J0Zm9saW9SZXNwb25zZRIvCgVjaGFydBgBIAEoCzIZLnBvcnRmb2xpby5Qb3J0Zm'
+    '9saW9DaGFydFIFY2hhcnQSLgoFaXRlbXMYAiADKAsyGC5wb3J0Zm9saW8uUG9ydGZvbGlvSXRl'
+    'bVIFaXRlbXM=');
 
 @$core.Deprecated('Use portfolioChartDescriptor instead')
 const PortfolioChart$json = {

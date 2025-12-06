@@ -2,7 +2,6 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:stocks/core/error/failure.dart';
-import 'package:stocks/features/portfolio/domain/entities/portfolio_total.dart';
 import 'package:stocks/features/portfolio/domain/repository/portfolio_repository.dart';
 import 'package:stocks/features/portfolio/domain/repository/portfolio_result.dart';
 import 'package:stocks/features/portfolio/presentation/state/portfolio_bloc.dart';
@@ -172,7 +171,7 @@ void main() {
           await Future.delayed(const Duration(milliseconds: 100));
           when(() => mockRepository.getPortfolioData()).thenAnswer(
             (_) async => PortfolioResult.success(
-              [TestData.createPortfolioTotal(totalValue: 200000.0)],
+              [TestData.createPortfolioChart()],
             ),
           );
           bloc.add(const RefreshPortfolioEvent());
@@ -180,8 +179,7 @@ void main() {
         skip: 2, // Skip initial loading and loaded states
         verify: (bloc) {
           final state = bloc.state as PortfolioLoaded;
-          final total = state.portfolioData[0] as PortfolioTotal;
-          expect(total.totalValue, 200000.0);
+          expect(state.portfolioData.length, 1);
         },
       );
     });
