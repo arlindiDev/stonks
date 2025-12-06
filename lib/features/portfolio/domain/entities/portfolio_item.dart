@@ -13,7 +13,7 @@ class PortfolioItem extends PortfolioUIItem {
   final double unrealizedPL;
   final double unrealizedPLPercent;
 
-  PortfolioItem({
+  const PortfolioItem({
     required this.ticker,
     required this.companyName,
     required this.position,
@@ -25,4 +25,18 @@ class PortfolioItem extends PortfolioUIItem {
     required this.unrealizedPL,
     required this.unrealizedPLPercent,
   });
+
+  @override
+  List<Object?> get props => [
+        ticker,
+        companyName,
+        position,
+        avgPrice,
+        currentPrice,
+        dayChangePercent,
+        marketValue,
+        portfolioPercent,
+        unrealizedPL,
+        unrealizedPLPercent,
+      ];
 }
